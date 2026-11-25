@@ -73,6 +73,14 @@ def validate_question(q: dict, exam_code: str | None = None) -> dict:
         domain = 1
     if domain not in EXAMS[exam].domains:
         domain = min(EXAMS[exam].domains)
+    en = q.get("en")
+    if not (isinstance(en, dict) and str(en.get("question", "")).strip()
+            and isinstance(en.get("options"), list) and len(en["options"]) == len(options)):
+        en = None
+    else:
+        en = {"question": str(en["question"]).strip(),
+              "options": [str(o).strip() for o in en["options"]],
+              "explanation": str(en.get("explanation", "")).strip()}
     diff = str(q.get("difficulty", "orta")).lower()
     if diff not in DIFFICULTIES:
         diff = "orta"
@@ -89,7 +97,17 @@ def validate_question(q: dict, exam_code: str | None = None) -> dict:
         "source": str(q.get("source", "builtin")),
         "source_url": str(q.get("source_url", "") or ""),
         "created": q.get("created") or "",
+        "en": en,
     }
+
+
+def localized(q: dict, lang: str) -> dict:
+    """Sorunun istenen dildeki metnini döndürür ('en' yoksa Türkçeye düşer)."""
+    if lang == "en" and q.get("en"):
+        return {"question": q["en"]["question"], "options": q["en"]["options"],
+                "explanation": q["en"]["explanation"] or q["explanation"], "lang": "en"}
+    return {"question": q["question"], "options": q["options"],
+            "explanation": q["explanation"], "lang": "tr"}
 
 
 class QuestionBank:
@@ -220,7 +238,7 @@ class Stats:
 
 
 class Settings:
-    DEFAULTS = {"last_exam": "ACE"}
+    DEFAULTS = {"last_exam": "ACE", "language": "tr"}  # language: tr | en | bi
 
     def __init__(self, data_dir: Path = DATA_DIR):
         self.path = Path(data_dir) / "settings.json"

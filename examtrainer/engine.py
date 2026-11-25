@@ -6,7 +6,7 @@ import time
 from dataclasses import dataclass, field
 
 from .exams import EXAMS
-from .store import QuestionBank, Stats
+from .store import QuestionBank, Stats, localized
 
 PASS_PERCENT = 70  # Google geçme notunu açıklamaz; %70 yaygın kabul edilen hedeftir.
 
@@ -18,7 +18,11 @@ class Item:
 
     @property
     def options(self) -> list[str]:
-        return [self.q["options"][i] for i in self.order]
+        return self.options_in("tr")
+
+    def options_in(self, lang: str) -> list[str]:
+        opts = localized(self.q, lang)["options"]
+        return [opts[i] for i in self.order]
 
     @property
     def correct(self) -> set[int]:

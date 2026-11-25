@@ -5,7 +5,7 @@ from pathlib import Path
 
 from examtrainer.engine import build_session
 from examtrainer.exams import EXAMS
-from examtrainer.store import QuestionBank, Stats, ValidationError, validate_question
+from examtrainer.store import QuestionBank, Stats, ValidationError, localized, validate_question
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -68,6 +68,26 @@ class CoreTests(unittest.TestCase):
         again = QuestionBank(ROOT / "questions", self.tmp)
         self.assertEqual(again.count("ACE")["eklenen"], 1)
         self.assertTrue(again.delete_user_question(stored[0]["id"]))
+
+    def test_english_translations(self):
+        for q in self.bank.for_exam("ACE", sources=["builtin"]):
+            self.assertIsNotNone(q["en"], q["id"])
+            self.assertEqual(len(q["en"]["options"]), len(q["options"]), q["id"])
+            self.assertTrue(q["en"]["explanation"], q["id"])
+            self.assertEqual(localized(q, "en")["lang"], "en")
+
+    def test_shuffle_same_order_in_both_languages(self):
+        s = build_session(self.bank, self.stats, "ACE", 20, seed=5)
+        for it in s.items:
+            tr, en = it.options_in("tr"), it.options_in("en")
+            self.assertEqual([it.q["options"].index(o) for o in tr],
+                             [it.q["en"]["options"].index(o) for o in en])
+
+    def test_missing_or_bad_english_falls_back(self):
+        q = validate_question({"question": "S?", "options": ["a", "b"], "correct": [0],
+                               "en": {"question": "Q?", "options": ["x"]}}, "ACE")
+        self.assertIsNone(q["en"])
+        self.assertEqual(localized(q, "en")["question"], "S?")
 
 
 if __name__ == "__main__":

@@ -5,14 +5,17 @@ Hazır Türkçe soru bankası, gerçek sınavı taklit eden süreli mod ve ilerl
 **Tamamen çevrimdışı çalışır**: internet erişimi, hesap veya ek paket gerekmez.
 
 > *English summary: an offline Tkinter desktop quiz app for the Google Cloud Associate Cloud Engineer exam, with a
-> built-in Turkish question bank, timed exam simulation and progress tracking. No dependencies beyond Python.*
+> built-in bilingual (Turkish/English) question bank, timed exam simulation and progress tracking.
+> No dependencies beyond Python.*
 
 ## Özellikler
 
-- **88 hazır ACE sorusu**: resmi sınav rehberinin 4 alanına ve 13 konu başlığına göre etiketli
+- **88 hazır ACE sorusu (Türkçe + İngilizce)**: resmi sınav rehberinin 4 alanına ve 13 konu başlığına göre etiketli
   (IAM, Compute Engine, GKE, Cloud Run, VPC, Cloud Storage, veritabanları, Logging/Monitoring…).
   Sorular güncel ürün adlarına göre yazıldı (Artifact Registry, Cloud Run functions, Infrastructure Manager,
   Workload Identity Federation vb.).
+- **Türkçe / English / İki dilli**: tüm sorular ve açıklamalar iki dilde. Gerçek sınav İngilizce olduğu için
+  sınava yaklaştıkça English modunda çalışmanız önerilir. Herhangi bir soruda `T` tuşuyla dili anında değiştirin.
 - **Pratik modu**: her sorudan sonra anında doğru/yanlış ve açıklama.
 - **Sınav simülasyonu**: gerçek sınav gibi süreli (50 soru / 120 dk), sorular alan ağırlıklarına göre dağıtılır,
   işaretleme (⚑) ve soru listesi ile gezinme.
@@ -42,6 +45,7 @@ veya doğrudan `python3 main.py`. Linux'ta Tkinter yoksa: `sudo apt install pyth
 | `1`–`5` | Seçenek seç / işaretle |
 | `Enter` | Kontrol et / sonraki soru |
 | `←` `→` | Önceki / sonraki soru |
+| `T` | Sorunun dilini değiştir (Türkçe ⇄ English) |
 
 ## Kendi sorularınızı eklemek (JSON)
 
@@ -56,12 +60,18 @@ veya doğrudan `python3 main.py`. Linux'ta Tkinter yoksa: `sudo apt install pyth
     "options": ["A seçeneği", "B seçeneği", "C seçeneği", "D seçeneği"],
     "correct": [0],
     "explanation": "Neden A doğru…",
-    "source_url": "https://cloud.google.com/…"
+    "source_url": "https://cloud.google.com/…",
+    "en": {
+      "question": "Question text…",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "explanation": "Why A is correct…"
+    }
   }
 ]
 ```
 
 `correct` 0 tabanlı indeks listesidir; birden fazla doğru cevap için `[0, 2]` gibi yazın.
+`en` alanı isteğe bağlıdır; seçenekler Türkçedekiyle aynı sırada olmalıdır. Yoksa soru Türkçe gösterilir.
 Seçenekler her oturumda karıştırılır.
 
 ## Proje yapısı

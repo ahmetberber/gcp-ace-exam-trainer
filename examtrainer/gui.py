@@ -11,7 +11,7 @@ from tkinter import filedialog, font as tkfont, messagebox, ttk
 from . import __version__
 from .engine import PASS_PERCENT, QuizSession, build_session
 from .exams import EXAMS
-from .store import QuestionBank, Settings, Stats
+from .store import QuestionBank, Settings, Stats, localized
 
 APP_TITLE = "GCP ACE Exam Trainer — Associate Cloud Engineer Sınav Pratiği"
 ALL = "Tümü"
@@ -21,6 +21,45 @@ FOCUS = {"Akıllı karışık (zayıflara öncelik)": "karisik",
          "Yalnızca hiç görmediklerim": "yeni"}
 SOURCES = {"Tüm sorular": None, "Hazır sorular": ["builtin"], "İçe aktarılanlar": ["ice-aktarim"]}
 SOURCE_LABEL = {"builtin": "Hazır", "ice-aktarim": "İçe aktarım"}
+LANGS = {"Türkçe": "tr", "English": "en", "İki dilli (İngilizce + Türkçe)": "bi"}
+
+
+def primary_lang(setting: str) -> str:
+    """Ayardaki dil için soruların ana gösterim dili."""
+    return "tr" if setting == "tr" else "en"
+
+
+def insert_question(txt: tk.Text, q: dict, setting: str, order=None, correct=None, sel=frozenset()):
+    """Bir soruyu (gerekirse iki dilde) Text widget'ına yazar."""
+    langs = ["tr"] if setting == "tr" else (["en"] if setting == "en" else ["en", "tr"])
+    if not q.get("en"):
+        langs = ["tr"]
+    order = order if order is not None else list(range(len(q["options"])))
+    correct = correct if correct is not None else set(q["correct"])
+    for n, lang in enumerate(langs):
+        loc = localized(q, lang)
+        if len(langs) > 1:
+            txt.insert("end", ("\n" if n else "") + ("English" if lang == "en" else "Türkçe") + "\n", "lang")
+        txt.insert("end", loc["question"] + "\n", "q")
+        for i, orig in enumerate(order):
+            tag = "ok" if i in correct else ("bad" if i in sel else "")
+            mark = "  ← sizin cevabınız" if i in sel else ""
+            txt.insert("end", f"{chr(65 + i)}. {loc['options'][orig]}{mark}\n", tag)
+        txt.insert("end", "\nAçıklama\n" if lang == "tr" else "\nExplanation\n", "h")
+        txt.insert("end", (loc["explanation"] or "(Açıklama yok)") + "\n")
+    if q.get("source_url"):
+        txt.insert("end", f"\nKaynak: {q['source_url']}")
+
+
+def make_text(win, app) -> tk.Text:
+    txt = tk.Text(win, wrap="word", font=app.f_opt, padx=14, pady=12, relief="flat")
+    txt.pack(fill="both", expand=True)
+    txt.tag_configure("q", font=app.f_q, spacing3=10)
+    txt.tag_configure("ok", foreground=GREEN, background=GREEN_BG)
+    txt.tag_configure("bad", foreground=RED, background=RED_BG)
+    txt.tag_configure("h", font=app.f_h2, spacing1=12)
+    txt.tag_configure("lang", font=app.f_h2, foreground="#1a73e8", spacing1=6, spacing3=4)
+    return txt
 
 GREEN, RED, AMBER = "#1e8e3e", "#d93025", "#f9ab00"
 GREEN_BG, RED_BG = "#e6f4ea", "#fce8e6"
@@ -151,6 +190,8 @@ class HomeScreen(ttk.Frame):
         self.v_focus = tk.StringVar(value=list(FOCUS)[0])
         self.v_source = tk.StringVar(value=list(SOURCES)[0])
         self.v_timed = tk.BooleanVar(value=False)
+        inv = {v: k for k, v in LANGS.items()}
+        self.v_lang = tk.StringVar(value=inv.get(app.settings["language"], "Türkçe"))
 
         r = 0
 
@@ -164,6 +205,9 @@ class HomeScreen(ttk.Frame):
                                     values=[self._exam_label(c) for c in EXAMS])
         self.cb_exam.bind("<<ComboboxSelected>>", lambda e: self.refresh())
         row("Sınav", self.cb_exam)
+        cb_lang = ttk.Combobox(left, textvariable=self.v_lang, state="readonly", values=list(LANGS))
+        cb_lang.bind("<<ComboboxSelected>>", lambda e: self._save_lang())
+        row("Soru dili", cb_lang)
         row("Mod", ttk.Combobox(left, textvariable=self.v_mode, state="readonly", values=list(MODES)))
         cnt = ttk.Frame(left)
         ttk.Spinbox(cnt, from_=5, to=200, increment=5, textvariable=self.v_count, width=6).pack(side="left")
@@ -185,8 +229,9 @@ class HomeScreen(ttk.Frame):
         btns.grid(row=r, column=0, columnspan=2, sticky="ew", pady=(12, 0))
         ttk.Button(btns, text="▶  Başla", style="Big.TButton", command=self.start).pack(side="left")
         r += 1
-        tip = ("İpucu: Pratik modunda 1-5 tuşlarıyla seçenek seçip Enter ile kontrol edebilir, "
-               "← → ile sorular arasında gezebilirsiniz.")
+        tip = ("İpucu: 1-5 tuşlarıyla seçenek seçip Enter ile kontrol edebilir, ← → ile sorular "
+               "arasında gezebilir, T ile o sorunun dilini Türkçe ⇄ English değiştirebilirsiniz. "
+               "Gerçek sınav İngilizce olacağı için sınava yaklaştıkça English modunda çalışmanız önerilir.")
         ttk.Label(left, text=tip, style="Muted.TLabel", wraplength=520, justify="left").grid(
             row=r, column=0, columnspan=2, sticky="w", pady=(16, 0))
 
@@ -215,6 +260,10 @@ class HomeScreen(ttk.Frame):
     def _exam_label(code):
         e = EXAMS[code]
         return f"{e.code} — {e.name}"
+
+    def _save_lang(self):
+        self.app.settings["language"] = LANGS[self.v_lang.get()]
+        self.app.settings.save()
 
     def exam_code(self):
         return self.v_exam.get().split(" — ")[0]
@@ -270,6 +319,7 @@ class HomeScreen(ttk.Frame):
                                                    f"{mark} %{s['percent']} ({s['correct']}/{s['total']})"))
 
     def start(self):
+        self._save_lang()
         code = self.exam_code()
         dom = self.v_domain.get()
         domains = None if dom == ALL else [int(dom.split(".")[0])]
@@ -358,8 +408,14 @@ class QuizScreen(ttk.Frame):
         self.bind_all("<Button-4>", lambda e: self.canvas.yview_scroll(-2, "units"))
         self.bind_all("<Button-5>", lambda e: self.canvas.yview_scroll(2, "units"))
 
+        self.lang_setting = app.settings["language"]
+        self.flip = False  # T tuşuyla o sorunun dilini geçici olarak değiştir
         self.lbl_q = tk.Label(self.inner, font=app.f_q, justify="left", anchor="w", bg=self._bg())
-        self.lbl_q.pack(fill="x", pady=(0, 12))
+        self.lbl_q.pack(fill="x", pady=(0, 4))
+        self.lbl_q2 = tk.Label(self.inner, font=app.f_opt, justify="left", anchor="w", bg=self._bg(),
+                               fg="#5f6368")
+        self.q_gap = tk.Frame(self.inner, height=10, bg=self._bg())
+        self.q_gap.pack(fill="x")
         self.opt_frame = tk.Frame(self.inner, bg=self._bg())
         self.opt_frame.pack(fill="x")
         self.feedback = tk.Label(self.inner, font=app.f_opt, justify="left", anchor="w",
@@ -373,6 +429,8 @@ class QuizScreen(ttk.Frame):
         self.btn_flag.pack(side="left", padx=6)
         self.btn_nav = ttk.Button(bot, text="☰ Soru listesi", command=self.open_navigator)
         self.btn_nav.pack(side="left")
+        self.btn_lang = ttk.Button(bot, text="🌐 Dil (T)", command=self.toggle_lang)
+        self.btn_lang.pack(side="left", padx=6)
         ttk.Button(bot, text="Bitir", command=self.finish).pack(side="right")
         self.btn_next = ttk.Button(bot, text="Sonraki ⟶", style="Big.TButton", command=self.primary)
         self.btn_next.pack(side="right", padx=6)
@@ -386,13 +444,15 @@ class QuizScreen(ttk.Frame):
         self.app.bind("<Return>", lambda e: self.primary())
         self.app.bind("<Right>", lambda e: self.go(1))
         self.app.bind("<Left>", lambda e: self.go(-1))
+        self.app.bind("t", lambda e: self.toggle_lang())
+        self.app.bind("T", lambda e: self.toggle_lang())
         self.render()
         self.tick()
 
     def destroy(self):
         for k in list(range(1, 9)):
             self.app.unbind(str(k))
-        for seq in ("<Return>", "<Right>", "<Left>"):
+        for seq in ("<Return>", "<Right>", "<Left>", "t", "T"):
             self.app.unbind(seq)
         self.unbind_all("<MouseWheel>")
         self.unbind_all("<Button-4>")
@@ -406,6 +466,7 @@ class QuizScreen(ttk.Frame):
         self.canvas.itemconfigure(self.win, width=e.width)
         wrap = max(300, e.width - 60)
         self.lbl_q.configure(wraplength=wrap)
+        self.lbl_q2.configure(wraplength=wrap)
         self.feedback.configure(wraplength=wrap - 30)
         for w in self.opt_widgets:
             w.configure(wraplength=wrap - 40)
@@ -418,7 +479,20 @@ class QuizScreen(ttk.Frame):
     def practice(self):
         return self.s.mode == "pratik"
 
-    def render(self):
+    @property
+    def lang(self) -> str:
+        base = primary_lang(self.lang_setting)
+        if self.flip:
+            return "tr" if base == "en" else "en"
+        return base
+
+    def toggle_lang(self):
+        if not self.s.items[self.idx].q.get("en"):
+            return  # bu sorunun İngilizcesi yok
+        self.flip = not self.flip
+        self.render(keep_scroll=True)
+
+    def render(self, keep_scroll=False):
         it = self.s.items[self.idx]
         q = it.q
         n = len(self.s.items)
@@ -438,11 +512,26 @@ class QuizScreen(ttk.Frame):
         else:
             self.lbl_score["text"] = f"Cevaplanan: {len(self.s.answers)} / {n} • İşaretli: {len(self.s.flagged)}"
 
-        text = q["question"]
+        lang = self.lang
+        loc = localized(q, lang)
+        text = loc["question"]
         low = text.lower()
         if it.multi and "seçin" not in low and "choose" not in low and "select" not in low:
-            text += f"\n\n({len(q['correct'])} seçenek seçin)"
+            text += (f"\n\n(Choose {len(q['correct'])}.)" if loc["lang"] == "en"
+                     else f"\n\n({len(q['correct'])} seçenek seçin)")
         self.lbl_q["text"] = text
+        # İki dilli modda Türkçe soru metni İngilizcenin altında gösterilir
+        if self.lang_setting == "bi" and loc["lang"] == "en":
+            self.lbl_q2.configure(text="TR — " + q["question"])
+            self.lbl_q2.pack(fill="x", pady=(4, 0), before=self.q_gap)
+        else:
+            self.lbl_q2.pack_forget()
+        has_en = bool(q.get("en"))
+        self.btn_lang["text"] = ("🌐 Türkçe (T)" if loc["lang"] == "en" else "🌐 English (T)") if has_en else "🌐 —"
+        if has_en:
+            self.btn_lang.state(["!disabled"])
+        else:
+            self.btn_lang.state(["disabled"])
 
         for w in self.opt_frame.winfo_children():
             w.destroy()
@@ -454,7 +543,7 @@ class QuizScreen(ttk.Frame):
             self.vars = [tk.BooleanVar(value=(i in prev)) for i in range(len(it.options))]
         else:
             self.radio_var = tk.IntVar(value=next(iter(prev)) if prev else -1)
-        for i, opt in enumerate(it.options):
+        for i, opt in enumerate(it.options_in(lang)):
             label = f"{chr(65 + i)}.  {opt}"
             common = dict(text=label, font=self.app.f_opt, justify="left", anchor="w",
                           wraplength=wrap, padx=8, pady=8, bg=self._bg(), activebackground=self._bg(),
@@ -473,7 +562,8 @@ class QuizScreen(ttk.Frame):
             self.show_feedback()
         self.btn_flag["text"] = "⚑ İşareti kaldır" if self.idx in self.s.flagged else "⚑ İşaretle"
         self._update_primary()
-        self.canvas.yview_moveto(0)
+        if not keep_scroll:
+            self.canvas.yview_moveto(0)
 
     def _update_primary(self):
         last = self.idx == len(self.s.items) - 1
@@ -547,7 +637,10 @@ class QuizScreen(ttk.Frame):
         ok = self.s.is_correct(self.idx)
         right = ", ".join(chr(65 + i) for i in sorted(it.correct))
         head = "✓ Doğru!" if ok else f"✗ Yanlış. Doğru cevap: {right}"
-        body = it.q["explanation"] or "(Açıklama yok)"
+        loc = localized(it.q, self.lang)
+        body = loc["explanation"] or "(Açıklama yok)"
+        if self.lang_setting == "bi" and loc["lang"] == "en" and it.q["explanation"]:
+            body += "\n\nTR — " + it.q["explanation"]
         if it.q.get("source_url"):
             body += f"\n\nKaynak: {it.q['source_url']}"
         self.feedback.configure(text=f"{head}\n\n{body}", bg=GREEN_BG if ok else RED_BG,
@@ -558,6 +651,7 @@ class QuizScreen(ttk.Frame):
         new = self.idx + d
         if 0 <= new < len(self.s.items):
             self.idx = new
+            self.flip = False
             self.render()
 
     def toggle_flag(self):
@@ -669,7 +763,8 @@ class ResultScreen(ttk.Frame):
                 r, tag = "✓", "ok"
             else:
                 r, tag = "✗", "bad"
-            self.tv.insert("", "end", iid=str(i), values=(i + 1, r, it.q["question"][:140]), tags=(tag,))
+            qtext = localized(it.q, primary_lang(app.settings["language"]))["question"]
+            self.tv.insert("", "end", iid=str(i), values=(i + 1, r, qtext[:140]), tags=(tag,))
         self.tv.bind("<Double-1>", self.review)
 
         bot = ttk.Frame(self)
@@ -708,21 +803,8 @@ class ReviewWindow(tk.Toplevel):
         self.geometry("820x620")
         it = session.items[idx]
         sel = session.answers.get(idx, set())
-        txt = tk.Text(self, wrap="word", font=app.f_opt, padx=14, pady=12, relief="flat")
-        txt.pack(fill="both", expand=True)
-        txt.tag_configure("q", font=app.f_q, spacing3=10)
-        txt.tag_configure("ok", foreground=GREEN, background=GREEN_BG)
-        txt.tag_configure("bad", foreground=RED, background=RED_BG)
-        txt.tag_configure("h", font=app.f_h2, spacing1=12)
-        txt.insert("end", it.q["question"] + "\n", "q")
-        for i, o in enumerate(it.options):
-            tag = "ok" if i in it.correct else ("bad" if i in sel else "")
-            mark = "  ← sizin cevabınız" if i in sel else ""
-            txt.insert("end", f"{chr(65 + i)}. {o}{mark}\n", tag)
-        txt.insert("end", "\nAçıklama\n", "h")
-        txt.insert("end", it.q["explanation"] or "(Açıklama yok)")
-        if it.q.get("source_url"):
-            txt.insert("end", f"\n\nKaynak: {it.q['source_url']}")
+        txt = make_text(self, app)
+        insert_question(txt, it.q, app.settings["language"], it.order, it.correct, sel)
         txt.configure(state="disabled")
         bar = ttk.Frame(self, padding=8)
         bar.pack(fill="x")
@@ -734,21 +816,11 @@ class QuestionView(tk.Toplevel):
         super().__init__(parent)
         self.title(q.get("id") or "Soru")
         self.geometry("780x560")
-        txt = tk.Text(self, wrap="word", font=app.f_opt, padx=14, pady=12, relief="flat")
-        txt.pack(fill="both", expand=True)
-        txt.tag_configure("q", font=app.f_q, spacing3=10)
-        txt.tag_configure("ok", foreground=GREEN, background=GREEN_BG)
-        txt.tag_configure("h", font=app.f_h2, spacing1=12)
+        txt = make_text(self, app)
         exam = EXAMS[q["exam"]]
         txt.insert("end", f"{exam.code} • Alan {q['domain']}: {exam.domain_name(q['domain'])} • "
                           f"{q.get('topic', '')} • {q['difficulty']}\n\n")
-        txt.insert("end", q["question"] + "\n", "q")
-        for i, o in enumerate(q["options"]):
-            txt.insert("end", f"{chr(65 + i)}. {o}\n", "ok" if i in q["correct"] else "")
-        txt.insert("end", "\nAçıklama\n", "h")
-        txt.insert("end", q["explanation"])
-        if q.get("source_url"):
-            txt.insert("end", f"\n\nKaynak: {q['source_url']}")
+        insert_question(txt, q, app.settings["language"])
         txt.configure(state="disabled")
 
 
@@ -801,8 +873,12 @@ class BankWindow(tk.Toplevel):
         term = self.v_search.get().lower().strip()
         qs = self.app.bank.for_exam(self.v_exam.get())
         if term:
-            qs = [q for q in qs if term in q["question"].lower() or term in q.get("topic", "").lower()
-                  or any(term in o.lower() for o in q["options"])]
+            def hay(q):
+                parts = [q["question"], q.get("topic", ""), *q["options"]]
+                if q.get("en"):
+                    parts += [q["en"]["question"], *q["en"]["options"]]
+                return " ".join(parts).lower()
+            qs = [q for q in qs if term in hay(q)]
         return sorted(qs, key=lambda q: (q["domain"], q["id"]))
 
     def fill(self):
@@ -813,7 +889,8 @@ class BankWindow(tk.Toplevel):
             b = f"{s['correct']}/{s['seen']}" if s["seen"] else "—"
             self.tv.insert("", "end", iid=q["id"], values=(q["id"], q["domain"], q.get("topic", ""),
                                                           q["difficulty"], SOURCE_LABEL.get(q["source"], q["source"]),
-                                                          b, q["question"][:150]))
+                                                          b, localized(q, primary_lang(
+                                                              self.app.settings["language"]))["question"][:150]))
         self.lbl["text"] = f"{len(qs)} soru"
 
     def view(self, _e=None):
