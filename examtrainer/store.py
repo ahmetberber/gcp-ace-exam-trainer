@@ -220,14 +220,7 @@ class Stats:
 
 
 class Settings:
-    DEFAULTS = {
-        "api_key": "",
-        "model": "claude-opus-5-5",
-        "effort": "medium",
-        "web_search": True,
-        "language": "tr",
-        "last_exam": "ACE",
-    }
+    DEFAULTS = {"last_exam": "ACE"}
 
     def __init__(self, data_dir: Path = DATA_DIR):
         self.path = Path(data_dir) / "settings.json"

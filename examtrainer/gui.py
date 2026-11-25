@@ -8,7 +8,7 @@ import threading
 import tkinter as tk
 from tkinter import filedialog, font as tkfont, messagebox, ttk
 
-from . import __version__, ai
+from . import __version__
 from .engine import PASS_PERCENT, QuizSession, build_session
 from .exams import EXAMS
 from .store import QuestionBank, Settings, Stats
@@ -19,9 +19,8 @@ MODES = {"Pratik (anında geri bildirim)": "pratik", "Sınav simülasyonu (süre
 FOCUS = {"Akıllı karışık (zayıflara öncelik)": "karisik",
          "Yalnızca yanlış yaptıklarım": "zayif",
          "Yalnızca hiç görmediklerim": "yeni"}
-SOURCES = {"Tüm sorular": None, "Hazır sorular": ["builtin"],
-           "AI ile üretilenler": ["ai"], "İçe aktarılanlar": ["ice-aktarim"]}
-SOURCE_LABEL = {"builtin": "Hazır", "ai": "AI", "ice-aktarim": "İçe aktarım"}
+SOURCES = {"Tüm sorular": None, "Hazır sorular": ["builtin"], "İçe aktarılanlar": ["ice-aktarim"]}
+SOURCE_LABEL = {"builtin": "Hazır", "ice-aktarim": "İçe aktarım"}
 
 GREEN, RED, AMBER = "#1e8e3e", "#d93025", "#f9ab00"
 GREEN_BG, RED_BG = "#e6f4ea", "#fce8e6"
@@ -129,7 +128,7 @@ class HomeScreen(ttk.Frame):
         ttk.Label(titles, text="GCP ACE Exam Trainer", style="Title.TLabel").pack(anchor="w")
         ttk.Label(titles, text=f"Associate Cloud Engineer sınav pratiği • v{__version__}",
                   style="Muted.TLabel").pack(anchor="w")
-        for txt, cmd in (("Ayarlar", self.open_settings), ("JSON içe aktar", self.import_json),
+        for txt, cmd in (("İlerlemeyi sıfırla", self.reset_stats), ("JSON içe aktar", self.import_json),
                          ("Soru bankası", self.open_bank)):
             ttk.Button(head, text=txt, command=cmd).pack(side="right", padx=4)
 
@@ -185,8 +184,6 @@ class HomeScreen(ttk.Frame):
         btns = ttk.Frame(left)
         btns.grid(row=r, column=0, columnspan=2, sticky="ew", pady=(12, 0))
         ttk.Button(btns, text="▶  Başla", style="Big.TButton", command=self.start).pack(side="left")
-        ttk.Button(btns, text="✨ AI ile güncel soru üret", style="Big.TButton",
-                   command=self.open_generate).pack(side="left", padx=10)
         r += 1
         tip = ("İpucu: Pratik modunda 1-5 tuşlarıyla seçenek seçip Enter ile kontrol edebilir, "
                "← → ile sorular arasında gezebilirsiniz.")
@@ -243,8 +240,7 @@ class HomeScreen(ttk.Frame):
                    f"Gördüğünüz: {seen} • Tekrar etmeniz gereken: {weak}. "
                    f"Gerçek sınav: ~{exam.question_count} soru / {exam.minutes} dk.")
         else:
-            txt = (f"{exam.code} için henüz soru yok. '✨ AI ile güncel soru üret' ile soru "
-                   f"üretebilir veya JSON içe aktarabilirsiniz.")
+            txt = f"{exam.code} için henüz soru yok. 'JSON içe aktar' ile soru ekleyebilirsiniz."
         self.lbl_bank["text"] = txt
 
         # ilerleme paneli
@@ -293,14 +289,13 @@ class HomeScreen(ttk.Frame):
             return
         self.app.start_session(sess)
 
-    def open_settings(self):
-        SettingsDialog(self.app, on_close=self.refresh)
-
     def open_bank(self):
         BankWindow(self.app, self.exam_code(), on_close=self.refresh)
 
-    def open_generate(self):
-        GenerateDialog(self.app, self.exam_code(), on_close=self.refresh)
+    def reset_stats(self):
+        if messagebox.askyesno("Sıfırla", "Tüm ilerleme ve oturum geçmişi silinsin mi?"):
+            self.app.stats.reset()
+            self.refresh()
 
     def import_json(self):
         path = filedialog.askopenfilename(title="Soru dosyası seç", filetypes=[("JSON", "*.json")])
@@ -369,7 +364,6 @@ class QuizScreen(ttk.Frame):
         self.opt_frame.pack(fill="x")
         self.feedback = tk.Label(self.inner, font=app.f_opt, justify="left", anchor="w",
                                  bg=self._bg(), padx=12, pady=10)
-        self.btn_ask = ttk.Button(self.inner, text="🤖 Claude'a sor (ayrıntılı açıklama)", command=self.ask_claude)
 
         # alt düğmeler
         bot = ttk.Frame(self)
@@ -475,7 +469,6 @@ class QuizScreen(ttk.Frame):
             self.opt_widgets.append(w)
 
         self.feedback.pack_forget()
-        self.btn_ask.pack_forget()
         if locked:
             self.show_feedback()
         self.btn_flag["text"] = "⚑ İşareti kaldır" if self.idx in self.s.flagged else "⚑ İşaretle"
@@ -559,8 +552,7 @@ class QuizScreen(ttk.Frame):
             body += f"\n\nKaynak: {it.q['source_url']}"
         self.feedback.configure(text=f"{head}\n\n{body}", bg=GREEN_BG if ok else RED_BG,
                                 fg="#202124")
-        self.feedback.pack(fill="x", pady=(14, 6))
-        self.btn_ask.pack(anchor="w", pady=(0, 10))
+        self.feedback.pack(fill="x", pady=(14, 10))
 
     def go(self, d):
         new = self.idx + d
@@ -624,12 +616,6 @@ class QuizScreen(ttk.Frame):
                     self.s.answers.pop(i)
         summary = self.s.finish(self.app.stats)
         self.app.show_results(self.s, summary)
-
-    def ask_claude(self):
-        it = self.s.items[self.idx]
-        chosen = [it.options[i] for i in sorted(self.s.answers.get(self.idx, set()))]
-        ExplainWindow(self.app, it.q, chosen)
-
 
 # ----------------------------------------------------------------------------- Sonuç ekranı
 class ResultScreen(ttk.Frame):
@@ -740,208 +726,7 @@ class ReviewWindow(tk.Toplevel):
         txt.configure(state="disabled")
         bar = ttk.Frame(self, padding=8)
         bar.pack(fill="x")
-        ttk.Button(bar, text="🤖 Claude'a sor",
-                   command=lambda: ExplainWindow(app, it.q, [it.options[i] for i in sorted(sel)])).pack(side="left")
         ttk.Button(bar, text="Kapat", command=self.destroy).pack(side="right")
-
-
-# ----------------------------------------------------------------------------- Claude'a sor
-class ExplainWindow(tk.Toplevel):
-    def __init__(self, app: App, q: dict, chosen: list[str]):
-        super().__init__(app)
-        self.app, self.q, self.chosen = app, q, chosen
-        self.title("Claude'a sor")
-        self.geometry("780x600")
-        self.txt = tk.Text(self, wrap="word", font=app.f_opt, padx=14, pady=12, relief="flat")
-        self.txt.pack(fill="both", expand=True)
-        bar = ttk.Frame(self, padding=8)
-        bar.pack(fill="x")
-        self.entry = ttk.Entry(bar)
-        self.entry.pack(side="left", fill="x", expand=True)
-        self.entry.bind("<Return>", lambda e: self.ask(self.entry.get()))
-        self.btn = ttk.Button(bar, text="Ek soru sor", command=lambda: self.ask(self.entry.get()))
-        self.btn.pack(side="left", padx=6)
-        self.ask("")
-
-    def ask(self, follow_up: str):
-        self.btn.state(["disabled"])
-        self._append(("\n\n❓ " + follow_up + "\n") if follow_up else "", "")
-        self._append("Claude düşünüyor…\n", "")
-        self.entry.delete(0, "end")
-
-        def done(text):
-            if self.winfo_exists():
-                self._append(text + "\n", "")
-                self.btn.state(["!disabled"])
-
-        def err(e):
-            if self.winfo_exists():
-                self._append(f"\nHata: {e}\n", "")
-                self.btn.state(["!disabled"])
-
-        self.app.run_bg(lambda p: ai.explain(self.app.settings, self.q, self.chosen, follow_up), done, err)
-
-    def _append(self, s, _tag):
-        self.txt.configure(state="normal")
-        self.txt.insert("end", s)
-        self.txt.see("end")
-        self.txt.configure(state="disabled")
-
-
-# ----------------------------------------------------------------------------- AI soru üretme
-class GenerateDialog(tk.Toplevel):
-    def __init__(self, app: App, exam_code: str, on_close=None):
-        super().__init__(app)
-        self.app, self.on_close = app, on_close
-        self.title("AI ile güncel soru üret")
-        self.geometry("900x640")
-        self.transient(app)
-        self.protocol("WM_DELETE_WINDOW", self.close)
-        self.generated: list[dict] = []
-
-        frm = ttk.Frame(self, padding=14)
-        frm.pack(fill="x")
-        frm.columnconfigure(1, weight=1)
-        self.v_exam = tk.StringVar(value=exam_code)
-        self.v_n = tk.IntVar(value=10)
-        self.v_dom = tk.StringVar(value=ALL)
-        self.v_topic = tk.StringVar(value=ALL)
-        self.v_diff = tk.StringVar(value="karışık")
-        r = 0
-        for label, w in (
-            ("Sınav", ttk.Combobox(frm, textvariable=self.v_exam, values=list(EXAMS), state="readonly", width=10)),
-            ("Soru sayısı", ttk.Spinbox(frm, from_=1, to=25, textvariable=self.v_n, width=6)),
-            ("Alan", ttk.Combobox(frm, textvariable=self.v_dom, state="readonly")),
-            ("Konu", ttk.Combobox(frm, textvariable=self.v_topic, state="readonly")),
-            ("Zorluk", ttk.Combobox(frm, textvariable=self.v_diff, state="readonly",
-                                    values=["karışık", "kolay", "orta", "zor"], width=10)),
-        ):
-            ttk.Label(frm, text=label).grid(row=r, column=0, sticky="w", pady=4, padx=(0, 10))
-            w.grid(row=r, column=1, sticky="w" if label in ("Sınav", "Soru sayısı", "Zorluk") else "ew", pady=4)
-            if label == "Sınav":
-                w.bind("<<ComboboxSelected>>", lambda e: self._fill())
-            elif label == "Alan":
-                self.cb_dom = w
-            elif label == "Konu":
-                self.cb_topic = w
-            r += 1
-        info = (f"Model: {ai.MODELS.get(app.settings['model'], app.settings['model'])} • "
-                f"Web araması: {'açık (cloud.google.com)' if app.settings['web_search'] else 'kapalı'} • "
-                "Ayarlar'dan değiştirilebilir. 10 soru genellikle 1-3 dakika sürer.")
-        ttk.Label(frm, text=info, style="Muted.TLabel", wraplength=820).grid(row=r, column=0, columnspan=2,
-                                                                           sticky="w", pady=(6, 0))
-        bar = ttk.Frame(self, padding=(14, 0))
-        bar.pack(fill="x")
-        self.btn_gen = ttk.Button(bar, text="✨ Üret", style="Big.TButton", command=self.generate)
-        self.btn_gen.pack(side="left")
-        self.pb = ttk.Progressbar(bar, mode="indeterminate", length=180)
-        self.pb.pack(side="left", padx=10)
-        self.lbl_status = ttk.Label(bar, style="Muted.TLabel")
-        self.lbl_status.pack(side="left")
-
-        lst = ttk.LabelFrame(self, text="Önizleme (kaydetmeden önce çift tıklayıp inceleyebilirsiniz)", padding=8)
-        lst.pack(fill="both", expand=True, padx=14, pady=10)
-        self.tv = ttk.Treeview(lst, columns=("d", "t", "z", "q"), show="headings")
-        for c, t, w, st in (("d", "Alan", 50, False), ("t", "Konu", 180, False), ("z", "Zorluk", 60, False),
-                            ("q", "Soru", 500, True)):
-            self.tv.heading(c, text=t)
-            self.tv.column(c, width=w, stretch=st, anchor="w")
-        self.tv.pack(fill="both", expand=True)
-        self.tv.bind("<Double-1>", self.preview)
-        bot = ttk.Frame(self, padding=(14, 0, 14, 12))
-        bot.pack(fill="x")
-        self.btn_save = ttk.Button(bot, text="💾 Seçilenleri kaydet", command=self.save)
-        self.btn_save.pack(side="right")
-        self.btn_save.state(["disabled"])
-        ttk.Button(bot, text="Seçilenleri çıkar", command=self.remove_selected).pack(side="right", padx=6)
-        self._fill()
-
-    def _fill(self):
-        exam = EXAMS[self.v_exam.get()]
-        self.cb_dom["values"] = [ALL] + [f"{k}. {v[0]}" for k, v in exam.domains.items()]
-        self.v_dom.set(ALL)
-        self.cb_topic["values"] = [ALL] + list(exam.topics)
-        self.v_topic.set(ALL)
-
-    def generate(self):
-        code = self.v_exam.get()
-        dom = None if self.v_dom.get() == ALL else int(self.v_dom.get().split(".")[0])
-        topic = None if self.v_topic.get() == ALL else self.v_topic.get()
-        diff = None if self.v_diff.get() == "karışık" else self.v_diff.get()
-        try:
-            n = max(1, min(25, int(self.v_n.get())))
-        except (tk.TclError, ValueError):
-            n = 10
-        existing = self.app.bank.for_exam(code, [dom] if dom else None)
-        self.btn_gen.state(["disabled"])
-        self.pb.start(12)
-
-        def work(progress):
-            return ai.generate_questions(self.app.settings, code, n, dom, topic, diff, existing, progress)
-
-        def done(qs):
-            if not self.winfo_exists():
-                return
-            self.pb.stop()
-            self.btn_gen.state(["!disabled"])
-            fresh = [q for q in qs if not self.app.bank.is_duplicate(q)]
-            self.generated += fresh
-            self._redraw()
-            self.lbl_status["text"] = f"{len(fresh)} yeni soru üretildi. İnceleyip kaydedin."
-
-        def err(e):
-            if not self.winfo_exists():
-                return
-            self.pb.stop()
-            self.btn_gen.state(["!disabled"])
-            self.lbl_status["text"] = "Hata"
-            messagebox.showerror("Soru üretilemedi", str(e), parent=self)
-
-        self.app.run_bg(work, done, err, progress=lambda m: self.winfo_exists() and
-                        self.lbl_status.configure(text=m))
-
-    def _redraw(self):
-        self.tv.delete(*self.tv.get_children())
-        for i, q in enumerate(self.generated):
-            self.tv.insert("", "end", iid=str(i), values=(q["domain"], q.get("topic", ""), q["difficulty"],
-                                                         q["question"][:160]))
-        self.tv.selection_set(self.tv.get_children())
-        if self.generated:
-            self.btn_save.state(["!disabled"])
-        else:
-            self.btn_save.state(["disabled"])
-
-    def preview(self, _e=None):
-        sel = self.tv.selection()
-        if sel:
-            QuestionView(self, self.app, self.generated[int(sel[0])])
-
-    def remove_selected(self):
-        drop = {int(i) for i in self.tv.selection()}
-        self.generated = [q for i, q in enumerate(self.generated) if i not in drop]
-        self._redraw()
-
-    def save(self):
-        chosen = [self.generated[int(i)] for i in self.tv.selection()]
-        if not chosen:
-            messagebox.showinfo("Kaydet", "Önce kaydedilecek soruları seçin.", parent=self)
-            return
-        added, errors = self.app.bank.add_user_questions(chosen, self.v_exam.get(), source="ai")
-        msg = f"{added} soru bankaya eklendi."
-        if errors:
-            msg += "\n" + "\n".join(errors[:8])
-        messagebox.showinfo("Kaydet", msg, parent=self)
-        keep = {int(i) for i in self.tv.selection()}
-        self.generated = [q for i, q in enumerate(self.generated) if i not in keep]
-        self._redraw()
-
-    def close(self):
-        if self.generated and not messagebox.askyesno(
-                "Kapat", "Kaydedilmemiş sorular var. Yine de kapatılsın mı?", parent=self):
-            return
-        self.destroy()
-        if self.on_close:
-            self.on_close()
 
 
 class QuestionView(tk.Toplevel):
@@ -1007,7 +792,7 @@ class BankWindow(tk.Toplevel):
         self.tv.bind("<Double-1>", self.view)
         bot = ttk.Frame(self, padding=10)
         bot.pack(fill="x")
-        ttk.Label(bot, text="Çift tıklayarak soruyu görüntüleyin. Yalnızca eklenen (AI/içe aktarılan) sorular silinebilir.",
+        ttk.Label(bot, text="Çift tıklayarak soruyu görüntüleyin. Yalnızca içe aktarılan sorular silinebilir.",
                   style="Muted.TLabel").pack(side="left")
         ttk.Button(bot, text="Seçileni sil", command=self.delete).pack(side="right")
         self.fill()
@@ -1061,70 +846,6 @@ class BankWindow(tk.Toplevel):
         self.destroy()
         if self.on_close:
             self.on_close()
-
-
-# ----------------------------------------------------------------------------- Ayarlar
-class SettingsDialog(tk.Toplevel):
-    def __init__(self, app: App, on_close=None):
-        super().__init__(app)
-        self.app, self.on_close = app, on_close
-        self.title("Ayarlar")
-        self.transient(app)
-        self.resizable(False, False)
-        s = app.settings
-        frm = ttk.Frame(self, padding=16)
-        frm.pack(fill="both", expand=True)
-        self.v_key = tk.StringVar(value=s["api_key"])
-        self.v_model = tk.StringVar(value=ai.MODELS.get(s["model"], s["model"]))
-        self.v_effort = tk.StringVar(value=s["effort"])
-        self.v_web = tk.BooleanVar(value=s["web_search"])
-        self.v_lang = tk.StringVar(value="Türkçe" if s["language"] == "tr" else "English")
-
-        ttk.Label(frm, text="Claude API (AI soru üretimi ve 'Claude'a sor' için)", style="H2.TLabel").grid(
-            row=0, column=0, columnspan=2, sticky="w")
-        ttk.Label(frm, text="API anahtarı").grid(row=1, column=0, sticky="w", pady=6)
-        ent = ttk.Entry(frm, textvariable=self.v_key, show="•", width=48)
-        ent.grid(row=1, column=1, sticky="ew", pady=6)
-        ttk.Label(frm, text=("Boş bırakılırsa ANTHROPIC_API_KEY ortam değişkeni kullanılır. Anahtar bu "
-                             "bilgisayarda data/settings.json dosyasında düz metin olarak saklanır."),
-                  style="Muted.TLabel", wraplength=460).grid(row=2, column=0, columnspan=2, sticky="w")
-        ttk.Label(frm, text="Model").grid(row=3, column=0, sticky="w", pady=6)
-        ttk.Combobox(frm, textvariable=self.v_model, values=list(ai.MODELS.values()),
-                     state="readonly").grid(row=3, column=1, sticky="ew", pady=6)
-        ttk.Label(frm, text="Efor (effort)").grid(row=4, column=0, sticky="w", pady=6)
-        ttk.Combobox(frm, textvariable=self.v_effort, values=ai.EFFORTS, state="readonly",
-                     width=10).grid(row=4, column=1, sticky="w", pady=6)
-        ttk.Checkbutton(frm, text="Güncel bilgi için web araması yap (cloud.google.com)",
-                        variable=self.v_web).grid(row=5, column=0, columnspan=2, sticky="w", pady=6)
-        ttk.Label(frm, text="Üretilen soruların dili").grid(row=6, column=0, sticky="w", pady=6)
-        ttk.Combobox(frm, textvariable=self.v_lang, values=["Türkçe", "English"], state="readonly",
-                     width=10).grid(row=6, column=1, sticky="w", pady=6)
-
-        ttk.Separator(frm).grid(row=7, column=0, columnspan=2, sticky="ew", pady=12)
-        ttk.Button(frm, text="İstatistikleri sıfırla", command=self.reset_stats).grid(row=8, column=0, sticky="w")
-        bar = ttk.Frame(frm)
-        bar.grid(row=9, column=0, columnspan=2, sticky="e", pady=(16, 0))
-        ttk.Button(bar, text="İptal", command=self.destroy).pack(side="right")
-        ttk.Button(bar, text="Kaydet", command=self.save).pack(side="right", padx=6)
-
-    def save(self):
-        s = self.app.settings
-        s["api_key"] = self.v_key.get().strip()
-        inv = {v: k for k, v in ai.MODELS.items()}
-        s["model"] = inv.get(self.v_model.get(), self.v_model.get())
-        s["effort"] = self.v_effort.get()
-        s["web_search"] = bool(self.v_web.get())
-        s["language"] = "tr" if self.v_lang.get() == "Türkçe" else "en"
-        s.save()
-        self.destroy()
-        if self.on_close:
-            self.on_close()
-
-    def reset_stats(self):
-        if messagebox.askyesno("Sıfırla", "Tüm ilerleme ve oturum geçmişi silinsin mi?", parent=self):
-            self.app.stats.reset()
-            if self.on_close:
-                self.on_close()
 
 
 def main():

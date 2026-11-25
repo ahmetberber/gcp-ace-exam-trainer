@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# macOS / Linux başlatıcı
+# macOS / Linux başlatıcı — ek paket gerekmez
 cd "$(dirname "$0")"
-if [ ! -d .venv ]; then
-  echo "İlk kurulum yapılıyor..."
-  python3 -m venv .venv && .venv/bin/pip install -q -r requirements.txt
-fi
-exec .venv/bin/python main.py
+exec python3 main.py

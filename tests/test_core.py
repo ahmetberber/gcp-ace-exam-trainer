@@ -69,17 +69,6 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(again.count("ACE")["eklenen"], 1)
         self.assertTrue(again.delete_user_question(stored[0]["id"]))
 
-    def test_ai_batch_validation(self):
-        from examtrainer.ai import _validate_batch
-        out = _validate_batch({"questions": [
-            {"question": "Q1", "options": ["a", "b", "c", "d"], "correct": [0], "explanation": "e",
-             "domain": 4, "topic": "IAM ve servis hesapları", "difficulty": "zor", "source_url": ""},
-            {"question": "bozuk", "options": ["a"], "correct": [0], "explanation": "", "domain": 1,
-             "topic": "", "difficulty": "orta", "source_url": ""},
-        ]}, "ACE")
-        self.assertEqual(len(out), 1)
-        self.assertEqual(out[0]["source"], "ai")
-
 
 if __name__ == "__main__":
     unittest.main()

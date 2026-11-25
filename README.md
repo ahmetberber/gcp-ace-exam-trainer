@@ -1,12 +1,11 @@
 # GCP ACE Exam Trainer
 
 Google Cloud **Associate Cloud Engineer (ACE)** sertifika sınavına hazırlık için masaüstü pratik uygulaması.
-Hazır Türkçe soru bankası, gerçek sınavı taklit eden süreli mod, ilerleme takibi ve Claude ile
-**güncel Google Cloud dokümantasyonunu tarayarak yeni soru üretme** özelliği içerir.
+Hazır Türkçe soru bankası, gerçek sınavı taklit eden süreli mod ve ilerleme takibi içerir.
+**Tamamen çevrimdışı çalışır**: internet erişimi, hesap veya ek paket gerekmez.
 
-> *English summary: a Tkinter desktop quiz app for the Google Cloud Associate Cloud Engineer exam, with a built-in
-> Turkish question bank, timed exam simulation, progress tracking, and optional AI-generated up-to-date questions
-> (Claude + web search on cloud.google.com).*
+> *English summary: an offline Tkinter desktop quiz app for the Google Cloud Associate Cloud Engineer exam, with a
+> built-in Turkish question bank, timed exam simulation and progress tracking. No dependencies beyond Python.*
 
 ## Özellikler
 
@@ -19,17 +18,14 @@ Hazır Türkçe soru bankası, gerçek sınavı taklit eden süreli mod, ilerlem
   işaretleme (⚑) ve soru listesi ile gezinme.
 - **Akıllı tekrar**: daha önce yanlış yaptığınız veya hiç görmediğiniz sorulara öncelik; "yalnızca yanlışlarım" modu.
 - **İlerleme**: alan bazında başarı oranı ve oturum geçmişi.
-- **✨ AI ile güncel soru üretme** (isteğe bağlı): Claude, cloud.google.com'da web araması yaparak bilgileri doğrular
-  ve seçtiğiniz alan/konu/zorlukta yeni sorular üretir. Kaydetmeden önce önizleyebilirsiniz.
-- **🤖 Claude'a sor**: anlamadığınız bir soruyu ayrıntılı açıklatın, ek sorular sorun.
 - **JSON içe/dışa aktarma**: kendi sorularınızı ekleyin.
-- Diğer GCP sınavları (CDL, PCA, PDE, PCD, PCSE, PCNE, PMLE) da listede; bunlar için soruları AI ile üretebilirsiniz.
 
 ## Kurulum
 
-Gereksinim: **Python 3.10+** (python.org kurulumu Tkinter'ı içerir).
+Tek gereksinim **Python 3.10+**. [python.org](https://www.python.org/downloads/) kurulumu Tkinter'ı içerir;
+kurulumda **"Add python.exe to PATH"** seçeneğini işaretleyin.
 
-**Windows:** `start-windows.bat` dosyasına çift tıklayın. İlk açılışta sanal ortam kurulur.
+**Windows:** `start-windows.bat` dosyasına çift tıklayın. Başka kurulum adımı yoktur.
 
 **macOS / Linux:**
 
@@ -37,27 +33,7 @@ Gereksinim: **Python 3.10+** (python.org kurulumu Tkinter'ı içerir).
 ./start.sh
 ```
 
-Elle çalıştırmak için:
-
-```bash
-pip install -r requirements.txt
-```
-
-```bash
-python main.py
-```
-
-> Hazır sorularla çalışmak için ek paket gerekmez; `anthropic` paketi yalnızca AI özellikleri içindir.
-> Linux'ta Tkinter yoksa: `sudo apt install python3-tk`
-
-## AI özelliklerini açma
-
-1. [console.anthropic.com](https://console.anthropic.com) üzerinden bir API anahtarı alın.
-2. Uygulamada **Ayarlar → API anahtarı** alanına girin (veya `ANTHROPIC_API_KEY` ortam değişkenini tanımlayın).
-3. Model (Opus 5.5 / Sonnet 5.5 / Haiku 5.5), efor seviyesi, web araması ve soru dili (Türkçe/İngilizce) ayarlanabilir.
-
-API kullanımı ücretlidir; web araması açıkken her üretim birkaç arama içerir. Anahtar yalnızca bu bilgisayarda
-`data/settings.json` içinde düz metin olarak tutulur ve `.gitignore` ile depoya girmez.
+veya doğrudan `python3 main.py`. Linux'ta Tkinter yoksa: `sudo apt install python3-tk`
 
 ## Klavye kısayolları
 
@@ -95,11 +71,10 @@ main.py                 Başlatıcı
 examtrainer/exams.py    Sınav tanımları, alanlar ve ağırlıklar
 examtrainer/store.py    Soru bankası, istatistik ve ayar dosyaları
 examtrainer/engine.py   Soru seçimi, karıştırma, puanlama
-examtrainer/ai.py       Claude API ile soru üretme ve açıklama
 examtrainer/gui.py      Tkinter arayüzü
 questions/ace.json      Hazır ACE soru bankası
 tests/                  Birim testleri (python -m unittest discover -s tests)
-data/                   Kişisel veriler (otomatik oluşur, git'e girmez)
+data/                   İlerleme verileri (otomatik oluşur, git'e girmez)
 ```
 
 ## Notlar

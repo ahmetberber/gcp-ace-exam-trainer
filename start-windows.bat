@@ -1,8 +1,7 @@
 @echo off
 cd /d "%~dp0"
-if not exist .venv (
-    echo Ilk kurulum yapiliyor...
-    py -3 -m venv .venv || python -m venv .venv
-    .venv\Scripts\python -m pip install -q -r requirements.txt
-)
-start "" .venv\Scripts\pythonw main.py
+where pyw >nul 2>nul && (start "" pyw -3 main.py & exit /b)
+where pythonw >nul 2>nul && (start "" pythonw main.py & exit /b)
+echo Python bulunamadi. https://www.python.org/downloads/ adresinden Python 3.10+ kurun
+echo (kurulumda "Add python.exe to PATH" secenegini isaretleyin) ve tekrar deneyin.
+pause
