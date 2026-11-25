@@ -10,7 +10,7 @@ Hazır Türkçe soru bankası, gerçek sınavı taklit eden süreli mod ve ilerl
 
 ## Özellikler
 
-- **88 hazır ACE sorusu (Türkçe + İngilizce)**: resmi sınav rehberinin 4 alanına ve 13 konu başlığına göre etiketli
+- **143 hazır ACE sorusu (Türkçe + İngilizce)**: resmi sınav rehberinin 4 alanına ve 13 konu başlığına göre etiketli
   (IAM, Compute Engine, GKE, Cloud Run, VPC, Cloud Storage, veritabanları, Logging/Monitoring…).
   Sorular güncel ürün adlarına göre yazıldı (Artifact Registry, Cloud Run functions, Infrastructure Manager,
   Workload Identity Federation vb.).
@@ -22,6 +22,24 @@ Hazır Türkçe soru bankası, gerçek sınavı taklit eden süreli mod ve ilerl
 - **Akıllı tekrar**: daha önce yanlış yaptığınız veya hiç görmediğiniz sorulara öncelik; "yalnızca yanlışlarım" modu.
 - **İlerleme**: alan bazında başarı oranı ve oturum geçmişi.
 - **JSON içe/dışa aktarma**: kendi sorularınızı ekleyin.
+
+## Soruların güvenilirliği
+
+Her hazır soruda, doğru cevabı destekleyen **resmi Google Cloud dokümantasyonu linki** (`source_url`) ve o sayfada
+geçmesi gereken **anahtar ifadeler** (`check`) bulunur. Pratik modunda açıklamanın altında kaynak linki gösterilir;
+şüphelendiğiniz bir soruyu oradan kendiniz doğrulayabilirsiniz.
+
+`tools/check_sources.py` betiği tüm kaynak sayfalarını indirip bu ifadelerin hâlâ dokümanda geçtiğini kontrol eder.
+Google dokümanları değiştiğinde hangi soruların gözden geçirilmesi gerektiğini gösterir (internet gerekir;
+uygulamanın kendisi çevrimdışı çalışır):
+
+```bash
+python tools/check_sources.py
+```
+
+Bu kontrol, doğru cevaptaki bilginin resmi kaynakta geçtiğini doğrular; sorunun gerçek sınavla aynı olduğunu garanti
+etmez. Sorular özgündür, gerçek sınav soruları değildir. Ek pratik için Google'ın resmi
+[örnek soruları](https://cloud.google.com/learn/certification/cloud-engineer) en güvenilir kaynaktır.
 
 ## Kurulum
 
@@ -84,6 +102,7 @@ examtrainer/engine.py   Soru seçimi, karıştırma, puanlama
 examtrainer/gui.py      Tkinter arayüzü
 questions/ace.json      Hazır ACE soru bankası
 tests/                  Birim testleri (python -m unittest discover -s tests)
+tools/check_sources.py  Soruları resmi dokümantasyonla karşılaştırır
 data/                   İlerleme verileri (otomatik oluşur, git'e girmez)
 ```
 

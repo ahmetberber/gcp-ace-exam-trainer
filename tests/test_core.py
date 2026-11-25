@@ -19,12 +19,18 @@ class CoreTests(unittest.TestCase):
     def test_builtin_bank_valid(self):
         self.assertEqual(self.bank.load_errors, [])
         qs = self.bank.for_exam("ACE")
-        self.assertGreaterEqual(len(qs), 80)
+        self.assertGreaterEqual(len(qs), 140)
         self.assertEqual({q["domain"] for q in qs}, set(EXAMS["ACE"].domains))
         for q in qs:
             self.assertIn(q["topic"], EXAMS["ACE"].topics, q["id"])
         ids = [q["id"] for q in qs]
         self.assertEqual(len(ids), len(set(ids)))
+        raw = json.loads((ROOT / "questions" / "ace.json").read_text(encoding="utf-8"))
+        for q in raw:
+            self.assertTrue(q["source_url"].startswith("https://docs.cloud.google.com/"), q["id"])
+            self.assertTrue(q["check"], q["id"])
+        texts = [" ".join(q["question"].lower().split()) for q in qs]
+        self.assertEqual(len(texts), len(set(texts)), "tekrarlanan soru metni")
 
     def test_shuffle_keeps_correct_answer(self):
         s = build_session(self.bank, self.stats, "ACE", 30, seed=1)

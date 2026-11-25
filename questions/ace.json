@@ -26,7 +26,12 @@
     "Create a separate service account for each project and share it with the users"
    ],
    "explanation": "IAM policies are inherited down the hierarchy (Organization → Folder → Project → Resource). A role granted on a folder automatically applies to new projects created under it."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iam/docs/resource-hierarchy-access-control",
+  "check": [
+   "folder",
+   "inherit"
+  ]
  },
  {
   "id": "ace-002",
@@ -44,7 +49,7 @@
   "correct": [
    0
   ],
-  "explanation": "Budgets & alerts eşiklere ulaşıldığında bildirim gönderir. Dikkat: bütçeler harcamayı otomatik olarak durdurmaz; durdurmak için Pub/Sub bildirimi + Cloud Run function gibi programatik bir çözüm gerekir.",
+  "explanation": "Budgets & alerts eşiklere ulaşıldığında e-posta bildirimi gönderir. Dikkat: yalnızca uyarı (alerts-only) bütçeleri harcamayı otomatik olarak durdurmaz. Desteklenen hizmetlerde (ör. Cloud Run, Cloud Run functions, Gemini API) proje bazında 'spend cap' bütçesi tanımlanabilir; diğer durumlarda Pub/Sub bildirimi + fonksiyon ile faturalandırmayı programatik olarak kapatmak gerekir.",
   "source": "builtin",
   "en": {
    "question": "You want billing administrators to receive an email when project spending reaches 50%, 90%, and 100% of the monthly budget. What should you do?",
@@ -54,8 +59,13 @@
     "Create an uptime check in Cloud Monitoring",
     "Set a spending limit with an organization policy"
    ],
-   "explanation": "Budgets & alerts send notifications when thresholds are reached. Note: budgets do not automatically stop spending; to cap costs you need a programmatic solution such as a Pub/Sub notification plus a Cloud Run function."
-  }
+   "explanation": "Budgets & alerts send email notifications when thresholds are reached. Note: alerts-only budgets don't automatically cap spending. For eligible services (e.g. Cloud Run, Cloud Run functions, Gemini API) you can set a per-project spend cap budget; otherwise you need a programmatic response such as a Pub/Sub notification plus a function that disables billing."
+  },
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/budgets",
+  "check": [
+   "threshold rules",
+   "doesn't automatically cap"
+  ]
  },
  {
   "id": "ace-003",
@@ -84,7 +94,12 @@
     "Use the Pricing Calculator"
    ],
    "explanation": "Cloud Billing export to BigQuery writes detailed usage and cost data to BigQuery, where it can be reported with SQL and Looker Studio. Only data after the export is enabled is exported, so enable it early."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/export-data-bigquery",
+  "check": [
+   "export",
+   "BigQuery"
+  ]
  },
  {
   "id": "ace-004",
@@ -113,7 +128,12 @@
     "Organization Administrator on the organization"
    ],
    "explanation": "Linking a project to a billing account requires permissions on both sides: 'Billing Account User' on the billing account (to link projects) and 'Project Billing Manager' or Owner on the project."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/modify-project",
+  "check": [
+   "Billing Account User",
+   "Project Billing Manager"
+  ]
  },
  {
   "id": "ace-005",
@@ -142,7 +162,11 @@
     "Create a budget alert"
    ],
    "explanation": "The Organization Policy Service restricts where resources can be created with the 'gcp.resourceLocations' constraint. IAM controls 'who', organization policies control 'what can be done'."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/defining-locations",
+  "check": [
+   "gcp.resourceLocations"
+  ]
  },
  {
   "id": "ace-006",
@@ -171,7 +195,12 @@
     "Custom IAM roles"
    ],
    "explanation": "Labels are key-value pairs used to group costs in billing reports and the BigQuery billing export. Network tags are used for firewall rule and route targeting."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/labels-overview",
+  "check": [
+   "billing",
+   "labels"
+  ]
  },
  {
   "id": "ace-007",
@@ -200,7 +229,11 @@
     "gcloud config set api/compute true"
    ],
    "explanation": "Google Cloud APIs are enabled per project: 'gcloud services enable <service>.googleapis.com'. Use 'gcloud services list --enabled' to see enabled APIs."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/service-usage/docs/enable-disable",
+  "check": [
+   "gcloud services enable"
+  ]
  },
  {
   "id": "ace-008",
@@ -229,7 +262,11 @@
     "Convert the VMs to Spot VMs; Spot VMs do not count against quotas"
    ],
    "explanation": "Quotas are per project (and usually per region); increases are requested from the Quotas page or through the Cloud Quotas API. Spot VMs also have quotas."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/docs/quotas/view-manage",
+  "check": [
+   "quota increase"
+  ]
  },
  {
   "id": "ace-009",
@@ -258,7 +295,12 @@
     "You must pass the project ID as an environment variable in every command"
    ],
    "explanation": "Named gcloud configurations group properties such as account, project, and default region/zone. List them with 'gcloud config configurations list'."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/sdk/docs/configurations",
+  "check": [
+   "gcloud config configurations create",
+   "gcloud config configurations activate"
+  ]
  },
  {
   "id": "ace-010",
@@ -287,7 +329,12 @@
     "Files in the home directory are deleted at the end of every session"
    ],
    "explanation": "Cloud Shell runs on an ephemeral VM, but $HOME is backed by 5 GB of persistent storage (it may be deleted after a long period of inactivity). There is no extra charge."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/shell/docs/how-cloud-shell-works",
+  "check": [
+   "5 GB",
+   "home directory"
+  ]
  },
  {
   "id": "ace-011",
@@ -316,7 +363,11 @@
     "kubectl cp"
    ],
    "explanation": "'gcloud storage' commands are the recommended interface and are generally faster than gsutil, which is considered legacy. bq is for BigQuery and kubectl is for Kubernetes."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/discover-object-storage-gcloud",
+  "check": [
+   "gcloud storage cp"
+  ]
  },
  {
   "id": "ace-012",
@@ -345,7 +396,11 @@
     "kubectl get vms -o wide"
    ],
    "explanation": "The --format (table, json, yaml, value...) and --filter flags in gcloud format and filter output; they appear frequently on the exam."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/sdk/gcloud/reference/topic/formats",
+  "check": [
+   "table"
+  ]
  },
  {
   "id": "ace-013",
@@ -374,7 +429,12 @@
     "Use larger machine types"
    ],
    "explanation": "Spot VMs (the successor to preemptible VMs) offer large discounts, but Compute Engine can reclaim them at any time; they are ideal for fault-tolerant batch jobs."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/spot",
+  "check": [
+   "fault-tolerant",
+   "batch"
+  ]
  },
  {
   "id": "ace-014",
@@ -403,7 +463,11 @@
     "Use the Premium network tier instead of Standard"
    ],
    "explanation": "CUDs provide significant discounts in exchange for a 1- or 3-year usage commitment; they suit predictable, steady-state workloads."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/committed-use-discounts-overview",
+  "check": [
+   "1-year or 3-year"
+  ]
  },
  {
   "id": "ace-015",
@@ -432,7 +496,13 @@
     "Custom image"
    ],
    "explanation": "A machine image contains the VM configuration, metadata, permissions, and the data of all attached disks. A custom image contains only a single disk, and an instance template contains only configuration (no data)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/machine-images",
+  "check": [
+   "all the configuration",
+   "metadata",
+   "permissions"
+  ]
  },
  {
   "id": "ace-016",
@@ -461,7 +531,12 @@
     "Create the VM as a Spot VM"
    ],
    "explanation": "Startup scripts are defined in VM metadata with 'startup-script' or with 'startup-script-url' pointing to a script in Cloud Storage, and they run on every boot."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/startup-scripts/linux",
+  "check": [
+   "startup-script",
+   "startup-script-url"
+  ]
  },
  {
   "id": "ace-017",
@@ -490,7 +565,12 @@
     "Move the disk to another zone"
    ],
    "explanation": "Persistent disk size can be increased while the VM is running (it cannot be decreased). The partition/file system must then be extended inside the OS (some images do this automatically)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/disks/resize-persistent-disk",
+  "check": [
+   "resize",
+   "file system"
+  ]
  },
  {
   "id": "ace-018",
@@ -519,7 +599,12 @@
     "Confidential VM"
    ],
    "explanation": "Sole-tenant nodes are physical servers dedicated only to your project's VMs; they are used for BYOL licensing and compliance."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/nodes/sole-tenant-nodes",
+  "check": [
+   "dedicated",
+   "licens"
+  ]
  },
  {
   "id": "ace-019",
@@ -548,7 +633,11 @@
     "Use a sole-tenant node"
    ],
    "explanation": "Custom machine types let you size vCPUs and memory to your workload (on supported machine series, within certain ratios)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type",
+  "check": [
+   "custom machine type"
+  ]
  },
  {
   "id": "ace-020",
@@ -577,7 +666,11 @@
     "Create VMs manually in each zone"
    ],
    "explanation": "A regional MIG distributes VMs across multiple zones in a region; the autoscaler scales based on CPU, load balancer utilization, or custom metrics."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instance-groups/regional-migs",
+  "check": [
+   "multiple zones"
+  ]
  },
  {
   "id": "ace-021",
@@ -606,7 +699,13 @@
     "Define a snapshot schedule"
    ],
    "explanation": "Autohealing recreates a VM when an application-level health check fails. The firewall must allow the health check source ranges (130.211.0.0/22, 35.191.0.0/16)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instance-groups/autohealing-instances-in-migs",
+  "check": [
+   "health check",
+   "130.211.0.0/22",
+   "35.191.0.0/16"
+  ]
  },
  {
   "id": "ace-022",
@@ -635,7 +734,12 @@
     "Cloud NAT"
    ],
    "explanation": "The global external Application Load Balancer (HTTP/HTTPS, layer 7) uses a single anycast IP, terminates SSL, and integrates with Cloud CDN and Cloud Armor."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/load-balancing/docs/https",
+  "check": [
+   "global external Application Load Balancer",
+   "anycast"
+  ]
  },
  {
   "id": "ace-023",
@@ -664,7 +768,13 @@
     "Internal Application Load Balancer"
    ],
    "explanation": "Passthrough Network Load Balancers forward traffic without proxying it, so the client IP is preserved and UDP is supported. Application Load Balancers are proxy-based and only handle HTTP(S)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/load-balancing/docs/network/networklb-backend-service",
+  "check": [
+   "passthrough",
+   "UDP",
+   "source IP"
+  ]
  },
  {
   "id": "ace-024",
@@ -693,7 +803,12 @@
     "App Engine flexible"
    ],
    "explanation": "In Autopilot mode Google manages the nodes, and billing is (generally) based on the resources requested by pods. In Standard mode you manage the node pools."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview",
+  "check": [
+   "Autopilot",
+   "nodes"
+  ]
  },
  {
   "id": "ace-025",
@@ -722,7 +837,11 @@
     "gcloud container login"
    ],
    "explanation": "The get-credentials command updates the kubeconfig file with the cluster endpoint and credentials; kubectl commands then target this cluster."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl",
+  "check": [
+   "get-credentials"
+  ]
  },
  {
   "id": "ace-026",
@@ -751,7 +870,11 @@
     "Give the pods a higher priority"
    ],
    "explanation": "The cluster autoscaler adds nodes when there are unschedulable pods and removes nodes when utilization is low. HPA scales the number of pods; it does not add nodes."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-autoscaler",
+  "check": [
+   "unschedulable"
+  ]
  },
  {
   "id": "ace-027",
@@ -780,7 +903,12 @@
     "Node auto-repair"
    ],
    "explanation": "HPA adjusts the replica count based on CPU/memory or custom metrics. Example: kubectl autoscale deployment web --cpu-percent=60 --min=2 --max=10."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/horizontalpodautoscaler",
+  "check": [
+   "HorizontalPodAutoscaler",
+   "CPU"
+  ]
  },
  {
   "id": "ace-028",
@@ -809,7 +937,12 @@
     "Two separate zonal clusters connected with VPC peering"
    ],
    "explanation": "Regional clusters replicate the control plane and nodes across multiple zones in a region. Autopilot clusters are regional by default."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters",
+  "check": [
+   "multiple zones",
+   "control plane"
+  ]
  },
  {
   "id": "ace-029",
@@ -838,7 +971,11 @@
     "Bare Metal Solution"
    ],
    "explanation": "Cloud Run is a fully managed serverless container platform; it can scale to zero and you pay only for what you use."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+  "check": [
+   "scale to zero"
+  ]
  },
  {
   "id": "ace-030",
@@ -867,7 +1004,12 @@
     "Set the maximum number of instances to 10"
    ],
    "explanation": "Cloud Run supports percentage-based traffic splitting between revisions; it is used for gradual (canary) rollouts and fast rollbacks."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration",
+  "check": [
+   "--no-traffic",
+   "update-traffic"
+  ]
  },
  {
   "id": "ace-031",
@@ -896,7 +1038,12 @@
     "A Dataproc cluster"
    ],
    "explanation": "Cloud Functions is now called 'Cloud Run functions'; Cloud Storage events trigger the function through Eventarc."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/run/docs/triggering/storage-triggers",
+  "check": [
+   "Cloud Storage",
+   "Eventarc"
+  ]
  },
  {
   "id": "ace-032",
@@ -925,7 +1072,12 @@
     "Cloud CDN"
    ],
    "explanation": "Cloud Run jobs are for tasks that don't need an HTTP server and exit when complete; they can be scheduled with Cloud Scheduler."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/run/docs/execute/jobs-on-schedule",
+  "check": [
+   "Cloud Scheduler",
+   "job"
+  ]
  },
  {
   "id": "ace-033",
@@ -954,7 +1106,12 @@
     "Disable App Engine and enable it again"
    ],
    "explanation": "Each project can have only one App Engine application, and its region cannot be changed after creation; the solution is to use a new project."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/appengine/docs/standard/locations",
+  "check": [
+   "cannot change",
+   "region"
+  ]
  },
  {
   "id": "ace-034",
@@ -983,7 +1140,12 @@
     "Standard"
    ],
    "explanation": "Minimum storage durations: Nearline 30 days, Coldline 90 days, Archive 365 days. The less frequent the access, the cheaper the storage and the higher the retrieval cost."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/storage-classes",
+  "check": [
+   "365-day minimum storage duration",
+   "less than once a year"
+  ]
  },
  {
   "id": "ace-035",
@@ -1012,7 +1174,12 @@
     "Enable Object Versioning"
    ],
    "explanation": "Autoclass automatically moves objects to the appropriate storage class based on access frequency, without early deletion or class transition fees."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/autoclass",
+  "check": [
+   "Autoclass",
+   "access"
+  ]
  },
  {
   "id": "ace-036",
@@ -1041,7 +1208,12 @@
     "Use Bucket Lock"
    ],
    "explanation": "Lifecycle rules change an object's storage class or delete it based on conditions such as age, creation date, or number of versions."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/lifecycle",
+  "check": [
+   "SetStorageClass",
+   "Delete"
+  ]
  },
  {
   "id": "ace-037",
@@ -1070,7 +1242,12 @@
     "Autoclass"
    ],
    "explanation": "Object Versioning keeps noncurrent versions of deleted/overwritten objects. Soft delete also keeps deleted objects recoverable for a period. Use lifecycle rules to limit old versions and control cost."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/object-versioning",
+  "check": [
+   "noncurrent version",
+   "replace or delete a live object version"
+  ]
  },
  {
   "id": "ace-038",
@@ -1099,7 +1276,12 @@
     "MySQL on a single Compute Engine VM"
    ],
    "explanation": "The Cloud SQL HA configuration keeps a standby instance in another zone and fails over automatically."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/high-availability",
+  "check": [
+   "standby",
+   "failover"
+  ]
  },
  {
   "id": "ace-039",
@@ -1128,7 +1310,12 @@
     "Memorystore"
    ],
    "explanation": "Spanner is a globally distributed, relational, horizontally scalable database with strong consistency. Cloud SQL scales vertically and is regional."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/spanner/docs/overview",
+  "check": [
+   "strong",
+   "scal"
+  ]
  },
  {
   "id": "ace-040",
@@ -1157,7 +1344,12 @@
     "BigQuery"
    ],
    "explanation": "Bigtable is a high-throughput wide-column NoSQL database, ideal for time series and IoT. BigQuery is an analytics warehouse, not an OLTP database."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/bigtable/docs/overview",
+  "check": [
+   "time-series",
+   "low latency"
+  ]
  },
  {
   "id": "ace-041",
@@ -1186,7 +1378,12 @@
     "Cloud SQL for PostgreSQL"
    ],
    "explanation": "Firestore is a serverless document database; its client SDKs provide real-time listeners and an offline cache."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/firestore/native/docs/overview",
+  "check": [
+   "real-time",
+   "offline"
+  ]
  },
  {
   "id": "ace-042",
@@ -1215,7 +1412,12 @@
     "Filestore"
    ],
    "explanation": "Memorystore is a managed in-memory data store used for caching and session management."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/memorystore/docs/redis/memorystore-for-redis-overview",
+  "check": [
+   "sub-millisecond",
+   "caching"
+  ]
  },
  {
   "id": "ace-043",
@@ -1244,7 +1446,13 @@
     "Default network"
    ],
    "explanation": "In a custom mode VPC you define the subnets and their ranges; recommended for production. Auto mode creates a /20 subnet in every region automatically. VPCs are global; subnets are regional."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/vpc/docs/vpc",
+  "check": [
+   "custom mode",
+   "auto mode",
+   "global"
+  ]
  },
  {
   "id": "ace-044",
@@ -1273,7 +1481,11 @@
     "You must create a new VPC and peer it"
    ],
    "explanation": "A subnet's primary range can be expanded without downtime (e.g. /24 → /22), but it cannot be shrunk and must not overlap other ranges."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/vpc/docs/create-modify-vpc-networks",
+  "check": [
+   "expand-ip-range"
+  ]
  },
  {
   "id": "ace-045",
@@ -1302,7 +1514,11 @@
     "Enable Cloud CDN"
    ],
    "explanation": "Private Google Access lets VMs that only have internal IPs reach Google APIs and services; it is enabled per subnet."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/vpc/docs/private-google-access",
+  "check": [
+   "only have internal IP addresses (no external IP addresses) can use Private Google Access"
+  ]
  },
  {
   "id": "ace-046",
@@ -1331,7 +1547,12 @@
     "VPC Network Peering"
    ],
    "explanation": "Cloud NAT provides outbound internet access to resources without external IPs; it does not allow unsolicited inbound connections."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/nat/docs/overview",
+  "check": [
+   "outbound",
+   "inbound"
+  ]
  },
  {
   "id": "ace-047",
@@ -1360,7 +1581,11 @@
     "Peering only works within the same project"
    ],
    "explanation": "Peering is not transitive. Solutions: direct A–C peering, Shared VPC, or hub designs such as Network Connectivity Center."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/vpc/docs/vpc-peering",
+  "check": [
+   "transitive"
+  ]
  },
  {
   "id": "ace-048",
@@ -1389,7 +1614,12 @@
     "All teams in a single project"
    ],
    "explanation": "With Shared VPC the network is managed centrally in the host project; resources in service projects use its subnets. Give the network team Shared VPC Admin and developers the Network User role."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/vpc/docs/shared-vpc",
+  "check": [
+   "host project",
+   "service project"
+  ]
  },
  {
   "id": "ace-049",
@@ -1418,7 +1648,12 @@
     "Direct Peering"
    ],
    "explanation": "HA VPN, when configured correctly (two interfaces, two tunnels), provides a 99.99% SLA and encrypts traffic with IPsec. Interconnect is preferred for very high bandwidth/private connectivity."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/network-connectivity/docs/vpn/concepts/overview",
+  "check": [
+   "99.99%",
+   "HA VPN"
+  ]
  },
  {
   "id": "ace-050",
@@ -1447,7 +1682,12 @@
     "Manually created folders in Cloud Storage"
    ],
    "explanation": "Artifact Registry is the current, recommended service. Container Registry is deprecated/shut down; existing users should migrate to Artifact Registry."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/artifact-registry/docs/transition/transition-from-gcr",
+  "check": [
+   "Container Registry is shut down",
+   "Artifact Registry"
+  ]
  },
  {
   "id": "ace-051",
@@ -1476,7 +1716,11 @@
     "kubectl without Config Sync"
    ],
    "explanation": "Infrastructure Manager deploys Terraform configurations as a managed service. Deployment Manager is deprecated (end of support 2026); Terraform/Infrastructure Manager is recommended for new projects."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/infrastructure-manager/docs/overview",
+  "check": [
+   "Terraform"
+  ]
  },
  {
   "id": "ace-052",
@@ -1505,7 +1749,12 @@
     "Dataflow"
    ],
    "explanation": "Cloud Build is a serverless CI service; it is triggered by repository events and its steps are defined in cloudbuild.yaml. It can be combined with Cloud Deploy for continuous delivery."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/build/docs/automating-builds/create-manage-triggers",
+  "check": [
+   "trigger",
+   "build config"
+  ]
  },
  {
   "id": "ace-053",
@@ -1534,7 +1783,11 @@
     "Filestore"
    ],
    "explanation": "Pub/Sub provides asynchronous publish-subscribe messaging; it supports push and pull subscriptions."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/pubsub/docs/overview",
+  "check": [
+   "asynchronous"
+  ]
  },
  {
   "id": "ace-054",
@@ -1563,7 +1816,12 @@
     "Firestore"
    ],
    "explanation": "BigQuery is a serverless data warehouse; storage and compute are separate, and you analyze petabyte-scale data with SQL."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/introduction",
+  "check": [
+   "serverless",
+   "petabyte"
+  ]
  },
  {
   "id": "ace-055",
@@ -1592,7 +1850,11 @@
     "Use SELECT *"
    ],
    "explanation": "A dry run returns the number of bytes the query will process and is free. LIMIT does not (in most cases) reduce the data scanned; selecting only the needed columns and using partitioning reduces cost."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/running-queries",
+  "check": [
+   "dry run"
+  ]
  },
  {
   "id": "ace-056",
@@ -1621,7 +1883,12 @@
     "Cloud Composer"
    ],
    "explanation": "Dataproc is a managed Spark/Hadoop service (clusters or Serverless). Dataflow suits new pipelines built on Apache Beam."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/dataproc/docs/concepts/overview",
+  "check": [
+   "Apache Spark",
+   "Hadoop"
+  ]
  },
  {
   "id": "ace-057",
@@ -1650,7 +1917,12 @@
     "Enable Object Versioning"
    ],
    "explanation": "Snapshot schedules take scheduled, incremental disk snapshots and apply the retention period automatically."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/disks/scheduled-snapshots",
+  "check": [
+   "snapshot schedule",
+   "retention"
+  ]
  },
  {
   "id": "ace-058",
@@ -1679,7 +1951,12 @@
     "Choose a larger machine type"
    ],
    "explanation": "CPU, network, and disk I/O are visible at the hypervisor level, but in-guest metrics such as memory and file system usage, as well as application logs, require the Ops Agent."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/monitoring/agent/ops-agent",
+  "check": [
+   "Ops Agent",
+   "memory"
+  ]
  },
  {
   "id": "ace-059",
@@ -1708,7 +1985,12 @@
     "Enable Error Reporting"
    ],
    "explanation": "Uptime checks probe the endpoint from different locations; an alerting policy sends notifications to channels such as email, SMS, PagerDuty, or Slack on failure."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/monitoring/uptime-checks",
+  "check": [
+   "uptime check",
+   "alerting"
+  ]
  },
  {
   "id": "ace-060",
@@ -1737,7 +2019,12 @@
     "Write the logs to VM disks"
    ],
    "explanation": "Log sinks route logs to Cloud Storage, BigQuery, Pub/Sub, or another log bucket. Cloud Storage (with a retention policy/Bucket Lock if needed) is suitable for long-term, low-cost retention."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/logging/docs/export/configure_export_v2",
+  "check": [
+   "sink",
+   "Cloud Storage"
+  ]
  },
  {
   "id": "ace-061",
@@ -1766,7 +2053,12 @@
     "Billing budget"
    ],
    "explanation": "Log-based metrics produce counter or distribution metrics from log entries; these metrics can be used in Cloud Monitoring charts and alerts."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/logging/docs/logs-based-metrics",
+  "check": [
+   "log-based metric",
+   "alerting policy"
+  ]
  },
  {
   "id": "ace-062",
@@ -1795,7 +2087,12 @@
     "Remove the Ops Agent from all VMs"
    ],
    "explanation": "Exclusion filters prevent unwanted logs from being stored (and charged). The _Required bucket and Admin Activity logs cannot be disabled."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/logging/docs/routing/overview",
+  "check": [
+   "exclusion filter",
+   "_Required"
+  ]
  },
  {
   "id": "ace-063",
@@ -1824,7 +2121,11 @@
     "Use billing export"
    ],
    "explanation": "A metrics scope lets a scoping project view the metrics of multiple projects."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/monitoring/settings",
+  "check": [
+   "metrics scope"
+  ]
  },
  {
   "id": "ace-064",
@@ -1853,7 +2154,11 @@
     "Billing reports"
    ],
    "explanation": "Cloud Trace provides distributed tracing and shows request latency across services. Profiler shows CPU/memory usage at the code level, and Error Reporting groups errors."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/trace/docs/overview",
+  "check": [
+   "latency"
+  ]
  },
  {
   "id": "ace-065",
@@ -1882,7 +2187,12 @@
     "Turn off the autoscaler"
    ],
    "explanation": "MIG rolling updates move VMs to the new template in a controlled way using maxSurge and maxUnavailable; two templates can also be used for a canary."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups",
+  "check": [
+   "maxSurge",
+   "maxUnavailable"
+  ]
  },
  {
   "id": "ace-066",
@@ -1900,7 +2210,7 @@
   "correct": [
    0
   ],
-  "explanation": "kubectl set image (veya manifesti güncelleyip kubectl apply) rolling update başlatır. Geri almak için kubectl rollout undo kullanılır.",
+  "explanation": "kubectl set image (veya manifesti güncelleyip kubectl apply) rolling update başlatır. Sorun çıkarsa 'kubectl rollout undo' ile önceki sürüme dönülebilir.",
   "source": "builtin",
   "en": {
    "question": "You want to update the image of a Deployment running in GKE to a new version. Which command is correct?",
@@ -1911,7 +2221,11 @@
     "gcloud compute instances update web"
    ],
    "explanation": "kubectl set image (or updating the manifest and running kubectl apply) starts a rolling update. Use kubectl rollout undo to roll back."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/stateless-apps",
+  "check": [
+   "kubectl set image"
+  ]
  },
  {
   "id": "ace-067",
@@ -1940,7 +2254,13 @@
     "Enable the cluster autoscaler"
    ],
    "explanation": "Release channels provide an automatic upgrade stream for the control plane and nodes; timing is controlled with maintenance windows and exclusions."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/release-channels",
+  "check": [
+   "Rapid",
+   "Regular",
+   "Stable"
+  ]
  },
  {
   "id": "ace-068",
@@ -1970,7 +2290,12 @@
     "Lower concurrency to 1"
    ],
    "explanation": "Min instances keep warm instances ready; startup CPU boost gives extra CPU during startup to speed it up. Max instances and concurrency=1 do not reduce cold starts and can even increase them."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/run/docs/tips/general",
+  "check": [
+   "minimum instances",
+   "startup CPU boost"
+  ]
  },
  {
   "id": "ace-069",
@@ -1999,7 +2324,12 @@
     "kubectl rollout"
    ],
    "explanation": "Traffic splitting in App Engine is done with 'gcloud app services set-traffic --splits'; IP, cookie, or random splitting can be selected."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/appengine/docs/standard/splitting-traffic",
+  "check": [
+   "set-traffic",
+   "--splits"
+  ]
  },
  {
   "id": "ace-070",
@@ -2028,7 +2358,12 @@
     "Uniform bucket-level access"
    ],
    "explanation": "Signed URLs grant time-limited access (up to 7 days for V4) for a specific operation; the recipient does not need a Google account."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/access-control/signed-urls",
+  "check": [
+   "limited access",
+   "regardless of whether they have a valid account"
+  ]
  },
  {
   "id": "ace-071",
@@ -2057,7 +2392,11 @@
     "Restart the instance"
    ],
    "explanation": "PITR uses automated backups and transaction logs to restore to a specific point in time. HA failover and replicas also replicate the drop, so they don't help recovery."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/backup-recovery/pitr",
+  "check": [
+   "point-in-time recovery"
+  ]
  },
  {
   "id": "ace-072",
@@ -2086,7 +2425,12 @@
     "Disable automated backups"
    ],
    "explanation": "Read replicas serve read traffic. The HA standby instance does not serve traffic; it exists only for failover."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/replication",
+  "check": [
+   "read replica",
+   "offload"
+  ]
  },
  {
   "id": "ace-073",
@@ -2115,7 +2459,12 @@
     "The Organization Administrator role"
    ],
    "explanation": "Basic roles (Owner/Editor/Viewer) are too broad; predefined or custom roles should be preferred in production. Granting roles to Google Groups instead of individuals simplifies management."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iam/docs/roles-overview",
+  "check": [
+   "basic roles",
+   "predefined roles"
+  ]
  },
  {
   "id": "ace-074",
@@ -2144,7 +2493,12 @@
     "Make the bucket public"
    ],
    "explanation": "A service account attached to the VM obtains short-lived credentials through the metadata server; no key file is needed. The role should be granted at the resource (bucket) level with minimal scope."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/compute/docs/access/service-accounts",
+  "check": [
+   "user-managed service account",
+   "metadata server"
+  ]
  },
  {
   "id": "ace-075",
@@ -2173,7 +2527,12 @@
     "An API key"
    ],
    "explanation": "Workload Identity Federation exchanges tokens from external identity providers (GitHub, AWS, Azure, OIDC/SAML) for short-lived Google credentials; no long-lived keys are required."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iam/docs/workload-identity-federation",
+  "check": [
+   "service account keys",
+   "GitHub"
+  ]
  },
  {
   "id": "ace-076",
@@ -2202,7 +2561,12 @@
     "Give all pods the same API key"
    ],
    "explanation": "Workload Identity Federation for GKE maps Kubernetes service accounts to IAM; it is enabled by default in Autopilot."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/workload-identity",
+  "check": [
+   "Kubernetes ServiceAccount",
+   "Autopilot"
+  ]
  },
  {
   "id": "ace-077",
@@ -2231,7 +2595,12 @@
     "Security Reviewer"
    ],
    "explanation": "Attaching a service account to a resource requires the 'iam.serviceAccounts.actAs' permission, which is in the Service Account User role."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iam/docs/attach-service-accounts",
+  "check": [
+   "iam.serviceAccounts.actAs",
+   "Service Account User"
+  ]
  },
  {
   "id": "ace-078",
@@ -2260,7 +2629,12 @@
     "Convert their own account into a service account"
    ],
    "explanation": "Impersonation works with short-lived tokens; it requires the Token Creator role and removes the risk of key management."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/docs/authentication/use-service-account-impersonation",
+  "check": [
+   "--impersonate-service-account",
+   "Service Account Token Creator"
+  ]
  },
  {
   "id": "ace-079",
@@ -2289,7 +2663,11 @@
     "Custom roles are automatically updated by Google"
    ],
    "explanation": "Custom roles are defined at the organization or project level. Some permissions are not supported in custom roles, and Google does not automatically add new permissions to custom roles."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iam/docs/creating-custom-roles",
+  "check": [
+   "custom roles for an entire organization, or for a specific project"
+  ]
  },
  {
   "id": "ace-080",
@@ -2318,7 +2696,12 @@
     "A signed URL"
    ],
    "explanation": "IAM Conditions add conditions such as date/time or resource name to role bindings; access ends automatically when the time expires."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iam/docs/conditions-overview",
+  "check": [
+   "request.time",
+   "temporary"
+  ]
  },
  {
   "id": "ace-081",
@@ -2347,7 +2730,13 @@
     "Firewall Rules Logging"
    ],
    "explanation": "Admin Activity audit logs record configuration/metadata changes; they are always on, free, and cannot be disabled. Data Access logs (except BigQuery) are off by default."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/logging/docs/audit",
+  "check": [
+   "Admin Activity audit logs",
+   "always written",
+   "can't configure, exclude, or disable"
+  ]
  },
  {
   "id": "ace-082",
@@ -2376,7 +2765,12 @@
     "Apply Bucket Lock"
    ],
    "explanation": "Data reads/writes are recorded in Data Access audit logs; these are off by default for most services and can incur additional cost."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/logging/docs/audit",
+  "check": [
+   "Data Access audit logs",
+   "disabled by default"
+  ]
  },
  {
   "id": "ace-083",
@@ -2405,7 +2799,12 @@
     "Set up Cloud NAT"
    ],
    "explanation": "Identity-Aware Proxy TCP forwarding lets IAM-authorized users reach VMs without external IPs (gcloud compute ssh --tunnel-through-iap)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/iap/docs/using-tcp-forwarding",
+  "check": [
+   "35.235.240.0/20",
+   "--tunnel-through-iap"
+  ]
  },
  {
   "id": "ace-084",
@@ -2435,7 +2834,12 @@
     "A lower priority number (e.g. 65535) is the highest priority"
    ],
    "explanation": "VPC firewall rules are global and stateful; priority ranges from 0 to 65535 and a LOWER number means HIGHER priority. Implied rules: deny ingress, allow egress."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/firewall/docs/firewalls",
+  "check": [
+   "VPC firewall rules are stateful",
+   "implied"
+  ]
  },
  {
   "id": "ace-085",
@@ -2464,7 +2868,12 @@
     "Open 443 with an organization policy"
    ],
    "explanation": "Firewall rules can target network tags or service accounts. Targeting by service account gives tighter control than tags (instance admins can change tags)."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/firewall/docs/firewalls",
+  "check": [
+   "network tag",
+   "service account"
+  ]
  },
  {
   "id": "ace-086",
@@ -2493,7 +2902,12 @@
     "Object Versioning"
    ],
    "explanation": "Uniform bucket-level access disables ACLs and manages access only through IAM; it is the recommended approach. It can be combined with Public Access Prevention."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/storage/docs/uniform-bucket-level-access",
+  "check": [
+   "disables ACLs",
+   "IAM"
+  ]
  },
  {
   "id": "ace-087",
@@ -2522,7 +2936,12 @@
     "VM metadata"
    ],
    "explanation": "Secret Manager stores secrets with versions, controls access with IAM, and writes access to audit logs. It integrates directly with Cloud Run and GKE."
-  }
+  },
+  "source_url": "https://docs.cloud.google.com/secret-manager/docs/overview",
+  "check": [
+   "versions",
+   "IAM"
+  ]
  },
  {
   "id": "ace-088",
@@ -2551,6 +2970,1863 @@
     "Enable VPC Service Controls"
    ],
    "explanation": "This organization policy blocks key creation (it is enforced by default in new organizations). Keyless alternatives: attached service accounts, impersonation, and Workload Identity Federation."
+  },
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/restricting-service-accounts",
+  "check": [
+   "iam.disableServiceAccountKeyCreation"
+  ]
+ },
+ {
+  "id": "ace-089",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Bir kullanıcıya klasör seviyesinde Editor rolü verilmiş. Altındaki bir projede yalnızca Viewer olmasını istiyorsunuz ve projede ona Viewer verdiniz, ama kullanıcı hâlâ kaynakları değiştirebiliyor. Neden?",
+  "options": [
+   "İzin (allow) politikaları birleşimdir (union); klasörden miras alınan Editor rolü projede de geçerlidir",
+   "Projedeki Viewer rolü klasördeki rolü otomatik olarak geçersiz kılar ama değişikliğin yayılması 24 saat sürer",
+   "Kullanıcının Viewer rolü yanlış bölgede verilmiştir",
+   "Klasör seviyesindeki roller yalnızca faturalandırmayı etkiler"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bir kaynağın etkin izinleri, kendi politikası ile üst kaynaklardan miras alınan politikaların birleşimidir; alt seviyede verilen daha dar bir rol, üstten gelen geniş rolü kaldırmaz. Çözüm: rolü klasörden kaldırıp gerektiği yerde vermek veya bir IAM deny politikası kullanmak.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/allow-policies",
+  "check": [
+   "union",
+   "inherit"
+  ],
+  "en": {
+   "question": "A user was granted the Editor role at the folder level. You want them to be only a Viewer in one project under that folder, so you granted Viewer on the project, but the user can still modify resources. Why?",
+   "options": [
+    "Allow policies are a union; the Editor role inherited from the folder also applies in the project",
+    "The Viewer role on the project automatically overrides the folder role but takes 24 hours to propagate",
+    "The user's Viewer role was granted in the wrong region",
+    "Folder-level roles only affect billing"
+   ],
+   "explanation": "A resource's effective permissions are the union of its own allow policy and the policies inherited from its ancestors; a narrower role lower in the hierarchy doesn't remove a broader inherited role. Fix: remove the role from the folder and grant it only where needed, or use an IAM deny policy."
+  }
+ },
+ {
+  "id": "ace-090",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Bir projeyi yanlışlıkla sildiniz (shut down). Ne kadar süre içinde ve nasıl geri getirebilirsiniz?",
+  "options": [
+   "30 gün içinde 'gcloud projects undelete PROJE_ID' ile; ardından faturalandırma hesabını yeniden bağlamak gerekebilir",
+   "7 gün içinde Google desteğine başvurarak",
+   "Silinen projeler hiçbir zaman geri getirilemez",
+   "1 yıl içinde 'gcloud projects restore' ile; tüm veriler otomatik olarak geri gelir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Silinen proje 30 gün boyunca DELETE_REQUESTED durumunda kalır ve bu sürede geri yüklenebilir; sonra kalıcı olarak silinir. Silme sırasında faturalandırma bağlantısı kesilir ve geri yüklemede otomatik olarak geri gelmez. Bazı hizmetler (ör. Cloud Storage) veriyi daha erken silebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/delete-restore-projects",
+  "check": [
+   "30-day recovery window",
+   "gcloud projects undelete",
+   "isn't automatically reinstated"
+  ],
+  "en": {
+   "question": "You accidentally deleted (shut down) a project. Within what period and how can you recover it?",
+   "options": [
+    "Within 30 days with 'gcloud projects undelete PROJECT_ID'; you may then need to re-link the billing account",
+    "Within 7 days by contacting Google support",
+    "Deleted projects can never be recovered",
+    "Within 1 year with 'gcloud projects restore'; all data comes back automatically"
+   ],
+   "explanation": "A deleted project stays in the DELETE_REQUESTED state for 30 days and can be restored during that period; after that it is permanently deleted. The billing link is disconnected on deletion and isn't automatically reinstated on restore. Some services (e.g. Cloud Storage) may delete data sooner."
+  }
+ },
+ {
+  "id": "ace-091",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Şirketiniz Google Cloud'da bir Organizasyon kaynağı (organization node) kullanmak istiyor. Bunun ön koşulu nedir?",
+  "options": [
+   "Bir Google Workspace veya Cloud Identity hesabı (alan adıyla)",
+   "En az bir faturalandırma hesabı ve 10 proje",
+   "Bir Premium destek sözleşmesi",
+   "Tüm projelerin aynı bölgede olması"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Organizasyon kaynağı, bir Google Workspace veya Cloud Identity hesabına bağlıdır; bu hesap oluşturulduğunda organizasyon kaynağı sağlanır. Organizasyon, hiyerarşinin kök düğümüdür.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy",
+  "check": [
+   "Google Workspace",
+   "Cloud Identity"
+  ],
+  "en": {
+   "question": "Your company wants to use an Organization resource (organization node) in Google Cloud. What is the prerequisite?",
+   "options": [
+    "A Google Workspace or Cloud Identity account (with a domain)",
+    "At least one billing account and 10 projects",
+    "A Premium support contract",
+    "All projects being in the same region"
+   ],
+   "explanation": "The Organization resource is tied to a Google Workspace or Cloud Identity account; it is provisioned when such an account is created. The organization is the root node of the hierarchy."
+  }
+ },
+ {
+  "id": "ace-092",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Güvenlik ekibi, organizasyondaki hiçbir VM'in harici (public) IP adresi almamasını istiyor. Bunu merkezi olarak nasıl zorunlu kılarsınız?",
+  "options": [
+   "constraints/compute.vmExternalIpAccess organizasyon politikası kısıtlamasını uygulamak",
+   "Her VPC'de 0.0.0.0/0'ı engelleyen ingress firewall kuralı eklemek",
+   "Cloud NAT'ı devre dışı bırakmak",
+   "Tüm kullanıcılardan Compute Admin rolünü kaldırmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "compute.vmExternalIpAccess kısıtlaması, harici IP kullanabilecek VM'leri tanımlar (boş liste ile tümü engellenir). Firewall kuralı IP atanmasını engellemez; yalnızca trafiği filtreler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints",
+  "check": [
+   "compute.vmExternalIpAccess"
+  ],
+  "en": {
+   "question": "The security team wants to ensure that no VM in the organization gets an external (public) IP address. How do you enforce this centrally?",
+   "options": [
+    "Enforce the constraints/compute.vmExternalIpAccess organization policy constraint",
+    "Add an ingress firewall rule blocking 0.0.0.0/0 in every VPC",
+    "Disable Cloud NAT",
+    "Remove the Compute Admin role from all users"
+   ],
+   "explanation": "The compute.vmExternalIpAccess constraint defines which VMs may use external IPs (an empty allow list blocks all). A firewall rule doesn't prevent IP assignment; it only filters traffic."
+  }
+ },
+ {
+  "id": "ace-093",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Kullanıcıların IAM rollerini yanlışlıkla şirket dışı (ör. kişisel gmail.com) hesaplara vermesini engellemek istiyorsunuz. Hangi organizasyon politikasını kullanırsınız?",
+  "options": [
+   "iam.allowedPolicyMemberDomains (alan adıyla sınırlı paylaşım)",
+   "iam.disableServiceAccountKeyCreation",
+   "gcp.resourceLocations",
+   "compute.requireOsLogin"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Domain restricted sharing (iam.allowedPolicyMemberDomains), IAM politikalarına yalnızca izin verilen müşteri kimliklerindeki (ör. şirketinizin Cloud Identity'si) kullanıcıların eklenmesine izin verir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints",
+  "check": [
+   "iam.allowedPolicyMemberDomains"
+  ],
+  "en": {
+   "question": "You want to prevent users from accidentally granting IAM roles to accounts outside the company (e.g. personal gmail.com accounts). Which organization policy do you use?",
+   "options": [
+    "iam.allowedPolicyMemberDomains (domain restricted sharing)",
+    "iam.disableServiceAccountKeyCreation",
+    "gcp.resourceLocations",
+    "compute.requireOsLogin"
+   ],
+   "explanation": "Domain restricted sharing (iam.allowedPolicyMemberDomains) only allows principals from allowed customer IDs (e.g. your company's Cloud Identity) to be added to IAM policies."
+  }
+ },
+ {
+  "id": "ace-094",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "zor",
+  "question": "Organizasyon seviyesinde harici IP'ler yasaklandı. Yalnızca 'dmz-proj' projesinde bu kısıtlamanın uygulanmaması gerekiyor. Ne yapmalısınız?",
+  "options": [
+   "dmz-proj projesinde kısıtlama için üst politikayı geçersiz kılan (replace/override) bir organizasyon politikası tanımlamak",
+   "Projeyi organizasyondan çıkarıp kişisel hesaba taşımak",
+   "Organizasyon politikasını tamamen kaldırmak",
+   "Projedeki kullanıcılara Organization Policy Viewer rolü vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Organizasyon politikaları hiyerarşide miras alınır; alt bir kaynakta politika tanımlanarak üst politika birleştirilebilir (merge) veya değiştirilebilir (replace). Böylece istisna yalnızca o projeye uygulanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/understanding-hierarchy",
+  "check": [
+   "inherit",
+   "replace",
+   "merge"
+  ],
+  "en": {
+   "question": "External IPs are blocked at the organization level. The constraint must not apply only in the 'dmz-proj' project. What should you do?",
+   "options": [
+    "Set an organization policy on dmz-proj that overrides (replaces) the inherited parent policy for that constraint",
+    "Move the project out of the organization to a personal account",
+    "Remove the organization policy entirely",
+    "Grant users in the project the Organization Policy Viewer role"
+   ],
+   "explanation": "Organization policies are inherited down the hierarchy; a policy set on a descendant can merge with or replace the parent's policy. This applies the exception only to that project."
+  }
+ },
+ {
+  "id": "ace-095",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "IAM koşullarında ve organizasyon politikalarında kullanılabilen, IAM ile yönetilen anahtar-değer çiftleri kaynaklara eklemek istiyorsunuz (ör. env=prod olan kaynaklara koşullu erişim). Ne kullanmalısınız?",
+  "options": [
+   "Tags (Resource Manager etiketleri)",
+   "Labels",
+   "Ağ etiketleri (network tags)",
+   "Instance meta verisi"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Tags, IAM ile yönetilen ayrı kaynaklardır ve IAM Conditions ile organizasyon politikalarında koşul olarak kullanılabilir. Labels ise maliyet takibi ve filtreleme amaçlı meta veridir; erişim kontrolünde kullanılmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/tags/tags-overview",
+  "check": [
+   "conditional",
+   "labels"
+  ],
+  "en": {
+   "question": "You want to attach IAM-managed key-value pairs to resources that can be used in IAM conditions and organization policies (e.g. conditional access to resources with env=prod). What should you use?",
+   "options": [
+    "Tags (Resource Manager tags)",
+    "Labels",
+    "Network tags",
+    "Instance metadata"
+   ],
+   "explanation": "Tags are separate IAM-managed resources and can be used as conditions in IAM Conditions and organization policies. Labels are metadata for cost tracking and filtering; they aren't used for access control."
+  }
+ },
+ {
+  "id": "ace-096",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Finans ekibinin faturalandırma hesabındaki maliyetleri ve faturaları görüntülemesi, ancak hiçbir ayarı değiştirmemesi gerekiyor. Hangi rolü vermelisiniz?",
+  "options": [
+   "Billing Account Viewer",
+   "Billing Account Administrator",
+   "Project Owner",
+   "Billing Account User"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Billing Account Viewer maliyet ve işlem bilgilerini görüntüleme izni verir. Administrator hesabı yönetir; Billing Account User ise projeleri hesaba bağlama izni verir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/billing-access",
+  "check": [
+   "Billing Account Viewer",
+   "Billing Account Administrator"
+  ],
+  "en": {
+   "question": "The finance team needs to view costs and invoices on the billing account but must not change any settings. Which role should you grant?",
+   "options": [
+    "Billing Account Viewer",
+    "Billing Account Administrator",
+    "Project Owner",
+    "Billing Account User"
+   ],
+   "explanation": "Billing Account Viewer allows viewing cost and transaction information. Administrator manages the account; Billing Account User allows linking projects to the account."
+  }
+ },
+ {
+  "id": "ace-097",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Bir proje ile Cloud Billing hesapları arasındaki ilişki için hangi ifade doğrudur?",
+  "options": [
+   "Bir proje yalnızca bir faturalandırma hesabına bağlanabilir; bir faturalandırma hesabı birden çok projenin ödemesini yapabilir",
+   "Bir proje aynı anda birden fazla faturalandırma hesabına bağlanabilir",
+   "Her faturalandırma hesabı yalnızca bir projeye bağlanabilir",
+   "Projeler faturalandırma hesabı olmadan tüm ücretli hizmetleri kullanabilir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bir proje tek bir Cloud Billing hesabına bağlıdır; bir faturalandırma hesabı ise birçok projeyi finanse edebilir. Faturalandırması olmayan projede ücretli hizmetler kullanılamaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/modify-project",
+  "check": [
+   "only one",
+   "linked to"
+  ],
+  "en": {
+   "question": "Which statement about the relationship between a project and Cloud Billing accounts is correct?",
+   "options": [
+    "A project can be linked to only one billing account; a billing account can pay for multiple projects",
+    "A project can be linked to multiple billing accounts at the same time",
+    "Each billing account can be linked to only one project",
+    "Projects can use all paid services without a billing account"
+   ],
+   "explanation": "A project is linked to a single Cloud Billing account, while a billing account can fund many projects. Paid services can't be used in a project without billing."
+  }
+ },
+ {
+  "id": "ace-098",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "orta",
+  "question": "Yerel bilgisayarınızda geliştirdiğiniz bir uygulama, Google Cloud istemci kütüphaneleriyle Cloud Storage'a erişecek. Anahtar dosyası kullanmadan kendi kullanıcı kimliğinizle Application Default Credentials (ADC) ayarlamak için hangi komut?",
+  "options": [
+   "gcloud auth application-default login",
+   "gcloud auth login",
+   "gcloud config set account",
+   "gcloud iam service-accounts keys create"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'gcloud auth application-default login' istemci kütüphanelerinin kullandığı ADC kimlik bilgilerini oluşturur. 'gcloud auth login' ise yalnızca gcloud CLI'nin kendisi için kimlik doğrular.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/docs/authentication/provide-credentials-adc",
+  "check": [
+   "gcloud auth application-default login"
+  ],
+  "en": {
+   "question": "An application you're developing on your local machine will access Cloud Storage through the Google Cloud client libraries. Which command sets up Application Default Credentials (ADC) with your own user identity, without a key file?",
+   "options": [
+    "gcloud auth application-default login",
+    "gcloud auth login",
+    "gcloud config set account",
+    "gcloud iam service-accounts keys create"
+   ],
+   "explanation": "'gcloud auth application-default login' creates the ADC credentials used by client libraries. 'gcloud auth login' only authenticates the gcloud CLI itself."
+  }
+ },
+ {
+  "id": "ace-099",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "kolay",
+  "question": "gcloud ile oluşturduğunuz Compute Engine kaynaklarının her seferinde --region belirtmeden varsayılan olarak europe-west1 bölgesinde oluşmasını istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud config set compute/region europe-west1",
+   "gcloud compute set-default-region europe-west1",
+   "gcloud projects update --region europe-west1",
+   "export REGION=europe-west1 yeterlidir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "compute/region ve compute/zone özellikleri gcloud yapılandırmasında varsayılan bölge/zonu belirler. Değeri görmek için 'gcloud config get-value compute/region'.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/gcloud-compute",
+  "check": [
+   "gcloud config set compute/region",
+   "gcloud config set compute/zone"
+  ],
+  "en": {
+   "question": "You want Compute Engine resources you create with gcloud to default to the europe-west1 region without specifying --region every time. Which command?",
+   "options": [
+    "gcloud config set compute/region europe-west1",
+    "gcloud compute set-default-region europe-west1",
+    "gcloud projects update --region europe-west1",
+    "export REGION=europe-west1 is enough"
+   ],
+   "explanation": "The compute/region and compute/zone properties set the default region/zone in the gcloud configuration. View the value with 'gcloud config get-value compute/region'."
+  }
+ },
+ {
+  "id": "ace-100",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "kolay",
+  "question": "Bilgisayarınızda Google Cloud CLI kurulu ve GKE kümelerini yönetmek için kubectl'e ihtiyacınız var. kubectl'i Google Cloud CLI bileşeni olarak nasıl kurarsınız?",
+  "options": [
+   "gcloud components install kubectl",
+   "gcloud container install kubectl",
+   "pip install kubectl",
+   "gcloud services enable kubectl"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Google Cloud CLI bileşen yöneticisiyle 'gcloud components install kubectl' kullanılır. GKE kimlik doğrulaması için gke-gcloud-auth-plugin de gerekir. (Paket yöneticisiyle kurulan CLI'de bileşenler apt/yum ile kurulur.)",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl",
+  "check": [
+   "gcloud components install kubectl",
+   "gke-gcloud-auth-plugin"
+  ],
+  "en": {
+   "question": "You have the Google Cloud CLI installed and need kubectl to manage GKE clusters. How do you install kubectl as a Google Cloud CLI component?",
+   "options": [
+    "gcloud components install kubectl",
+    "gcloud container install kubectl",
+    "pip install kubectl",
+    "gcloud services enable kubectl"
+   ],
+   "explanation": "Use the Google Cloud CLI component manager: 'gcloud components install kubectl'. GKE authentication also needs the gke-gcloud-auth-plugin. (If the CLI was installed with a package manager, install components with apt/yum.)"
+  }
+ },
+ {
+  "id": "ace-101",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "orta",
+  "question": "Etkin gcloud yapılandırmanız 'dev' projesini gösteriyor. Yapılandırmayı değiştirmeden yalnızca tek bir komutu 'prod' projesinde çalıştırmak istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Komuta --project=prod bayrağını eklemek",
+   "Önce gcloud config set project prod çalıştırmak zorunludur",
+   "Cloud Shell'i yeniden başlatmak",
+   "Yeni bir gcloud kurulumu yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "--project gibi genel bayraklar, yalnızca o komut için yapılandırmadaki değeri geçersiz kılar. 'gcloud config set' ise kalıcı olarak değiştirir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sdk/docs/properties",
+  "check": [
+   "--project flag and project property",
+   "flags override properties"
+  ],
+  "en": {
+   "question": "Your active gcloud configuration points to the 'dev' project. You want to run just one command in the 'prod' project without changing the configuration. What should you do?",
+   "options": [
+    "Add the --project=prod flag to the command",
+    "You must run gcloud config set project prod first",
+    "Restart Cloud Shell",
+    "Install a new copy of gcloud"
+   ],
+   "explanation": "Global flags such as --project override the configuration value for that command only. 'gcloud config set' changes it persistently."
+  }
+ },
+ {
+  "id": "ace-102",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Şirketinizin kullanıcıları şirket içi Active Directory'de tutuluyor. Bu kullanıcıların ve grupların Cloud Identity'ye otomatik olarak senkronize edilmesini istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Google Cloud Directory Sync (GCDS)",
+   "Cloud VPN",
+   "Workload Identity Federation",
+   "Secret Manager"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "GCDS, LDAP/Active Directory'deki kullanıcı ve grupları Cloud Identity veya Google Workspace'e tek yönlü senkronize eder. Oturum açma için ayrıca SAML ile SSO yapılandırılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/architecture/identity/federating-gcp-with-active-directory-introduction",
+  "check": [
+   "Google Cloud Directory Sync",
+   "Active Directory"
+  ],
+  "en": {
+   "question": "Your company's users are stored in on-premises Active Directory. You want these users and groups to be synchronized to Cloud Identity automatically. What should you use?",
+   "options": [
+    "Google Cloud Directory Sync (GCDS)",
+    "Cloud VPN",
+    "Workload Identity Federation",
+    "Secret Manager"
+   ],
+   "explanation": "GCDS performs a one-way sync of users and groups from LDAP/Active Directory to Cloud Identity or Google Workspace. SSO with SAML can additionally be configured for sign-in."
+  }
+ },
+ {
+  "id": "ace-103",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Yeni bir mimarinin (VM'ler, Cloud SQL, yük dengeleyici) aylık maliyetini kaynakları oluşturmadan önce tahmin etmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Google Cloud Pricing Calculator",
+   "Cloud Billing reports",
+   "Billing export to BigQuery",
+   "Budgets & alerts"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Pricing Calculator, henüz oluşturulmamış kaynakların maliyetini tahmin eder. Billing reports ve BigQuery export ise gerçekleşmiş kullanımı gösterir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/estimate-costs",
+  "check": [
+   "Pricing Calculator"
+  ],
+  "en": {
+   "question": "You want to estimate the monthly cost of a new architecture (VMs, Cloud SQL, a load balancer) before creating any resources. What should you use?",
+   "options": [
+    "Google Cloud Pricing Calculator",
+    "Cloud Billing reports",
+    "Billing export to BigQuery",
+    "Budgets & alerts"
+   ],
+   "explanation": "The Pricing Calculator estimates the cost of resources that don't exist yet. Billing reports and the BigQuery export show actual usage."
+  }
+ },
+ {
+  "id": "ace-104",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Çalışan bir VM'in makine tipini n2-standard-2'den n2-standard-8'e yükseltmeniz gerekiyor. Doğru yöntem hangisidir?",
+  "options": [
+   "VM'i durdurmak, 'gcloud compute instances set-machine-type' ile tipi değiştirmek ve yeniden başlatmak",
+   "VM çalışırken 'gcloud compute instances update --machine-type' çalıştırmak",
+   "VM'i silip aynı diskle yeni tip seçmek zorunludur",
+   "Makine tipi oluşturulduktan sonra değiştirilemez"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Makine tipi yalnızca VM durdurulmuşken (TERMINATED) değiştirilebilir. Diskler ve veriler korunur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/changing-machine-type-of-stopped-instance",
+  "check": [
+   "set-machine-type",
+   "stop"
+  ],
+  "en": {
+   "question": "You need to upgrade a running VM's machine type from n2-standard-2 to n2-standard-8. What is the correct method?",
+   "options": [
+    "Stop the VM, change the type with 'gcloud compute instances set-machine-type', and start it again",
+    "Run 'gcloud compute instances update --machine-type' while the VM is running",
+    "You must delete the VM and choose the new type with the same disk",
+    "The machine type can't be changed after creation"
+   ],
+   "explanation": "The machine type can only be changed while the VM is stopped (TERMINATED). Disks and data are preserved."
+  }
+ },
+ {
+  "id": "ace-105",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir VM açılmıyor ve SSH ile bağlanamıyorsunuz. Açılış (boot) sürecindeki hata mesajlarını görmek için ne yapmalısınız?",
+  "options": [
+   "Seri port çıktısını incelemek (gcloud compute instances get-serial-port-output)",
+   "VM'e harici IP eklemek",
+   "Cloud Trace'i etkinleştirmek",
+   "VM'in snapshot'ını almak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Seri port çıktısı, işletim sistemi ve açılış sürecinin konsol mesajlarını gösterir; ağ veya SSH çalışmasa da erişilebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/troubleshooting/viewing-serial-port-output",
+  "check": [
+   "get-serial-port-output"
+  ],
+  "en": {
+   "question": "A VM won't boot and you can't connect over SSH. What should you do to see the error messages from the boot process?",
+   "options": [
+    "Inspect the serial port output (gcloud compute instances get-serial-port-output)",
+    "Add an external IP to the VM",
+    "Enable Cloud Trace",
+    "Take a snapshot of the VM"
+   ],
+   "explanation": "Serial port output shows console messages from the OS and boot process; it is available even when networking or SSH doesn't work."
+  }
+ },
+ {
+  "id": "ace-106",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Linux VM'lere SSH erişimini, VM'lerdeki SSH anahtarlarını tek tek yönetmek yerine IAM ile merkezi olarak yönetmek istiyorsunuz. Yönetici yetkisi (sudo) gerekmeyen kullanıcılar için ne yapmalısınız?",
+  "options": [
+   "enable-oslogin=TRUE meta verisini ayarlayıp kullanıcılara roles/compute.osLogin rolünü vermek",
+   "Kullanıcılara roles/compute.osAdminLogin vermek",
+   "Proje genelindeki SSH anahtarlarını herkesle paylaşmak",
+   "Kullanıcılara Compute Admin rolü vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "OS Login, Linux hesaplarını Google kimliklerine bağlar ve SSH erişimini IAM ile yönetir. compute.osLogin normal kullanıcı, compute.osAdminLogin ise sudo yetkili erişim verir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/oslogin/set-up-oslogin",
+  "check": [
+   "enable-oslogin",
+   "roles/compute.osLogin",
+   "roles/compute.osAdminLogin"
+  ],
+  "en": {
+   "question": "You want to manage SSH access to Linux VMs centrally with IAM instead of managing SSH keys on each VM. What should you do for users who don't need administrator (sudo) privileges?",
+   "options": [
+    "Set the enable-oslogin=TRUE metadata and grant users roles/compute.osLogin",
+    "Grant users roles/compute.osAdminLogin",
+    "Share project-wide SSH keys with everyone",
+    "Grant users the Compute Admin role"
+   ],
+   "explanation": "OS Login links Linux accounts to Google identities and manages SSH access with IAM. compute.osLogin gives standard user access; compute.osAdminLogin gives access with sudo privileges."
+  }
+ },
+ {
+  "id": "ace-107",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "kolay",
+  "question": "Otomatik ölçeklendirme kapalı bir managed instance group'taki VM sayısını elle 5'ten 10'a çıkarmak istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud compute instance-groups managed resize GRUP --size=10",
+   "gcloud compute instances create --count=5",
+   "gcloud compute instance-templates update --size=10",
+   "kubectl scale --replicas=10"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "MIG boyutu 'resize' komutuyla değiştirilir; MIG yeni VM'leri instance template'ten oluşturur. Autoscaler açıksa boyutu autoscaler yönetir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/instance-groups/creating-groups-of-managed-instances",
+  "check": [
+   "resize"
+  ],
+  "en": {
+   "question": "You want to manually increase the number of VMs in a managed instance group without autoscaling from 5 to 10. Which command?",
+   "options": [
+    "gcloud compute instance-groups managed resize GROUP --size=10",
+    "gcloud compute instances create --count=5",
+    "gcloud compute instance-templates update --size=10",
+    "kubectl scale --replicas=10"
+   ],
+   "explanation": "A MIG's size is changed with the 'resize' command; the MIG creates new VMs from the instance template. If an autoscaler is enabled, the autoscaler manages the size."
+  }
+ },
+ {
+  "id": "ace-108",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir VM'in diski bozuldu; dün alınan snapshot'tan geri dönmek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Snapshot'tan yeni bir disk oluşturup bu diskle (veya doğrudan snapshot'tan) yeni bir VM oluşturmak",
+   "Snapshot'ı mevcut diske 'gcloud compute disks restore' ile uygulamak",
+   "Snapshot'ı Cloud Storage'dan indirip VM'e kopyalamak",
+   "Machine image'e dönüştürmeden snapshot kullanılamaz"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Snapshot'lar yeni bir disk oluşturmak için kaynak olarak kullanılır; mevcut diskin üzerine yazılmaz. Yeni disk bir VM'e boot veya ek disk olarak bağlanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/disks/restore-snapshot",
+  "check": [
+   "snapshot",
+   "new disk"
+  ],
+  "en": {
+   "question": "A VM's disk is corrupted; you want to go back to yesterday's snapshot. What should you do?",
+   "options": [
+    "Create a new disk from the snapshot and create a new VM with that disk (or directly from the snapshot)",
+    "Apply the snapshot to the existing disk with 'gcloud compute disks restore'",
+    "Download the snapshot from Cloud Storage and copy it to the VM",
+    "Snapshots can't be used without converting them to a machine image"
+   ],
+   "explanation": "Snapshots are used as a source to create a new disk; they don't overwrite an existing disk. The new disk is attached to a VM as a boot or additional disk."
+  }
+ },
+ {
+  "id": "ace-109",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Compute Engine",
+  "difficulty": "kolay",
+  "question": "Bir projede uzun süredir neredeyse hiç kullanılmayan VM'leri bulup maliyeti azaltmak istiyorsunuz. En kolay yol hangisi?",
+  "options": [
+   "Recommender'ın boşta VM (idle VM) önerilerini incelemek",
+   "Her VM'e SSH ile bağlanıp top komutuna bakmak",
+   "Tüm VM'leri Spot VM'e çevirmek",
+   "Faturayı PDF olarak incelemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Recommender (Active Assist), kullanım verilerine göre boşta VM ve yeniden boyutlandırma (rightsizing) önerileri sunar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/idle-vm-recommendations-overview",
+  "check": [
+   "idle"
+  ],
+  "en": {
+   "question": "You want to find VMs in a project that have been almost unused for a long time to reduce cost. What is the easiest way?",
+   "options": [
+    "Review Recommender's idle VM recommendations",
+    "SSH into each VM and check the top command",
+    "Convert all VMs to Spot VMs",
+    "Review the invoice PDF"
+   ],
+   "explanation": "Recommender (Active Assist) provides idle VM and rightsizing recommendations based on usage data."
+  }
+ },
+ {
+  "id": "ace-110",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Bir pod sürekli CrashLoopBackOff durumunda. Konteynerin çökmeden önce ürettiği logları görmek için hangi komutu kullanmalısınız?",
+  "options": [
+   "kubectl logs POD_ADI --previous",
+   "kubectl get nodes",
+   "gcloud container clusters describe",
+   "kubectl scale deployment --replicas=0"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "--previous bayrağı, yeniden başlatılmadan önceki (çöken) konteyner örneğinin loglarını gösterir. 'kubectl describe pod' ile olaylar (events) da incelenebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/troubleshooting/crashloopbackoff-events",
+  "check": [
+   "--previous",
+   "CrashLoopBackOff"
+  ],
+  "en": {
+   "question": "A pod is constantly in CrashLoopBackOff. Which command should you use to see the logs the container produced before it crashed?",
+   "options": [
+    "kubectl logs POD_NAME --previous",
+    "kubectl get nodes",
+    "gcloud container clusters describe",
+    "kubectl scale deployment --replicas=0"
+   ],
+   "explanation": "The --previous flag shows logs from the previous (crashed) container instance before the restart. Events can also be inspected with 'kubectl describe pod'."
+  }
+ },
+ {
+  "id": "ace-111",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Mevcut GKE Standard kümenize, bazı iş yükleri için farklı makine tipinde düğümler eklemek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "gcloud container node-pools create ile yeni bir node pool oluşturmak",
+   "Kümeyi silip yeniden oluşturmak",
+   "Mevcut düğümlerin makine tipini kubectl ile değiştirmek",
+   "Yeni bir VPC oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Node pool'lar aynı yapılandırmaya sahip düğüm gruplarıdır; bir kümede farklı makine tiplerinde birden çok node pool olabilir. İş yükleri node selector/taint ile yönlendirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/node-pools",
+  "check": [
+   "gcloud container node-pools create"
+  ],
+  "en": {
+   "question": "You want to add nodes with a different machine type to your existing GKE Standard cluster for some workloads. What should you do?",
+   "options": [
+    "Create a new node pool with gcloud container node-pools create",
+    "Delete and recreate the cluster",
+    "Change the machine type of existing nodes with kubectl",
+    "Create a new VPC"
+   ],
+   "explanation": "Node pools are groups of nodes with the same configuration; a cluster can have multiple node pools with different machine types. Workloads are steered with node selectors/taints."
+  }
+ },
+ {
+  "id": "ace-112",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "kolay",
+  "question": "GKE'deki bir Deployment'ı internetten harici bir IP adresi ile erişilebilir yapmak istiyorsunuz. En basit yol hangisi?",
+  "options": [
+   "type: LoadBalancer olan bir Service oluşturmak (kubectl expose deployment ... --type=LoadBalancer)",
+   "type: ClusterIP olan bir Service oluşturmak",
+   "Pod'lara harici IP atamak",
+   "Düğümlerin firewall kurallarını kaldırmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "LoadBalancer tipindeki Service, GKE'de bir Google Cloud yük dengeleyicisi ve harici IP oluşturur. ClusterIP yalnızca küme içinden erişilebilir. HTTP(S) için Ingress/Gateway de kullanılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps",
+  "check": [
+   "type: LoadBalancer",
+   "kubectl expose"
+  ],
+  "en": {
+   "question": "You want to make a Deployment in GKE reachable from the internet with an external IP address. What is the simplest way?",
+   "options": [
+    "Create a Service of type LoadBalancer (kubectl expose deployment ... --type=LoadBalancer)",
+    "Create a Service of type ClusterIP",
+    "Assign external IPs to the pods",
+    "Remove the nodes' firewall rules"
+   ],
+   "explanation": "A Service of type LoadBalancer provisions a Google Cloud load balancer and an external IP in GKE. ClusterIP is reachable only from inside the cluster. Ingress/Gateway can also be used for HTTP(S)."
+  }
+ },
+ {
+  "id": "ace-113",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "kolay",
+  "question": "Çalışan bir Cloud Run hizmetine, diğer ayarları değiştirmeden yeni bir ortam değişkeni eklemek istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud run services update HIZMET --update-env-vars KEY=VALUE",
+   "gcloud run deploy --clear-env-vars",
+   "gcloud config set run/env KEY=VALUE",
+   "Cloud Run'da ortam değişkeni kullanılamaz"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "--update-env-vars mevcut değişkenleri koruyarak ekler/günceller; --set-env-vars ise tüm listeyi değiştirir. Her değişiklik yeni bir revizyon oluşturur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/configuring/services/environment-variables",
+  "check": [
+   "--update-env-vars",
+   "--set-env-vars"
+  ],
+  "en": {
+   "question": "You want to add a new environment variable to a running Cloud Run service without changing other settings. Which command?",
+   "options": [
+    "gcloud run services update SERVICE --update-env-vars KEY=VALUE",
+    "gcloud run deploy --clear-env-vars",
+    "gcloud config set run/env KEY=VALUE",
+    "Environment variables can't be used in Cloud Run"
+   ],
+   "explanation": "--update-env-vars adds/updates while keeping existing variables; --set-env-vars replaces the whole list. Each change creates a new revision."
+  }
+ },
+ {
+  "id": "ace-114",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run'a dağıttığınız yeni revizyon hatalı çıktı ve tüm trafik ona gidiyor. En hızlı geri alma (rollback) yöntemi hangisi?",
+  "options": [
+   "Trafiğin %100'ünü önceki sağlam revizyona yönlendirmek (gcloud run services update-traffic --to-revisions=ESKI=100)",
+   "Hizmeti silip yeniden oluşturmak",
+   "Kodu düzeltip yeni imajı build etmeyi beklemek",
+   "Min instance sayısını 0 yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run revizyonları değiştirilemez (immutable) ve saklanır; trafik anında önceki revizyona yönlendirilebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration",
+  "check": [
+   "update-traffic",
+   "roll back"
+  ],
+  "en": {
+   "question": "A new revision you deployed to Cloud Run turned out to be faulty and all traffic goes to it. What is the fastest rollback method?",
+   "options": [
+    "Route 100% of traffic to the previous healthy revision (gcloud run services update-traffic --to-revisions=OLD=100)",
+    "Delete and recreate the service",
+    "Wait for the code to be fixed and a new image to be built",
+    "Set min instances to 0"
+   ],
+   "explanation": "Cloud Run revisions are immutable and retained; traffic can be routed to a previous revision instantly."
+  }
+ },
+ {
+  "id": "ace-115",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Bir kovanın varsayılan depolama sınıfını Standard'dan Nearline'a değiştirdiniz. Kovada zaten bulunan nesnelere ne olur?",
+  "options": [
+   "Değişmezler; yalnızca sınıf belirtilmeden eklenen yeni nesneler Nearline olur. Mevcut nesneler için yeniden yazma veya lifecycle kuralı gerekir",
+   "Hepsi anında Nearline'a taşınır",
+   "24 saat içinde otomatik olarak Nearline'a taşınır",
+   "Mevcut nesneler silinir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Varsayılan depolama sınıfını değiştirmek mevcut nesneleri etkilemez. Mevcut nesnelerin sınıfı nesneyi yeniden yazarak veya Object Lifecycle Management ile değiştirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage/docs/storage-classes",
+  "check": [
+   "does not affect any of the objects that already exist"
+  ],
+  "en": {
+   "question": "You changed a bucket's default storage class from Standard to Nearline. What happens to the objects already in the bucket?",
+   "options": [
+    "Nothing; only new objects added without a class become Nearline. Existing objects need a rewrite or a lifecycle rule",
+    "They all move to Nearline immediately",
+    "They move to Nearline automatically within 24 hours",
+    "Existing objects are deleted"
+   ],
+   "explanation": "Changing the default storage class doesn't affect existing objects. Their class is changed by rewriting the object or with Object Lifecycle Management."
+  }
+ },
+ {
+  "id": "ace-116",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Amazon S3'teki 50 TB veriyi Cloud Storage'a yönetilen bir hizmetle, zamanlanmış ve tekrarlanabilir şekilde aktarmak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Storage Transfer Service",
+   "Transfer Appliance",
+   "gcloud storage cp ile dizüstü bilgisayardan",
+   "Datastream"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Storage Transfer Service; Amazon S3, Azure, HTTP kaynakları ve şirket içi dosya sistemlerinden Cloud Storage'a yönetilen, zamanlanabilir aktarımlar yapar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage-transfer/docs/overview",
+  "check": [
+   "Amazon S3"
+  ],
+  "en": {
+   "question": "You want to transfer 50 TB of data from Amazon S3 to Cloud Storage with a managed service, on a schedule and repeatably. What should you use?",
+   "options": [
+    "Storage Transfer Service",
+    "Transfer Appliance",
+    "gcloud storage cp from a laptop",
+    "Datastream"
+   ],
+   "explanation": "Storage Transfer Service performs managed, schedulable transfers to Cloud Storage from Amazon S3, Azure, HTTP sources, and on-premises file systems."
+  }
+ },
+ {
+  "id": "ace-117",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Veri merkezinizde yüzlerce TB veri var ve internet bant genişliğiniz aktarımı aylarca sürdürecek. Veriyi Google Cloud'a en hızlı nasıl taşırsınız?",
+  "options": [
+   "Transfer Appliance (fiziksel cihazla çevrimdışı aktarım)",
+   "Storage Transfer Service ile internet üzerinden",
+   "Tek bir VM'e scp ile kopyalamak",
+   "Cloud CDN"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Transfer Appliance, büyük veri setlerini fiziksel bir cihaza yükleyip Google'a göndererek çevrimdışı aktarır; bant genişliği sınırlıysa idealdir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview",
+  "check": [
+   "offline",
+   "bandwidth"
+  ],
+  "en": {
+   "question": "Your data center holds hundreds of TB, and your internet bandwidth would make the transfer take months. How do you move the data to Google Cloud fastest?",
+   "options": [
+    "Transfer Appliance (offline transfer with a physical device)",
+    "Storage Transfer Service over the internet",
+    "Copy with scp to a single VM",
+    "Cloud CDN"
+   ],
+   "explanation": "Transfer Appliance transfers large datasets offline by loading them onto a physical device shipped to Google; ideal when bandwidth is limited."
+  }
+ },
+ {
+  "id": "ace-118",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Cloud Run'daki uygulamanızın Cloud SQL'e, IP adreslerini yetkili ağlara (authorized networks) eklemeden, IAM tabanlı yetkilendirme ve şifreli bağlantıyla erişmesini istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Cloud SQL Auth Proxy veya Cloud SQL dil bağlayıcıları (connectors)",
+   "Veritabanına herkese açık IP verip 0.0.0.0/0'ı yetkilendirmek",
+   "Cloud NAT",
+   "VPC Network Peering olmadan doğrudan bağlantı"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud SQL Auth Proxy, IAM ile yetkilendirilmiş ve TLS ile şifrelenmiş bağlantı sağlar; yetkili ağlar veya SSL sertifikası yönetmek gerekmez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/sql-proxy",
+  "check": [
+   "authorized networks",
+   "IAM",
+   "TLS"
+  ],
+  "en": {
+   "question": "You want your Cloud Run application to reach Cloud SQL with IAM-based authorization and an encrypted connection, without adding IP addresses to authorized networks. What should you use?",
+   "options": [
+    "Cloud SQL Auth Proxy or the Cloud SQL language connectors",
+    "Give the database a public IP and authorize 0.0.0.0/0",
+    "Cloud NAT",
+    "Direct connection without VPC Network Peering"
+   ],
+   "explanation": "The Cloud SQL Auth Proxy provides IAM-authorized, TLS-encrypted connections without managing authorized networks or SSL certificates."
+  }
+ },
+ {
+  "id": "ace-119",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veritabanları",
+  "difficulty": "kolay",
+  "question": "Bir Cloud SQL for MySQL veritabanının SQL dökümünü (dump) Cloud Storage'a almak istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud sql export sql ORNEK gs://kova/dump.sql.gz --database=DB",
+   "gcloud storage cp sql://ORNEK gs://kova",
+   "bq extract",
+   "gcloud sql backups create --to-gcs"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'gcloud sql export sql' veritabanını bir Cloud Storage kovasına SQL dosyası olarak dışa aktarır; Cloud SQL örneğinin servis hesabının kovaya yazma izni olmalıdır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/import-export/import-export-sql",
+  "check": [
+   "gcloud sql export sql"
+  ],
+  "en": {
+   "question": "You want to export a SQL dump of a Cloud SQL for MySQL database to Cloud Storage. Which command?",
+   "options": [
+    "gcloud sql export sql INSTANCE gs://bucket/dump.sql.gz --database=DB",
+    "gcloud storage cp sql://INSTANCE gs://bucket",
+    "bq extract",
+    "gcloud sql backups create --to-gcs"
+   ],
+   "explanation": "'gcloud sql export sql' exports the database as a SQL file to a Cloud Storage bucket; the Cloud SQL instance's service account needs write access to the bucket."
+  }
+ },
+ {
+  "id": "ace-120",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veri ve analitik",
+  "difficulty": "kolay",
+  "question": "Cloud Storage'daki CSV dosyalarını komut satırından bir BigQuery tablosuna yüklemek istiyorsunuz. Hangi komut?",
+  "options": [
+   "bq load",
+   "bq query",
+   "gcloud storage import",
+   "bq mk --load"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'bq load' Cloud Storage'daki dosyaları (CSV, JSON, Avro, Parquet...) BigQuery tablosuna toplu yükler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/batch-loading-data",
+  "check": [
+   "bq load"
+  ],
+  "en": {
+   "question": "You want to load CSV files from Cloud Storage into a BigQuery table from the command line. Which command?",
+   "options": [
+    "bq load",
+    "bq query",
+    "gcloud storage import",
+    "bq mk --load"
+   ],
+   "explanation": "'bq load' batch-loads files from Cloud Storage (CSV, JSON, Avro, Parquet...) into a BigQuery table."
+  }
+ },
+ {
+  "id": "ace-121",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Analistlerin yanlışlıkla çok büyük ve pahalı BigQuery sorguları çalıştırmasını engellemek istiyorsunuz. Sorgu belirli bir veri miktarını aşacaksa hiç çalışmamalı. Ne yapmalısınız?",
+  "options": [
+   "Sorgularda maximum bytes billed (maksimum faturalanan bayt) sınırı ayarlamak",
+   "LIMIT kullanmalarını istemek",
+   "Tabloları Cloud Storage'a taşımak",
+   "Sorguları gece çalıştırmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Maximum bytes billed sınırı aşılacaksa sorgu ücretlendirilmeden başarısız olur. Proje/kullanıcı bazında özel kotalar da tanımlanabilir. LIMIT taranan veriyi azaltmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+  "check": [
+   "maximum bytes billed"
+  ],
+  "en": {
+   "question": "You want to prevent analysts from accidentally running very large, expensive BigQuery queries. A query should not run at all if it would exceed a certain amount of data. What should you do?",
+   "options": [
+    "Set a maximum bytes billed limit on queries",
+    "Ask them to use LIMIT",
+    "Move the tables to Cloud Storage",
+    "Run queries at night"
+   ],
+   "explanation": "If the maximum bytes billed limit would be exceeded, the query fails without being charged. Custom quotas per project/user can also be defined. LIMIT doesn't reduce scanned data."
+  }
+ },
+ {
+  "id": "ace-122",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Bir Pub/Sub aboneliğinde bazı mesajlar abone tarafından sürekli işlenemiyor ve tekrar tekrar teslim ediliyor. Bu mesajları ayırıp sonra incelemek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Abonelik için maksimum teslim denemesi (maximum delivery attempts) olan bir dead-letter topic yapılandırmak",
+   "Mesaj saklama süresini 0 yapmak",
+   "Aboneliği silip yeniden oluşturmak",
+   "Push yerine pull kullanmak tek başına yeterlidir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Dead-letter topic, belirli sayıda başarısız teslimden sonra mesajları ayrı bir konuya taşır; böylece ana akış tıkanmaz ve hatalı mesajlar incelenebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/pubsub/docs/handling-failures",
+  "check": [
+   "dead-letter topic",
+   "maximum delivery attempts"
+  ],
+  "en": {
+   "question": "Some messages in a Pub/Sub subscription can never be processed by the subscriber and keep being redelivered. You want to set these messages aside and inspect them later. What should you do?",
+   "options": [
+    "Configure a dead-letter topic with maximum delivery attempts for the subscription",
+    "Set message retention to 0",
+    "Delete and recreate the subscription",
+    "Switching from push to pull alone is enough"
+   ],
+   "explanation": "A dead-letter topic moves messages to a separate topic after a number of failed delivery attempts, so the main flow isn't blocked and faulty messages can be inspected."
+  }
+ },
+ {
+  "id": "ace-123",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "kolay",
+  "question": "Bir betikte, son 1 saatteki ERROR seviyesindeki logları komut satırından okumak istiyorsunuz. Hangi komutu kullanırsınız?",
+  "options": [
+   "gcloud logging read 'severity>=ERROR' --freshness=1h",
+   "gcloud logs tail --errors",
+   "kubectl logs --all",
+   "bq query 'SELECT * FROM logs'"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'gcloud logging read' Logging sorgu diliyle filtrelenmiş log girişlerini döndürür; --freshness zaman aralığını sınırlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/logging/docs/reference/tools/gcloud-logging",
+  "check": [
+   "gcloud logging read"
+  ],
+  "en": {
+   "question": "In a script, you want to read ERROR-level logs from the last hour from the command line. Which command do you use?",
+   "options": [
+    "gcloud logging read 'severity>=ERROR' --freshness=1h",
+    "gcloud logs tail --errors",
+    "kubectl logs --all",
+    "bq query 'SELECT * FROM logs'"
+   ],
+   "explanation": "'gcloud logging read' returns log entries filtered with the Logging query language; --freshness limits the time range."
+  }
+ },
+ {
+  "id": "ace-124",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "VM'lerin CPU kullanımı 5 dakika boyunca sürekli %80'in üzerinde kalırsa uyarı almak, kısa ani yükselmelerde ise uyarı almamak istiyorsunuz. Uyarı politikasında neyi ayarlamalısınız?",
+  "options": [
+   "Eşik koşuluna 5 dakikalık bir süre (retest window / duration) eklemek",
+   "Eşiği %50'ye düşürmek",
+   "Uptime check eklemek",
+   "Log tabanlı metrik oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Metrik eşik koşulundaki süre (retest window), koşulun uyarı tetiklenmeden önce ne kadar süre sağlanması gerektiğini belirler; anlık sıçramalarda gereksiz uyarıları önler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/monitoring/alerts/concepts-indepth",
+  "check": [
+   "retest window"
+  ],
+  "en": {
+   "question": "You want an alert if VMs' CPU utilization stays above 80% continuously for 5 minutes, but not for brief spikes. What should you set in the alerting policy?",
+   "options": [
+    "Add a 5-minute duration (retest window) to the threshold condition",
+    "Lower the threshold to 50%",
+    "Add an uptime check",
+    "Create a log-based metric"
+   ],
+   "explanation": "The duration (retest window) of a metric-threshold condition sets how long the condition must hold before the alert fires; it avoids noisy alerts on momentary spikes."
+  }
+ },
+ {
+  "id": "ace-125",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Organizasyondaki tüm projelerde bulunan kaynakları (ör. tüm Cloud Storage kovaları) ve bunlar üzerindeki IAM politikalarını tek yerden aramak ve geçmiş değişikliklerine bakmak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Cloud Asset Inventory",
+   "Cloud Monitoring dashboard",
+   "Billing reports",
+   "Cloud Shell'de her proje için ayrı gcloud list komutları"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Asset Inventory, kaynak ve IAM politikası meta verilerini proje/klasör/organizasyon genelinde arama, dışa aktarma ve zaman içindeki değişiklik geçmişini görüntüleme imkânı verir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/asset-inventory/docs/overview",
+  "check": [
+   "search",
+   "history"
+  ],
+  "en": {
+   "question": "You want to search, from one place, the resources across all projects in the organization (e.g. all Cloud Storage buckets) and the IAM policies on them, and look at their change history. What should you use?",
+   "options": [
+    "Cloud Asset Inventory",
+    "A Cloud Monitoring dashboard",
+    "Billing reports",
+    "Separate gcloud list commands for each project in Cloud Shell"
+   ],
+   "explanation": "Cloud Asset Inventory lets you search and export resource and IAM policy metadata across projects/folders/organizations and view their change history over time."
+  }
+ },
+ {
+  "id": "ace-126",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE'de çalışan uygulamanız veritabanı şifresine ihtiyaç duyuyor. Şifreyi konteyner imajına gömmek istemiyorsunuz ve Google Cloud'da merkezi olarak sürümlü yönetmek istiyorsunuz. En uygun seçenek?",
+  "options": [
+   "Şifreyi Secret Manager'da tutup GKE'den (ör. Secret Manager eklentisi ve Workload Identity Federation ile) erişmek",
+   "Şifreyi Dockerfile'a ENV olarak yazmak",
+   "Şifreyi ConfigMap'te düz metin olarak tutmak",
+   "Şifreyi Git deposuna eklemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Secret Manager sırları sürümlü, IAM ile denetlenen şekilde saklar; GKE, Secret Manager ile entegre şekilde bu sırlara erişebilir. ConfigMap gizli veriler için değildir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/secret",
+  "check": [
+   "Secret Manager"
+  ],
+  "en": {
+   "question": "Your application running on GKE needs a database password. You don't want to bake it into the container image, and you want to manage it centrally with versions in Google Cloud. What is the best option?",
+   "options": [
+    "Store the password in Secret Manager and access it from GKE (e.g. with the Secret Manager add-on and Workload Identity Federation)",
+    "Write the password in the Dockerfile as ENV",
+    "Store the password in plaintext in a ConfigMap",
+    "Commit the password to the Git repository"
+   ],
+   "explanation": "Secret Manager stores secrets with versions and IAM-controlled access; GKE can access these secrets through its Secret Manager integration. ConfigMaps aren't meant for confidential data."
+  }
+ },
+ {
+  "id": "ace-127",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir denetçinin organizasyondaki tüm kaynakları ve üzerlerindeki IAM izin politikalarını listeleyebilmesi, ama hiçbir şeyi değiştirememesi gerekiyor. Hangi rol en uygunudur?",
+  "options": [
+   "Security Reviewer (roles/iam.securityReviewer)",
+   "Organization Administrator",
+   "Owner",
+   "Security Admin"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Security Reviewer, tüm kaynakları ve izin politikalarını listeleme izni verir; değişiklik izni içermez. Owner ve Organization Administrator ise değiştirme yetkisi verir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/roles-permissions/iam",
+  "check": [
+   "security reviewer",
+   "provides permissions to list all resources and allow policies"
+  ],
+  "en": {
+   "question": "An auditor must be able to list all resources in the organization and the IAM allow policies on them, but must not change anything. Which role is most appropriate?",
+   "options": [
+    "Security Reviewer (roles/iam.securityReviewer)",
+    "Organization Administrator",
+    "Owner",
+    "Security Admin"
+   ],
+   "explanation": "Security Reviewer grants permissions to list all resources and allow policies; it includes no modification rights. Owner and Organization Administrator grant change rights."
+  }
+ },
+ {
+  "id": "ace-128",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir kullanıcı, bir Cloud Storage kovasına neden erişemediğini soruyor. Hangi IAM bağlamalarının erişime izin verdiğini veya engellediğini analiz etmek için hangi aracı kullanırsınız?",
+  "options": [
+   "Policy Troubleshooter",
+   "Cloud Trace",
+   "VPC Flow Logs",
+   "Pricing Calculator"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Policy Troubleshooter, belirli bir kullanıcının belirli bir kaynak üzerinde bir izne sahip olup olmadığını ve nedenini (hangi rol/politika) açıklar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/policy-intelligence/docs/troubleshoot-access",
+  "check": [
+   "Policy Troubleshooter"
+  ],
+  "en": {
+   "question": "A user asks why they can't access a Cloud Storage bucket. Which tool do you use to analyze which IAM bindings allow or block the access?",
+   "options": [
+    "Policy Troubleshooter",
+    "Cloud Trace",
+    "VPC Flow Logs",
+    "Pricing Calculator"
+   ],
+   "explanation": "Policy Troubleshooter explains whether a given principal has a given permission on a resource and why (which role/policy)."
+  }
+ },
+ {
+  "id": "ace-129",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Hangi rolleri almış olurlarsa olsunlar, 'stajyerler' grubundaki kullanıcıların hiçbir projede proje silememesini garanti etmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "IAM deny politikası",
+   "Bu kullanıcılara Viewer rolü vermek",
+   "Organizasyon politikası gcp.resourceLocations",
+   "Bütçe uyarısı"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Deny politikaları, kullanıcılara hangi rol verilmiş olursa olsun belirtilen izinlerin kullanılmasını engeller; allow politikalarından önce değerlendirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/deny-overview",
+  "check": [
+   "deny policies",
+   "regardless of"
+  ],
+  "en": {
+   "question": "You want to guarantee that users in the 'interns' group can't delete projects anywhere, regardless of the roles they've been granted. What should you use?",
+   "options": [
+    "An IAM deny policy",
+    "Grant these users the Viewer role",
+    "The gcp.resourceLocations organization policy",
+    "A budget alert"
+   ],
+   "explanation": "Deny policies prevent principals from using specified permissions regardless of the roles they're granted; they're evaluated before allow policies."
+  }
+ },
+ {
+  "id": "ace-130",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir servis hesabının ele geçirildiğinden şüpheleniyorsunuz ancak hangi uygulamaların onu kullandığından emin değilsiniz. Gerektiğinde geri alabileceğiniz şekilde hemen kullanımını durdurmak için ne yapmalısınız?",
+  "options": [
+   "Servis hesabını devre dışı bırakmak (disable)",
+   "Servis hesabını hemen silmek",
+   "Projeyi silmek",
+   "Servis hesabına Viewer rolü eklemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Devre dışı bırakılan servis hesabı kimlik doğrulayamaz ama yeniden etkinleştirilebilir. Silme ise daha zor geri alınır ve bağımlı uygulamaları kalıcı olarak bozabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/service-accounts-disable-enable",
+  "check": [
+   "disable",
+   "re-enable"
+  ],
+  "en": {
+   "question": "You suspect a service account has been compromised, but you aren't sure which applications use it. What should you do to stop its use immediately in a way you can undo if needed?",
+   "options": [
+    "Disable the service account",
+    "Delete the service account immediately",
+    "Delete the project",
+    "Add the Viewer role to the service account"
+   ],
+   "explanation": "A disabled service account can't authenticate but can be re-enabled. Deletion is harder to undo and may permanently break dependent applications."
+  }
+ },
+ {
+  "id": "ace-131",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "kolay",
+  "question": "Bir ekibe yeni katılanların otomatik olarak doğru proje erişimini almasını, ayrılanların da erişimini kaybetmesini istiyorsunuz. En iyi uygulama hangisi?",
+  "options": [
+   "Rolleri bir Google Grubuna verip ekip üyeliğini grup üzerinden yönetmek",
+   "Her kişiye rolleri tek tek vermek",
+   "Herkese Owner rolü vermek",
+   "Tek bir paylaşılan kullanıcı hesabı kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Rolleri gruplara vermek, erişimi grup üyeliğiyle yönetmeyi sağlar; IAM politikalarını her personel değişikliğinde düzenlemek gerekmez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/groups-in-cloud-console",
+  "check": [
+   "group"
+  ],
+  "en": {
+   "question": "You want people joining a team to automatically get the right project access, and people leaving to lose it. What is the best practice?",
+   "options": [
+    "Grant roles to a Google Group and manage team membership through the group",
+    "Grant roles to each person individually",
+    "Grant everyone the Owner role",
+    "Use a single shared user account"
+   ],
+   "explanation": "Granting roles to groups lets you manage access through group membership; you don't have to edit IAM policies for every staffing change."
+  }
+ },
+ {
+  "id": "ace-132",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Bir uygulamanın bir kovaya yalnızca yeni dosya yükleyebilmesi gerekiyor; mevcut dosyaları okuyamamalı, silememeli ve üzerine yazamamalı. Hangi rolü vermelisiniz?",
+  "options": [
+   "Storage Object Creator (roles/storage.objectCreator)",
+   "Storage Object Admin",
+   "Storage Object User",
+   "Storage Admin"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Storage Object Creator yalnızca nesne oluşturma izni verir; görüntüleme, silme veya üzerine yazma izni yoktur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage/docs/access-control/iam-roles",
+  "check": [
+   "storage object creator",
+   "does not give permission to view, delete, or overwrite objects"
+  ],
+  "en": {
+   "question": "An application must only be able to upload new files to a bucket; it must not read, delete, or overwrite existing files. Which role should you grant?",
+   "options": [
+    "Storage Object Creator (roles/storage.objectCreator)",
+    "Storage Object Admin",
+    "Storage Object User",
+    "Storage Admin"
+   ],
+   "explanation": "Storage Object Creator only allows creating objects; it doesn't give permission to view, delete, or overwrite objects."
+  }
+ },
+ {
+  "id": "ace-133",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Organizasyondaki hiçbir Cloud Storage kovasının herkese açık (allUsers/allAuthenticatedUsers) hâle getirilememesini istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "storage.publicAccessPrevention organizasyon politikasını zorunlu kılmak",
+   "Tüm kovalarda Object Versioning'i açmak",
+   "Requester Pays'i etkinleştirmek",
+   "Kovaları Coldline sınıfına taşımak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Public access prevention, kovaların ve nesnelerin herkese açık paylaşılmasını engeller; organizasyon politikası ile tüm hiyerarşide zorunlu kılınabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints",
+  "check": [
+   "storage.publicAccessPrevention"
+  ],
+  "en": {
+   "question": "You want to ensure that no Cloud Storage bucket in the organization can be made public (allUsers/allAuthenticatedUsers). What should you do?",
+   "options": [
+    "Enforce the storage.publicAccessPrevention organization policy",
+    "Enable Object Versioning on all buckets",
+    "Enable Requester Pays",
+    "Move the buckets to the Coldline class"
+   ],
+   "explanation": "Public access prevention blocks public sharing of buckets and objects; it can be enforced across the hierarchy with an organization policy."
+  }
+ },
+ {
+  "id": "ace-134",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Cloud Storage",
+  "difficulty": "zor",
+  "question": "Uyumluluk gereği bir kovadaki verilerin sizin Cloud KMS anahtarınızla şifrelenmesi gerekiyor. Bunu yapılandırırken hangi ek adım zorunludur?",
+  "options": [
+   "Cloud Storage hizmet aracısına (service agent) anahtar üzerinde Cloud KMS CryptoKey Encrypter/Decrypter rolünü vermek",
+   "Anahtarı JSON olarak indirip kovaya yüklemek",
+   "Kovayı herkese açık yapmak",
+   "Object Versioning'i kapatmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "CMEK kullanırken Cloud Storage hizmet aracısının anahtarı kullanabilmesi için Encrypter/Decrypter rolüne ihtiyacı vardır; ardından kovaya varsayılan KMS anahtarı atanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage/docs/encryption/customer-managed-keys",
+  "check": [
+   "service agent",
+   "Cloud KMS"
+  ],
+  "en": {
+   "question": "For compliance, data in a bucket must be encrypted with your own Cloud KMS key. Which additional step is mandatory when configuring this?",
+   "options": [
+    "Grant the Cloud Storage service agent the Cloud KMS CryptoKey Encrypter/Decrypter role on the key",
+    "Download the key as JSON and upload it to the bucket",
+    "Make the bucket public",
+    "Disable Object Versioning"
+   ],
+   "explanation": "With CMEK, the Cloud Storage service agent needs the Encrypter/Decrypter role to use the key; the key is then set as the bucket's default KMS key."
+  }
+ },
+ {
+  "id": "ace-135",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Cloud Storage",
+  "difficulty": "kolay",
+  "question": "Google Cloud'da saklanan verilerin bekleme durumunda (at rest) şifrelenmesi hakkında hangi ifade doğrudur?",
+  "options": [
+   "Google, müşteri içeriğini varsayılan olarak, müşterinin bir işlem yapmasına gerek kalmadan şifreler",
+   "Şifreleme yalnızca CMEK yapılandırılırsa yapılır",
+   "Yalnızca Cloud Storage verileri şifrelenir",
+   "Şifreleme ek ücretli bir hizmettir ve projede etkinleştirilmelidir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Google Cloud, bekleme durumundaki tüm müşteri içeriğini varsayılan olarak şifreler. CMEK veya CSEK yalnızca anahtar üzerinde daha fazla kontrol isteyenler içindir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/docs/security/encryption/default-encryption",
+  "check": [
+   "encrypts all",
+   "at rest"
+  ],
+  "en": {
+   "question": "Which statement about encryption at rest of data stored in Google Cloud is correct?",
+   "options": [
+    "Google encrypts customer content by default, without any action from the customer",
+    "Encryption happens only if CMEK is configured",
+    "Only Cloud Storage data is encrypted",
+    "Encryption is a paid add-on that must be enabled in the project"
+   ],
+   "explanation": "Google Cloud encrypts all customer content at rest by default. CMEK or CSEK are only for those who want more control over the keys."
+  }
+ },
+ {
+  "id": "ace-136",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Global external Application Load Balancer arkasındaki web uygulamanızı DDoS saldırılarına ve SQL injection gibi OWASP saldırılarına karşı korumak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Google Cloud Armor güvenlik politikaları",
+   "VPC firewall kuralları",
+   "Cloud NAT",
+   "Identity-Aware Proxy TCP forwarding"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Armor, yük dengeleyici seviyesinde DDoS koruması ve önceden yapılandırılmış WAF kuralları (OWASP Top 10) sunar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/armor/docs/cloud-armor-overview",
+  "check": [
+   "DDoS",
+   "OWASP"
+  ],
+  "en": {
+   "question": "You want to protect your web application behind a global external Application Load Balancer from DDoS attacks and OWASP attacks such as SQL injection. What should you use?",
+   "options": [
+    "Google Cloud Armor security policies",
+    "VPC firewall rules",
+    "Cloud NAT",
+    "Identity-Aware Proxy TCP forwarding"
+   ],
+   "explanation": "Cloud Armor provides DDoS protection and preconfigured WAF rules (OWASP Top 10) at the load balancer level."
+  }
+ },
+ {
+  "id": "ace-137",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "VM-A, aynı VPC'deki VM-B'ye 5432 portundan bağlanamıyor. Firewall kuralları ve rotalar gibi yapılandırmaları analiz ederek bağlantının nerede engellendiğini bulmak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Network Intelligence Center Connectivity Tests",
+   "Cloud Trace",
+   "Cloud Profiler",
+   "Billing reports"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Connectivity Tests, iki uç nokta arasındaki yolu ağ yapılandırmasına göre (firewall, rota, vb.) analiz eder ve paketin nerede düşeceğini gösterir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/overview",
+  "check": [
+   "Connectivity Tests",
+   "configuration"
+  ],
+  "en": {
+   "question": "VM-A can't connect to VM-B in the same VPC on port 5432. You want to find where the connection is blocked by analyzing configuration such as firewall rules and routes. What should you use?",
+   "options": [
+    "Network Intelligence Center Connectivity Tests",
+    "Cloud Trace",
+    "Cloud Profiler",
+    "Billing reports"
+   ],
+   "explanation": "Connectivity Tests analyze the path between two endpoints based on network configuration (firewall, routes, etc.) and show where a packet would be dropped."
+  }
+ },
+ {
+  "id": "ace-138",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "Analitik projelerinizdeki BigQuery ve Cloud Storage verilerinin, geçerli kimlik bilgileri çalınsa bile güvenlik sınırı dışındaki bir projeye kopyalanmasını (veri sızdırma) engellemek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "VPC Service Controls hizmet çevresi (service perimeter)",
+   "IAM Viewer rolleri",
+   "Cloud NAT",
+   "Object Versioning"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VPC Service Controls, Google API'leri etrafında bir çevre oluşturarak çevre dışına veri aktarımını engeller; IAM'e ek olarak bağlam tabanlı bir savunma katmanıdır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/vpc-service-controls/docs/overview",
+  "check": [
+   "exfiltration",
+   "perimeter"
+  ],
+  "en": {
+   "question": "You want to prevent BigQuery and Cloud Storage data in your analytics projects from being copied to a project outside the security boundary (data exfiltration), even if valid credentials are stolen. What should you use?",
+   "options": [
+    "A VPC Service Controls service perimeter",
+    "IAM Viewer roles",
+    "Cloud NAT",
+    "Object Versioning"
+   ],
+   "explanation": "VPC Service Controls creates a perimeter around Google APIs that blocks data movement outside it; it's a context-based defense layer in addition to IAM."
+  }
+ },
+ {
+  "id": "ace-139",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Şirket çalışanlarının dahili bir web uygulamasına VPN kullanmadan, kimlik ve bağlama göre (ör. Google hesabıyla oturum açarak) erişmesini istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Identity-Aware Proxy (IAP)",
+   "Cloud NAT",
+   "Herkese açık IP + parola korumalı sayfa",
+   "VPC Network Peering"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAP, uygulamaya gelen istekleri kimlik ve bağlama göre doğrular; VPN olmadan sıfır güven (zero trust) erişimi sağlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iap/docs/concepts-overview",
+  "check": [
+   "VPN",
+   "identity"
+  ],
+  "en": {
+   "question": "You want company employees to access an internal web application without a VPN, based on identity and context (e.g. signing in with their Google account). What should you use?",
+   "options": [
+    "Identity-Aware Proxy (IAP)",
+    "Cloud NAT",
+    "A public IP plus a password-protected page",
+    "VPC Network Peering"
+   ],
+   "explanation": "IAP verifies requests to the application based on identity and context, providing zero-trust access without a VPN."
+  }
+ },
+ {
+  "id": "ace-140",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run hizmetinizin, VPC'deki dahili IP'li bir Memorystore örneğine erişmesi gerekiyor. Ek VM ücreti olmayan, bakım gerektiren ek bir kaynak oluşturmayan ve daha düşük gecikme sunan yöntem hangisidir?",
+  "options": [
+   "Direct VPC egress'i yapılandırmak",
+   "Serverless VPC Access connector oluşturmak",
+   "Memorystore'a herkese açık IP vermek",
+   "Cloud NAT kurmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Direct VPC egress, Cloud Run'ın trafiği bağlayıcı olmadan doğrudan VPC'ye göndermesini sağlar: daha düşük gecikme, daha yüksek aktarım hızı ve ek VM ücreti yok. Serverless VPC Access connector da çalışır ancak ek bakım ve VM maliyeti getirir. Memorystore herkese açık IP ile sunulmaz; Cloud NAT internete çıkış içindir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/configuring/connecting-vpc",
+  "check": [
+   "lower latency, higher throughput",
+   "no additional vm charges"
+  ],
+  "en": {
+   "question": "Your Cloud Run service needs to reach a Memorystore instance with an internal IP in a VPC. Which method has no additional VM charges, requires no extra resource to maintain, and offers lower latency?",
+   "options": [
+    "Configure Direct VPC egress",
+    "Create a Serverless VPC Access connector",
+    "Give Memorystore a public IP",
+    "Set up Cloud NAT"
+   ],
+   "explanation": "Direct VPC egress lets Cloud Run send traffic straight to the VPC without a connector: lower latency, higher throughput, and no additional VM charges. A Serverless VPC Access connector also works but adds maintenance and VM cost. Memorystore isn't offered with a public IP, and Cloud NAT is for internet egress."
+  }
+ },
+ {
+  "id": "ace-141",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Birden çok Compute Engine VM'inin aynı anda okuyup yazabileceği, yönetilen bir NFS dosya paylaşımına ihtiyacınız var. Hangi hizmet?",
+  "options": [
+   "Filestore",
+   "Cloud Storage",
+   "Persistent Disk (tek VM'e bağlı)",
+   "Bigtable"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Filestore, VM'ler ve GKE tarafından NFS üzerinden bağlanabilen yönetilen dosya depolama hizmetidir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/filestore/docs/overview",
+  "check": [
+   "NFS"
+  ],
+  "en": {
+   "question": "You need a managed NFS file share that multiple Compute Engine VMs can read and write at the same time. Which service?",
+   "options": [
+    "Filestore",
+    "Cloud Storage",
+    "Persistent Disk (attached to a single VM)",
+    "Bigtable"
+   ],
+   "explanation": "Filestore is a managed file storage service that VMs and GKE can mount over NFS."
+  }
+ },
+ {
+  "id": "ace-142",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Verilerinizin iki belirli bölgede (ör. europe-west1 ve europe-west4) çoğaltılmasını ve tek bölge kesintisinde erişilebilir kalmasını istiyorsunuz. Hangi kova konumu türü uygundur?",
+  "options": [
+   "Dual-region",
+   "Region (tek bölge)",
+   "Bölge seçmeden default",
+   "Zonal"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Dual-region kovalar veriyi seçilen iki bölgede tutar; isteğe bağlı turbo replication ile çoğaltma süresi hedefi kısaltılabilir. Multi-region ise geniş bir coğrafyada (ör. EU) tutar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage/docs/locations",
+  "check": [
+   "dual-region",
+   "turbo replication"
+  ],
+  "en": {
+   "question": "You want your data replicated in two specific regions (e.g. europe-west1 and europe-west4) and to remain available during a single-region outage. Which bucket location type is appropriate?",
+   "options": [
+    "Dual-region",
+    "Region (single region)",
+    "Default without choosing a region",
+    "Zonal"
+   ],
+   "explanation": "Dual-region buckets store data in two chosen regions; optional turbo replication shortens the replication time objective. Multi-region stores data across a large geography (e.g. EU)."
+  }
+ },
+ {
+  "id": "ace-143",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Aynı VPC içindeki mikroservislerin birbirine HTTP üzerinden, yalnızca dahili IP ile ve yol (path) tabanlı yönlendirmeyle erişmesini istiyorsunuz. Hangi yük dengeleyici uygundur?",
+  "options": [
+   "Internal Application Load Balancer",
+   "Global external Application Load Balancer",
+   "External passthrough Network Load Balancer",
+   "Cloud NAT"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Internal Application Load Balancer, VPC içinde dahili IP ile katman 7 (HTTP/HTTPS) yük dengeleme ve URL tabanlı yönlendirme sağlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/load-balancing/docs/l7-internal",
+  "check": [
+   "internal Application Load Balancer"
+  ],
+  "en": {
+   "question": "You want microservices in the same VPC to reach each other over HTTP, only via internal IPs, with path-based routing. Which load balancer is appropriate?",
+   "options": [
+    "Internal Application Load Balancer",
+    "Global external Application Load Balancer",
+    "External passthrough Network Load Balancer",
+    "Cloud NAT"
+   ],
+   "explanation": "The Internal Application Load Balancer provides layer 7 (HTTP/HTTPS) load balancing with URL-based routing on an internal IP within the VPC."
   }
  }
 ]
