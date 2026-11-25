@@ -1,0 +1,1676 @@
+[
+ {
+  "id": "ace-001",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Şirketiniz, finans departmanındaki tüm projelere tek bir yerden erişim izni vermek istiyor. Departman başına yeni projeler sık sık ekleniyor. En az yönetim yüküyle ne yapmalısınız?",
+  "options": [
+   "Finans projelerini bir klasör (folder) altında toplayıp IAM rolünü klasör seviyesinde vermek",
+   "Her yeni projede rolü elle tek tek vermek",
+   "Rolü organizasyon seviyesinde tüm kullanıcılara vermek",
+   "Her proje için ayrı bir servis hesabı oluşturup kullanıcılarla paylaşmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAM politikaları hiyerarşide aşağı doğru miras alınır (Organizasyon → Klasör → Proje → Kaynak). Klasöre verilen rol, altına eklenen yeni projelere otomatik uygulanır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-002",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Proje harcaması aylık bütçenin %50, %90 ve %100'üne ulaştığında faturalandırma yöneticilerinin e-posta almasını istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Cloud Billing'de bütçe (budget) oluşturup eşik kuralları (threshold rules) tanımlamak",
+   "Compute Engine kotalarını düşürmek",
+   "Cloud Monitoring'de uptime check oluşturmak",
+   "Organizasyon politikasıyla harcama limiti koymak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Budgets & alerts eşiklere ulaşıldığında bildirim gönderir. Dikkat: bütçeler harcamayı otomatik olarak durdurmaz; durdurmak için Pub/Sub bildirimi + Cloud Run function gibi programatik bir çözüm gerekir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-003",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Finans ekibi, tüm projelerin maliyetlerini SQL ile ayrıntılı analiz etmek ve kendi raporlarını oluşturmak istiyor. En uygun çözüm hangisidir?",
+  "options": [
+   "Cloud Billing verilerini BigQuery'ye dışa aktarmayı (billing export) etkinleştirmek",
+   "Her ay faturayı PDF olarak indirip elle işlemek",
+   "Cloud Logging'deki audit loglarını analiz etmek",
+   "Fiyatlandırma hesaplayıcısını (Pricing Calculator) kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Billing export to BigQuery, kullanım ve maliyet verilerini ayrıntılı şekilde BigQuery'ye yazar; SQL ve Looker Studio ile raporlanabilir. Dışa aktarma etkinleştirildikten sonraki veriler aktarılır, bu yüzden erken etkinleştirmek önerilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-004",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Yeni oluşturduğunuz bir projeyi şirketin mevcut faturalandırma hesabına bağlamanız gerekiyor. Gereken minimum izinler hangileridir?",
+  "options": [
+   "Faturalandırma hesabında Billing Account User ve projede Project Billing Manager (veya Owner)",
+   "Projede yalnızca Editor rolü",
+   "Faturalandırma hesabında Billing Account Viewer",
+   "Organizasyonda Organization Administrator"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Proje–faturalandırma bağlantısı iki tarafta izin ister: faturalandırma hesabında 'Billing Account User' (projeleri hesaba bağlama) ve projede 'Project Billing Manager' ya da Owner.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-005",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Şirket politikası gereği kaynakların yalnızca AB bölgelerinde oluşturulabilmesi gerekiyor. Bunu tüm organizasyonda nasıl zorunlu kılarsınız?",
+  "options": [
+   "Organizasyon politikası (Organization Policy) ile gcp.resourceLocations kısıtlamasını uygulamak",
+   "Her projede IAM rollerini kaldırmak",
+   "VPC güvenlik duvarı kuralı ile AB dışını engellemek",
+   "Bütçe uyarısı oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Organization Policy Service, 'gcp.resourceLocations' kısıtlamasıyla kaynakların oluşturulabileceği konumları sınırlar. IAM 'kim' sorusunu, organizasyon politikaları 'ne yapılabilir' sorusunu yönetir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-006",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Departman, ortam (prod/test) ve maliyet merkezi bazında maliyetleri ayırmak istiyorsunuz. Kaynaklara ne eklemelisiniz?",
+  "options": [
+   "Etiketler (labels), ör. env=prod, team=finans",
+   "Ağ etiketleri (network tags)",
+   "Ayrı VPC ağları",
+   "Özel IAM rolleri"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Labels anahtar-değer çiftleridir ve faturalandırma raporlarında/BigQuery export'unda maliyetleri gruplamak için kullanılır. Network tags ise güvenlik duvarı ve rota hedeflemesi içindir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-007",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Yeni bir projede Compute Engine VM oluşturmaya çalışıyorsunuz ama API'nin etkin olmadığına dair hata alıyorsunuz. Hangi komut sorunu çözer?",
+  "options": [
+   "gcloud services enable compute.googleapis.com",
+   "gcloud compute enable-api",
+   "gcloud projects add-api compute",
+   "gcloud config set api/compute true"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Google Cloud API'leri proje bazında etkinleştirilir: 'gcloud services enable <servis>.googleapis.com'. Etkin API'leri görmek için 'gcloud services list --enabled'.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-008",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Bir proje Compute Engine için bölgesel CPU kotasına takıldı. Daha fazla VM çalıştırmak için ne yapmalısınız?",
+  "options": [
+   "Console'daki Quotas (IAM & Admin > Quotas) sayfasından kota artışı talep etmek",
+   "Yeni bir faturalandırma hesabı oluşturmak",
+   "Projeyi başka bir klasöre taşımak",
+   "VM'leri Spot VM'e çevirmek; Spot VM'ler kotaya sayılmaz"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Kotalar proje (ve çoğunlukla bölge) bazındadır; artış Quotas sayfasından veya Cloud Quotas API ile talep edilir. Spot VM'lerin de kotaları vardır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-009",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "kolay",
+  "question": "Farklı projeler ve hesaplar arasında sık geçiş yapıyorsunuz (ör. dev ve prod). gcloud ayarlarını en kolay nasıl yönetirsiniz?",
+  "options": [
+   "gcloud config configurations create ile her ortam için ayrı adlandırılmış yapılandırma oluşturup 'gcloud config configurations activate' ile geçiş yapmak",
+   "Her seferinde gcloud'u kaldırıp yeniden kurmak",
+   "Her ortam için ayrı bir Cloud Shell örneği satın almak",
+   "Proje kimliğini her komutta ortam değişkeni olarak yazmak zorunludur"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Adlandırılmış gcloud yapılandırmaları hesap, proje, varsayılan bölge/zon gibi özellikleri gruplar. 'gcloud config configurations list' ile listelenir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-010",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "kolay",
+  "question": "Cloud Shell ile ilgili hangi ifade doğrudur?",
+  "options": [
+   "Tarayıcıdan erişilen, gcloud/kubectl/terraform gibi araçların hazır kurulu olduğu ve kalıcı 5 GB home dizini sunan bir ortamdır",
+   "Üretim iş yüklerini 7/24 çalıştırmak için tasarlanmış bir VM'dir",
+   "Kullanımı saatlik olarak projeye faturalandırılır",
+   "Home dizinindeki dosyalar her oturum sonunda silinir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Shell geçici bir VM üzerinde çalışır ancak $HOME dizini 5 GB kalıcı diske sahiptir (uzun süre kullanılmazsa silinebilir). Ek ücret yoktur.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-011",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "orta",
+  "question": "Bir Cloud Storage kovasındaki dosyaları komut satırından kopyalamak istiyorsunuz. Google'ın günümüzde önerdiği CLI hangisidir?",
+  "options": [
+   "gcloud storage cp",
+   "gsutil cp (yeni projelerde önerilen tek araç)",
+   "bq cp",
+   "kubectl cp"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'gcloud storage' komutları önerilen arayüzdür ve gsutil'e göre genellikle daha hızlıdır; gsutil eski (legacy) araç olarak kabul edilir. bq BigQuery, kubectl Kubernetes içindir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-012",
+  "exam": "ACE",
+  "domain": 1,
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "orta",
+  "question": "Bir betikte, belirli bir projedeki tüm VM'lerin yalnızca adlarını ve zonlarını listelemek istiyorsunuz. Hangi komut doğrudur?",
+  "options": [
+   "gcloud compute instances list --format=\"table(name,zone)\"",
+   "gcloud compute list vms --columns name,zone",
+   "gcloud instances show --all",
+   "kubectl get vms -o wide"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "gcloud'da --format (table, json, yaml, value...) ve --filter bayrakları çıktıyı biçimlendirmek/filtrelemek için kullanılır; sınavda sık çıkar.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-013",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Kesintiye dayanıklı (fault-tolerant) ve her an durdurulabilecek bir toplu (batch) işleme iş yükünün maliyetini en aza indirmek istiyorsunuz. Hangi seçenek en uygundur?",
+  "options": [
+   "Spot VM'ler kullanmak",
+   "Sole-tenant node kullanmak",
+   "3 yıllık committed use discount (CUD) satın almak",
+   "Daha büyük makine tipleri kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Spot VM'ler (preemptible'ın halefi) büyük indirim sunar ancak Compute Engine bunları her an geri alabilir; kesintiye dayanıklı batch işler için idealdir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-014",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Yıllardır 7/24 sabit kapasitede çalışan ve önümüzdeki 3 yıl da değişmeyecek bir iş yükünün maliyetini düşürmek istiyorsunuz. Ne önerirsiniz?",
+  "options": [
+   "Committed use discount (taahhütlü kullanım indirimi) satın almak",
+   "Spot VM'lere geçmek",
+   "Her gece VM'leri kapatmak",
+   "Standard yerine Premium ağ katmanı kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "CUD'ler 1 veya 3 yıllık kullanım taahhüdü karşılığında önemli indirim sağlar; öngörülebilir, sürekli iş yükleri için uygundur.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-015",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir VM'in tüm yapılandırmasını (makine tipi, meta veri, etiketler) ve bağlı TÜM disklerini tek bir kaynakta yedekleyip başka bir projede aynısını oluşturmak istiyorsunuz. Hangisini kullanmalısınız?",
+  "options": [
+   "Machine image",
+   "Yalnızca boot diskinin snapshot'ı",
+   "Instance template",
+   "Custom image"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Machine image; VM yapılandırmasını, meta verileri, izinleri ve bağlı tüm disklerin verisini içerir. Custom image yalnızca tek bir diski, instance template ise yalnızca yapılandırmayı (veriyi değil) içerir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-016",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "kolay",
+  "question": "Bir VM'in her açılışta belirli yazılımları kurmasını istiyorsunuz. Bunu nasıl yapılandırırsınız?",
+  "options": [
+   "Meta veride 'startup-script' (veya startup-script-url) anahtarı tanımlamak",
+   "Ağ etiketi eklemek",
+   "Instance'a özel IAM rolü vermek",
+   "VM'i Spot olarak oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Startup script'ler VM meta verisinde 'startup-script' veya Cloud Storage'daki bir betiği gösteren 'startup-script-url' ile tanımlanır ve her açılışta çalışır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-017",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir VM'in kalıcı diski (persistent disk) dolmak üzere. Kesinti olmadan kapasiteyi artırmak için ne yapmalısınız?",
+  "options": [
+   "Diskin boyutunu artırıp (gcloud compute disks resize) ardından işletim sisteminde dosya sistemini genişletmek",
+   "Diski küçültüp yeniden büyütmek",
+   "VM'i silip daha büyük diskle yeniden oluşturmak zorunludur",
+   "Diski başka bir zona taşımak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Persistent disk boyutu VM çalışırken artırılabilir (azaltılamaz). Ardından OS içinde bölüm/dosya sistemi genişletilmelidir (bazı imajlar bunu otomatik yapar).",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-018",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Lisans gereksinimleri nedeniyle VM'lerinizin başka müşterilerle aynı fiziksel sunucuyu paylaşmaması gerekiyor. Ne kullanmalısınız?",
+  "options": [
+   "Sole-tenant node'lar",
+   "Shielded VM",
+   "Spot VM",
+   "Confidential VM"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Sole-tenant node'lar yalnızca sizin projenizin VM'lerine ayrılmış fiziksel sunuculardır; BYOL lisanslama ve uyumluluk için kullanılır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-019",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Compute Engine",
+  "difficulty": "zor",
+  "question": "Bir VM için tam olarak 6 vCPU ve 20 GB bellek gerekiyor; önceden tanımlı makine tipleri ya fazla ya eksik kalıyor. En maliyet etkin seçenek?",
+  "options": [
+   "Custom machine type (özel makine tipi) kullanmak",
+   "En yakın büyük önceden tanımlı tipi seçmek",
+   "İki küçük VM'i birleştirmek",
+   "Sole-tenant node kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Custom machine types ile vCPU ve bellek miktarını iş yükünüze göre ayarlayabilirsiniz (desteklenen makine serilerinde, belirli oranlar dahilinde).",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-020",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Web uygulamanız bir zonun tamamen çökmesinden etkilenmemeli ve yük arttıkça otomatik ölçeklenmeli. Ne yapmalısınız?",
+  "options": [
+   "Instance template ile bölgesel (regional) managed instance group oluşturup otomatik ölçeklendirmeyi etkinleştirmek",
+   "Tek zonlu unmanaged instance group kullanmak",
+   "Tek büyük bir VM kullanmak",
+   "Her zonda elle VM oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Regional MIG, VM'leri bölgedeki birden fazla zona dağıtır; autoscaler CPU, yük dengeleyici kullanımı veya özel metriklere göre ölçekler.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-021",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Bir MIG'deki VM'ler uygulama çöktüğünde 'çalışıyor' görünmeye devam ediyor ama yanıt vermiyor. Bu VM'lerin otomatik yeniden oluşturulması için ne yapmalısınız?",
+  "options": [
+   "MIG'de sağlık kontrolüyle (health check) autohealing yapılandırmak",
+   "Autoscaler'ın minimum sayısını artırmak",
+   "VM'lere startup script eklemek",
+   "Snapshot schedule tanımlamak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Autohealing, uygulama seviyesindeki health check başarısız olduğunda VM'i yeniden oluşturur. Health check kaynak aralıklarına (130.211.0.0/22, 35.191.0.0/16) güvenlik duvarında izin verilmelidir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-022",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Dünya genelindeki kullanıcılara tek bir anycast IP üzerinden HTTPS ile hizmet veren, en yakın sağlıklı backend'e yönlendiren bir yük dengeleyici gerekiyor. Hangisi?",
+  "options": [
+   "Global external Application Load Balancer",
+   "Regional internal passthrough Network Load Balancer",
+   "External passthrough Network Load Balancer",
+   "Cloud NAT"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Global external Application Load Balancer (HTTP/HTTPS, katman 7) tek anycast IP ile çalışır, SSL sonlandırır ve Cloud CDN/Cloud Armor ile entegre olur.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-023",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "zor",
+  "question": "Bir oyun sunucusu UDP trafiği alıyor ve backend'lerin istemcinin orijinal IP adresini görmesi gerekiyor. Hangi yük dengeleyici uygundur?",
+  "options": [
+   "External passthrough Network Load Balancer",
+   "Global external Application Load Balancer",
+   "External proxy Network Load Balancer",
+   "Internal Application Load Balancer"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Passthrough Network Load Balancer'lar trafiği proxy'lemeden iletir; böylece istemci IP'si korunur ve UDP desteklenir. Application LB yalnızca HTTP(S) içindir ve proxy tabanlıdır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-024",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "kolay",
+  "question": "Düğüm (node) yönetimi, ölçeklendirme ve güvenlik yapılandırmasını Google'a bırakmak; yalnızca pod kaynakları için ödeme yapmak istiyorsunuz. Hangi GKE modu?",
+  "options": [
+   "GKE Autopilot",
+   "GKE Standard",
+   "Compute Engine üzerinde kendi Kubernetes kurulumunuz",
+   "App Engine flexible"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Autopilot modunda Google düğümleri yönetir ve faturalandırma (genel olarak) pod'ların talep ettiği kaynaklara göre yapılır. Standard modda düğüm havuzlarını siz yönetirsiniz.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-025",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "kolay",
+  "question": "Yeni oluşturduğunuz bir GKE kümesine kubectl ile bağlanmak için önce hangi komutu çalıştırmalısınız?",
+  "options": [
+   "gcloud container clusters get-credentials KUME_ADI --location=BOLGE",
+   "kubectl connect KUME_ADI",
+   "gcloud compute ssh KUME_ADI",
+   "gcloud container login"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "get-credentials komutu kubeconfig dosyasını küme uç noktası ve kimlik bilgileriyle günceller; ardından kubectl komutları bu kümeye gider.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-026",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE Standard kümenizde pod'lar 'Pending' durumda kalıyor çünkü düğümlerde yeterli kaynak yok. Gerektiğinde düğüm eklenmesini otomatikleştirmek için ne yapmalısınız?",
+  "options": [
+   "Node pool için cluster autoscaler'ı etkinleştirmek",
+   "HorizontalPodAutoscaler oluşturmak",
+   "Deployment'taki replika sayısını artırmak",
+   "Pod'lara daha yüksek priority vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cluster autoscaler, planlanamayan pod'lar olduğunda düğüm ekler, düşük kullanımda düğümleri kaldırır. HPA ise pod sayısını ölçekler; düğüm eklemez.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-027",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Bir Deployment'taki pod sayısının CPU kullanımına göre otomatik artıp azalmasını istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "HorizontalPodAutoscaler (kubectl autoscale deployment ...)",
+   "Cluster autoscaler",
+   "VerticalPodAutoscaler yalnızca",
+   "Node auto-repair"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "HPA, CPU/bellek veya özel metriklere göre replika sayısını ayarlar. Örnek: kubectl autoscale deployment web --cpu-percent=60 --min=2 --max=10.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-028",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE kümenizin tek bir zonun kesintisinde bile kontrol düzlemi (control plane) ve iş yükleriyle çalışmaya devam etmesini istiyorsunuz. Ne oluşturmalısınız?",
+  "options": [
+   "Bölgesel (regional) GKE kümesi",
+   "Zonal küme + daha fazla düğüm",
+   "Tek zonlu küme + Spot düğümler",
+   "İki ayrı zonal küme, aralarında VPC peering"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Regional kümeler kontrol düzlemini ve düğümleri bölgedeki birden fazla zona çoğaltır. Autopilot kümeleri varsayılan olarak bölgeseldir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-029",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "kolay",
+  "question": "Durumsuz (stateless) bir HTTP konteyneriniz var. Trafik olmadığında sıfıra ölçeklenmesini, altyapı yönetmemeyi ve istek bazında ödemeyi istiyorsunuz. En uygun hizmet?",
+  "options": [
+   "Cloud Run",
+   "GKE Standard",
+   "Compute Engine MIG",
+   "Bare Metal Solution"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run tamamen yönetilen serverless konteyner platformudur; sıfıra ölçeklenebilir ve kullanım kadar ödeme yapılır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-030",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run'a yeni bir revizyon dağıttınız ve trafiğin yalnızca %10'unu yeni sürüme yönlendirerek test etmek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Yeni revizyonu --no-traffic ile dağıtıp 'gcloud run services update-traffic --to-revisions=YENI=10' kullanmak",
+   "İkinci bir Cloud Run hizmeti oluşturup DNS'i değiştirmek",
+   "Eski revizyonu silmek",
+   "Maksimum instance sayısını 10 yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run revizyonlar arasında yüzdesel trafik bölmeyi destekler; kademeli dağıtım (canary) ve hızlı geri alma (rollback) için kullanılır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-031",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Bir Cloud Storage kovasına dosya yüklendiğinde küçük bir kod parçasının otomatik çalışmasını istiyorsunuz. En az yönetimle hangi çözüm?",
+  "options": [
+   "Cloud Storage tetikleyicili (Eventarc) bir Cloud Run function",
+   "Her dakika kovayı kontrol eden bir VM",
+   "Cloud Scheduler ile saatlik bir iş",
+   "Dataproc kümesi"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Functions artık 'Cloud Run functions' adıyla anılır; Cloud Storage olayları Eventarc üzerinden fonksiyonu tetikler.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-032",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Bir betiğin her gece 02:00'de çalışıp tamamlandığında sonlanmasını istiyorsunuz; HTTP isteği dinlemesi gerekmiyor. En uygun serverless seçenek hangisi?",
+  "options": [
+   "Cloud Scheduler tarafından tetiklenen bir Cloud Run job",
+   "Sürekli çalışan bir Cloud Run service",
+   "App Engine flexible",
+   "Cloud CDN"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run jobs, HTTP sunucusu gerektirmeyen ve tamamlanınca sonlanan görevler içindir; Cloud Scheduler ile zamanlanabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-033",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "zor",
+  "question": "App Engine uygulamanızın bölgesini (region) yanlış seçtiniz ve değiştirmek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Yeni bir projede doğru bölgeyle App Engine uygulaması oluşturup uygulamayı oraya dağıtmak",
+   "gcloud app update --region komutunu çalıştırmak",
+   "app.yaml'da region alanını değiştirmek",
+   "App Engine'i devre dışı bırakıp tekrar etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Her projede yalnızca bir App Engine uygulaması olabilir ve bölgesi oluşturulduktan sonra değiştirilemez; çözüm yeni bir proje kullanmaktır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-034",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Cloud Storage",
+  "difficulty": "kolay",
+  "question": "Yasal gereklilik nedeniyle yılda bir kereden az erişilecek yedekleri 7 yıl en düşük maliyetle saklamanız gerekiyor. Hangi depolama sınıfı?",
+  "options": [
+   "Archive",
+   "Coldline",
+   "Nearline",
+   "Standard"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Minimum saklama süreleri: Nearline 30 gün, Coldline 90 gün, Archive 365 gün. Erişim ne kadar seyrekse depolama o kadar ucuz, erişim ücreti o kadar yüksektir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-035",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Bir kovadaki nesnelerin erişim desenleri tahmin edilemiyor ve depolama sınıflarını elle yönetmek istemiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Kovada Autoclass'ı etkinleştirmek",
+   "Tüm nesneleri Archive sınıfında tutmak",
+   "Her hafta nesneleri elle taşımak",
+   "Object Versioning'i etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Autoclass, nesneleri erişim sıklığına göre otomatik olarak uygun depolama sınıfına taşır; erken silme ve sınıf geçiş ücretleri oluşmaz.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-036",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Log dosyaları 30 gün sonra Coldline'a taşınmalı ve 365 gün sonra silinmeli. Bunu nasıl otomatikleştirirsiniz?",
+  "options": [
+   "Kovada Object Lifecycle Management kuralları (SetStorageClass ve Delete) tanımlamak",
+   "Her gün çalışan bir cron VM yazmak",
+   "Retention policy ayarlamak",
+   "Bucket Lock kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Lifecycle kuralları yaş, oluşturulma tarihi, sürüm sayısı gibi koşullara göre nesnelerin sınıfını değiştirir veya siler.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-037",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Kullanıcıların yanlışlıkla sildiği veya üzerine yazdığı dosyaları geri getirebilmek istiyorsunuz. Hangi özelliği etkinleştirmelisiniz?",
+  "options": [
+   "Object Versioning (veya soft delete ile birlikte)",
+   "Uniform bucket-level access",
+   "Requester Pays",
+   "Autoclass"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Object Versioning, silinen/üzerine yazılan nesnelerin eski (noncurrent) sürümlerini saklar. Soft delete de silinen nesneleri belirli süre kurtarılabilir tutar. Maliyeti kontrol için lifecycle ile eski sürümleri sınırlayın.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-038",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veritabanları",
+  "difficulty": "kolay",
+  "question": "Mevcut MySQL uygulamanızı minimum değişiklikle, yönetilen bir hizmete ve tek bir bölge içinde yüksek erişilebilirlikle taşımak istiyorsunuz. Ne seçersiniz?",
+  "options": [
+   "Yüksek erişilebilirlik (regional/HA) yapılandırmalı Cloud SQL for MySQL",
+   "Bigtable",
+   "Firestore",
+   "Compute Engine'de tek VM'de MySQL"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud SQL HA yapılandırması, farklı bir zonda bekleme (standby) örneği tutar ve arıza durumunda otomatik failover yapar.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-039",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Küresel ölçekte, yatay ölçeklenebilen, güçlü tutarlılık (strong consistency) sunan ve SQL destekleyen ilişkisel bir veritabanı gerekiyor. Hangisi?",
+  "options": [
+   "Spanner",
+   "Cloud SQL",
+   "Bigtable",
+   "Memorystore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Spanner küresel dağıtık, ilişkisel, yatay ölçeklenen ve güçlü tutarlılık sağlayan bir veritabanıdır. Cloud SQL dikey ölçeklenir ve bölgeseldir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-040",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Milyonlarca IoT cihazından saniyede yüz binlerce zaman serisi yazımı alacak, düşük gecikmeli anahtar bazlı okuma yapılacak bir NoSQL veritabanı gerekiyor. Hangisi?",
+  "options": [
+   "Bigtable",
+   "Firestore",
+   "Cloud SQL",
+   "BigQuery"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bigtable yüksek yazma/okuma hacimli, geniş sütunlu (wide-column) NoSQL veritabanıdır; zaman serisi ve IoT için idealdir. BigQuery analitik ambardır, OLTP değildir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-041",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veritabanları",
+  "difficulty": "kolay",
+  "question": "Mobil ve web uygulamanız için gerçek zamanlı senkronizasyon ve çevrimdışı destek sunan, serverless bir doküman veritabanı arıyorsunuz. Hangisi?",
+  "options": [
+   "Firestore",
+   "Spanner",
+   "Bigtable",
+   "Cloud SQL for PostgreSQL"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Firestore serverless doküman veritabanıdır; istemci SDK'larıyla gerçek zamanlı dinleyiciler ve çevrimdışı önbellek sunar.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-042",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Uygulamanız sık okunan oturum verilerini milisaniye altı gecikmeyle önbelleğe almak istiyor. Hangi yönetilen hizmet uygundur?",
+  "options": [
+   "Memorystore (Redis/Valkey)",
+   "Cloud Storage",
+   "BigQuery",
+   "Filestore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Memorystore yönetilen bellek içi (in-memory) veri deposudur; önbellek ve oturum yönetimi için kullanılır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-043",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Yeni bir VPC tasarlıyorsunuz ve alt ağların IP aralıklarını, hangi bölgelerde olacaklarını tamamen kendiniz belirlemek istiyorsunuz. Hangi mod?",
+  "options": [
+   "Custom mode VPC",
+   "Auto mode VPC",
+   "Legacy network",
+   "Default network"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Custom mode VPC'de alt ağları ve aralıklarını siz tanımlarsınız; üretim için önerilir. Auto mode her bölgede otomatik /20 alt ağ oluşturur. VPC'ler globaldir, alt ağlar bölgeseldir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-044",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Bir alt ağdaki IP adresleri tükendi. Mevcut VM'leri etkilemeden daha fazla adres eklemek için ne yapmalısınız?",
+  "options": [
+   "gcloud compute networks subnets expand-ip-range ile alt ağın prefix'ini genişletmek",
+   "Alt ağı silip daha büyük aralıkla yeniden oluşturmak",
+   "Alt ağı küçültmek",
+   "Yeni bir VPC oluşturup peering yapmak zorunludur"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Alt ağların birincil aralığı kesinti olmadan genişletilebilir (ör. /24 → /22), ancak küçültülemez ve diğer aralıklarla çakışmamalıdır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-045",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Harici IP adresi olmayan VM'lerin, internete çıkmadan Cloud Storage ve BigQuery API'lerine erişmesi gerekiyor. Ne yapmalısınız?",
+  "options": [
+   "İlgili alt ağda Private Google Access'i etkinleştirmek",
+   "Her VM'e harici IP vermek",
+   "Cloud VPN kurmak",
+   "Cloud CDN etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Private Google Access, yalnızca dahili IP'si olan VM'lerin Google API ve hizmetlerine erişmesini sağlar; alt ağ seviyesinde etkinleştirilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-046",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Harici IP'si olmayan VM'lerin işletim sistemi güncellemelerini internetten indirmesi gerekiyor; ancak internetten bu VM'lere gelen bağlantılar engellenmeli. Ne kullanmalısınız?",
+  "options": [
+   "Cloud NAT",
+   "Private Google Access",
+   "Global external Application Load Balancer",
+   "VPC Network Peering"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud NAT, harici IP'si olmayan kaynaklara giden (outbound) internet erişimi sağlar; dışarıdan başlatılan gelen bağlantılara izin vermez.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-047",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "VPC-A, VPC-B ile; VPC-B de VPC-C ile peering yapıyor. VPC-A'daki VM'ler VPC-C'ye ulaşamıyor. Neden?",
+  "options": [
+   "VPC Network Peering geçişli (transitive) değildir; A ile C arasında doğrudan peering gerekir",
+   "Peering yalnızca aynı bölgedeki VPC'ler arasında çalışır",
+   "Güvenlik duvarı kuralları peering'de devre dışıdır",
+   "Peering yalnızca aynı projede çalışır"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Peering geçişli değildir. Çözüm: A–C arasında doğrudan peering, Shared VPC ya da Network Connectivity Center gibi hub yapıları.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-048",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Birden çok projedeki ekiplerin kendi VM'lerini oluşturmasını ama ağ yönetiminin (alt ağlar, güvenlik duvarı) merkezi bir ağ ekibinde kalmasını istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Shared VPC (host proje + service projeler)",
+   "Her projede ayrı VPC ve peering",
+   "Cloud VPN",
+   "Tek bir projede tüm ekipler"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Shared VPC'de ağ, host projede merkezi yönetilir; service projelerdeki kaynaklar bu ağın alt ağlarını kullanır. Ağ ekibine Shared VPC Admin, geliştiricilere Network User rolü verilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-049",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Şirket içi veri merkezinizi Google Cloud'a internet üzerinden şifreli şekilde, %99,99 SLA ile bağlamak istiyorsunuz; bant genişliği ihtiyacı birkaç Gbps. En uygun seçenek?",
+  "options": [
+   "HA VPN",
+   "Dedicated Interconnect",
+   "Classic VPN (tek tünel)",
+   "Direct Peering"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "HA VPN, doğru yapılandırıldığında (iki arayüz, iki tünel) %99,99 SLA sunar ve trafiği IPsec ile şifreler. Çok yüksek bant genişliği/özel bağlantı için Interconnect tercih edilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-050",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "IaC ve DevOps",
+  "difficulty": "kolay",
+  "question": "Yeni bir projede Docker konteyner imajlarını ve dil paketlerini (npm, Maven, Python) saklamak için hangi hizmeti kullanmalısınız?",
+  "options": [
+   "Artifact Registry",
+   "Container Registry",
+   "Cloud Source Repositories",
+   "Cloud Storage'da elle klasörler"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Artifact Registry güncel, önerilen hizmettir. Container Registry kullanımdan kaldırılmıştır (deprecated/shut down); mevcut kullanıcılar Artifact Registry'ye geçmelidir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-051",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Altyapınızı kod olarak (IaC) Terraform ile tanımlamak ve Google tarafından yönetilen bir hizmetle dağıtmak istiyorsunuz. Hangisi uygundur?",
+  "options": [
+   "Infrastructure Manager",
+   "Deployment Manager",
+   "Cloud Scheduler",
+   "Config Sync olmadan kubectl"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Infrastructure Manager, Terraform yapılandırmalarını yönetilen şekilde dağıtır. Deployment Manager kullanımdan kaldırılmıştır (destek sonu 2026); yeni projelerde Terraform/Infrastructure Manager önerilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-052",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Kodunuz bir Git deposuna push edildiğinde otomatik olarak konteyner imajı oluşturulup Artifact Registry'ye gönderilmesini istiyorsunuz. Ne kullanırsınız?",
+  "options": [
+   "Cloud Build tetikleyicisi (trigger) ve cloudbuild.yaml",
+   "Cloud Scheduler",
+   "Cloud Tasks",
+   "Dataflow"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Build serverless CI hizmetidir; repo olaylarıyla tetiklenir ve adımlarını cloudbuild.yaml'da tanımlarsınız. Sürekli teslimat için Cloud Deploy ile birlikte kullanılabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-053",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veri ve analitik",
+  "difficulty": "kolay",
+  "question": "Uygulama bileşenlerini birbirinden ayırmak (decouple) için asenkron, ölçeklenebilir bir mesajlaşma hizmeti gerekiyor. Hangisi?",
+  "options": [
+   "Pub/Sub",
+   "Cloud SQL",
+   "Cloud CDN",
+   "Filestore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Pub/Sub yayınla-abone ol modelinde asenkron mesajlaşma sağlar; push ve pull abonelikleri vardır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-054",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veri ve analitik",
+  "difficulty": "kolay",
+  "question": "Petabayt ölçeğinde veri üzerinde SQL ile analitik sorgular çalıştırmak istiyorsunuz; altyapı yönetmek istemiyorsunuz. Hangisi?",
+  "options": [
+   "BigQuery",
+   "Cloud SQL",
+   "Bigtable",
+   "Firestore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "BigQuery serverless veri ambarıdır; depolama ve işlem ayrıdır, SQL ile petabayt ölçeğinde analiz yapılır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-055",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Bir BigQuery sorgusunu çalıştırmadan önce kaç bayt işleyeceğini (ve dolayısıyla on-demand maliyetini) görmek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "bq query --dry_run (veya konsoldaki sorgu doğrulayıcı) kullanmak",
+   "LIMIT 10 eklemek; maliyet buna göre düşer",
+   "Sorguyu çalıştırıp faturayı beklemek",
+   "SELECT * kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Dry run, sorgunun işleyeceği bayt miktarını döndürür ve ücretsizdir. LIMIT, taranan veri miktarını (çoğu durumda) azaltmaz; ihtiyaç olan sütunları seçmek ve bölümleme (partition) kullanmak maliyeti düşürür.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-056",
+  "exam": "ACE",
+  "domain": 2,
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Mevcut Apache Spark ve Hadoop işlerinizi minimum kod değişikliğiyle Google Cloud'a taşımak istiyorsunuz. Hangisi?",
+  "options": [
+   "Dataproc",
+   "Dataflow",
+   "BigQuery ML",
+   "Cloud Composer"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Dataproc yönetilen Spark/Hadoop hizmetidir (kümeli veya Serverless). Dataflow Apache Beam tabanlı yeni boru hatları için uygundur.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-057",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Compute Engine",
+  "difficulty": "kolay",
+  "question": "Bir VM'in kalıcı diskinin her gün otomatik yedeğinin alınmasını ve 14 gün saklanmasını istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Snapshot schedule (kaynak politikası) oluşturup diske eklemek",
+   "Her gün machine image'i elle oluşturmak",
+   "Diski Cloud Storage'a kopyalayan bir cron yazmak",
+   "Object Versioning etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Snapshot schedule'lar zamanlanmış, artımlı (incremental) disk snapshot'ları alır ve saklama süresini otomatik uygular.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-058",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Compute Engine VM'lerinin bellek (RAM) ve disk kullanım metriklerini Cloud Monitoring'de görmek istiyorsunuz ama bu metrikler görünmüyor. Ne yapmalısınız?",
+  "options": [
+   "VM'lere Ops Agent kurmak",
+   "VM'leri yeniden başlatmak",
+   "Cloud Trace'i etkinleştirmek",
+   "Daha büyük makine tipi seçmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Hipervizör seviyesinde CPU, ağ, disk I/O görünür; ancak bellek ve dosya sistemi kullanımı gibi işletim sistemi içi metrikler ve uygulama logları için Ops Agent gerekir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-059",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Web sitenizin dünya genelinden erişilebilir olup olmadığını izlemek ve erişilemediğinde nöbetçi ekibe bildirim göndermek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Cloud Monitoring'de uptime check oluşturup buna bağlı bir alerting policy ve bildirim kanalı tanımlamak",
+   "Bütçe uyarısı oluşturmak",
+   "Log sink oluşturmak",
+   "Error Reporting'i etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Uptime check'ler farklı konumlardan uç noktayı yoklar; alerting policy başarısızlıkta e-posta, SMS, PagerDuty, Slack vb. kanallara bildirim gönderir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-060",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Denetim için tüm audit loglarının 7 yıl boyunca en düşük maliyetle saklanması gerekiyor. Ne yapmalısınız?",
+  "options": [
+   "Log Router'da bir sink ile logları Cloud Storage kovasına (Archive/Coldline sınıfı) yönlendirmek",
+   "_Default log bucket'ının saklama süresini değiştirmeden bırakmak",
+   "Logları BigQuery'de on-demand sorgularla tutmak",
+   "Logları VM disklerine yazmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Log sink'leri logları Cloud Storage, BigQuery, Pub/Sub veya başka bir log bucket'ına yönlendirir. Uzun süreli ve ucuz saklama için Cloud Storage (gerekirse retention policy/Bucket Lock ile) uygundur.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-061",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Belirli bir hata mesajının loglarda dakikada kaç kez geçtiğine göre uyarı oluşturmak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Log tabanlı metrik (log-based metric) oluşturup bu metriğe alerting policy bağlamak",
+   "Uptime check",
+   "Cloud Trace",
+   "Billing budget"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Log-based metrics, log girişlerinden sayaç veya dağılım metrikleri üretir; bu metrikler Cloud Monitoring'de grafik ve uyarılarda kullanılabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-062",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "zor",
+  "question": "Hata ayıklama (debug) loglarının hacmi Cloud Logging maliyetinizi çok artırdı; bu loglara ihtiyacınız yok. Maliyeti azaltmanın en doğru yolu?",
+  "options": [
+   "_Default sink'e bu logları dışlayan bir exclusion filter eklemek",
+   "_Required bucket'ı silmek",
+   "Admin Activity audit loglarını kapatmak",
+   "Tüm VM'lerden Ops Agent'ı kaldırmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Exclusion filter'lar istenmeyen logların depolanmasını (ve ücretlendirilmesini) engeller. _Required bucket ve Admin Activity logları devre dışı bırakılamaz.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-063",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Birden fazla projedeki kaynakların metriklerini tek bir Cloud Monitoring görünümünde izlemek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Bir izleme projesi seçip diğer projeleri onun metrics scope'una eklemek",
+   "Tüm kaynakları tek bir projeye taşımak",
+   "Her projede ayrı dashboard açıp ekran görüntüsü almak",
+   "Billing export kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Metrics scope, bir scoping projesinin birden çok projenin metriklerini görüntülemesini sağlar.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-064",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Mikroservis uygulamanızda bir isteğin hangi serviste geciktiğini (latency) bulmak istiyorsunuz. Hangi araç en uygundur?",
+  "options": [
+   "Cloud Trace",
+   "Cloud Profiler",
+   "Error Reporting",
+   "Billing reports"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Trace dağıtık izleme yapar ve isteklerin servisler arasındaki gecikmesini gösterir. Profiler CPU/bellek kullanımını kod seviyesinde, Error Reporting ise hataları gruplar.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-065",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Bir MIG'deki VM'lere yeni bir instance template'i kesintisiz ve kademeli olarak uygulamak istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Rolling update başlatmak (gcloud compute instance-groups managed rolling-action start-update) ve maxSurge/maxUnavailable ayarlamak",
+   "Tüm VM'leri aynı anda silmek",
+   "Yeni bir MIG oluşturup DNS değiştirmek zorunludur",
+   "Autoscaler'ı kapatmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "MIG rolling update'leri, maxSurge ve maxUnavailable ile kontrollü şekilde VM'leri yeni şablona geçirir; canary için iki şablon da kullanılabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-066",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE'de çalışan bir Deployment'ın imajını yeni sürüme güncellemek istiyorsunuz. Hangi komut doğrudur?",
+  "options": [
+   "kubectl set image deployment/web web=REGION-docker.pkg.dev/PROJE/repo/web:v2",
+   "gcloud container images update web",
+   "kubectl scale deployment web --image=v2",
+   "gcloud compute instances update web"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "kubectl set image (veya manifesti güncelleyip kubectl apply) rolling update başlatır. Geri almak için kubectl rollout undo kullanılır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-067",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE kümesinin Kubernetes sürüm yükseltmelerini Google'ın test edilmiş sürüm akışına göre otomatik almasını istiyorsunuz. Ne yapılandırırsınız?",
+  "options": [
+   "Kümeyi bir release channel'a (Rapid/Regular/Stable) kaydetmek",
+   "Node auto-repair'i kapatmak",
+   "Static sürüm sabitlemek ve auto-upgrade'i kapatmak",
+   "Cluster autoscaler'ı etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Release channel'lar kontrol düzlemi ve düğümler için otomatik yükseltme akışı sağlar; bakım pencereleri ve hariç tutma aralıkları ile zamanlama kontrol edilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-068",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run hizmetiniz trafik olmadıktan sonraki ilk isteklerde yavaş yanıt veriyor (cold start). Bunu azaltmak için ne yapabilirsiniz? (İKİ seçenek seçin)",
+  "options": [
+   "Minimum instance sayısını 1 veya daha fazla ayarlamak",
+   "Startup CPU boost'u etkinleştirmek",
+   "Maksimum instance sayısını artırmak",
+   "Concurrency'yi 1'e düşürmek"
+  ],
+  "correct": [
+   0,
+   1
+  ],
+  "explanation": "Min instances sıcak örnekleri hazır tutar; startup CPU boost başlangıçta ek CPU vererek açılışı hızlandırır. Max instances ve concurrency=1 cold start'ı azaltmaz, hatta çoğaltabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-069",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "App Engine standard'daki uygulamanızın yeni sürümüne trafiğin %20'sini yönlendirmek istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud app services set-traffic default --splits=v1=0.8,v2=0.2",
+   "gcloud app deploy --traffic=20",
+   "gcloud run services update-traffic",
+   "kubectl rollout"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "App Engine'de trafik bölme 'gcloud app services set-traffic --splits' ile yapılır; IP, cookie veya rastgele bölme seçilebilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-070",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Belirli bir harici kullanıcıya, Google hesabı olmadan, bir nesneyi 1 saat boyunca indirebilmesi için geçici erişim vermek istiyorsunuz. Ne kullanırsınız?",
+  "options": [
+   "Signed URL",
+   "Nesneyi herkese açık (allUsers) yapmak",
+   "Kullanıcıya Storage Admin rolü vermek",
+   "Uniform bucket-level access"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Signed URL'ler, sınırlı süreli (V4 için en fazla 7 gün) ve belirli bir işlem için erişim sağlar; alıcının Google hesabı olması gerekmez.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-071",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Cloud SQL örneğinizde yanlışlıkla bir tablo silindi; 20 dakika önceki duruma dönmek istiyorsunuz. Hangi özellik bunu mümkün kılar?",
+  "options": [
+   "Point-in-time recovery (PITR) ile belirli bir zamana klonlama/geri yükleme",
+   "Read replica'yı birincil yapmak",
+   "HA failover başlatmak",
+   "Instance'ı yeniden başlatmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "PITR, otomatik yedekler ve işlem logları sayesinde belirli bir zamana geri dönmeyi sağlar. HA failover ve replikalar silme işlemini de kopyaladığından kurtarma sağlamaz.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-072",
+  "exam": "ACE",
+  "domain": 3,
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Cloud SQL birincil örneğiniz raporlama sorguları nedeniyle aşırı yükleniyor. Okuma yükünü dağıtmak için ne yapmalısınız?",
+  "options": [
+   "Read replica oluşturup raporlama sorgularını oraya yönlendirmek",
+   "HA'yı etkinleştirmek; standby okuma trafiği alır",
+   "Bigtable'a geçmek",
+   "Otomatik yedekleri kapatmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Read replica'lar okuma trafiğini üstlenir. HA standby örneği ise trafik almaz, yalnızca failover içindir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-073",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "kolay",
+  "question": "En az ayrıcalık (least privilege) ilkesine göre bir geliştiricinin yalnızca Compute Engine VM'lerini yönetebilmesi gerekiyor. Ne vermelisiniz?",
+  "options": [
+   "Compute Instance Admin gibi önceden tanımlı (predefined) bir rol",
+   "Editor rolü",
+   "Owner rolü",
+   "Organization Administrator rolü"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Basic roller (Owner/Editor/Viewer) çok geniştir; üretimde önceden tanımlı veya özel roller tercih edilmelidir. Rolleri bireyler yerine Google Gruplarına vermek yönetimi kolaylaştırır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-074",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Compute Engine'de çalışan bir uygulamanın yalnızca belirli bir Cloud Storage kovasından okuma yapması gerekiyor. En güvenli yapı hangisi?",
+  "options": [
+   "Kullanıcı tarafından yönetilen bir servis hesabı oluşturup VM'e bağlamak ve ona yalnızca o kovada Storage Object Viewer vermek",
+   "Bir servis hesabı anahtarı (JSON key) indirip VM'e kopyalamak",
+   "Varsayılan Compute Engine servis hesabını Editor rolüyle kullanmak",
+   "Kovayı herkese açık yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VM'e bağlı servis hesabı, meta veri sunucusu üzerinden kısa ömürlü kimlik bilgileri alır; anahtar dosyası gerekmez. Rol, kaynak (kova) seviyesinde ve minimum kapsamda verilmelidir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-075",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "GitHub Actions'taki CI hattınızın Google Cloud'a dağıtım yapması gerekiyor ve güvenlik ekibi servis hesabı anahtarlarını yasaklıyor. Ne kullanmalısınız?",
+  "options": [
+   "Workload Identity Federation",
+   "Servis hesabı anahtarını GitHub secret olarak saklamak",
+   "Kişisel kullanıcı hesabının şifresini kullanmak",
+   "API anahtarı"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Workload Identity Federation, harici kimlik sağlayıcıların (GitHub, AWS, Azure, OIDC/SAML) token'larını kısa ömürlü Google kimlik bilgileriyle takas eder; uzun ömürlü anahtar gerektirmez.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-076",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "GKE'deki pod'ların, Kubernetes servis hesabına bağlı olarak Google Cloud API'lerine anahtarsız ve pod bazında izinle erişmesini istiyorsunuz. Önerilen yöntem?",
+  "options": [
+   "Workload Identity Federation for GKE",
+   "Düğümün varsayılan servis hesabına Owner vermek",
+   "Anahtar dosyasını Kubernetes Secret olarak bağlamak",
+   "Tüm pod'lara aynı API anahtarını vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Workload Identity Federation for GKE, Kubernetes servis hesaplarını IAM ile ilişkilendirir; Autopilot'ta varsayılan olarak etkindir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-077",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir geliştiricinin, belirli bir servis hesabını kullanan VM'leri oluşturabilmesi (servis hesabını VM'e bağlayabilmesi) gerekiyor. VM yönetim rolüne ek olarak hangi role ihtiyacı var?",
+  "options": [
+   "O servis hesabı üzerinde Service Account User (roles/iam.serviceAccountUser)",
+   "Service Account Admin",
+   "Project Owner",
+   "Security Reviewer"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bir kaynağa servis hesabı bağlamak 'iam.serviceAccounts.actAs' izni gerektirir; bu, Service Account User rolündedir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-078",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir yönetici, kendi kimliğiyle değil bir servis hesabının yetkileriyle gcloud komutları test etmek istiyor (anahtar indirmeden). Ne yapmalı?",
+  "options": [
+   "Servis hesabında Service Account Token Creator rolü alıp --impersonate-service-account bayrağını kullanmak",
+   "Servis hesabının anahtarını indirip gcloud auth activate-service-account kullanmak",
+   "Servis hesabına Owner rolü vermek",
+   "Kendi hesabını servis hesabına dönüştürmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Kimliğe bürünme (impersonation) kısa ömürlü token'larla çalışır; Token Creator rolü gerekir ve anahtar yönetimi riskini ortadan kaldırır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-079",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Departman klasörü seviyesinde kullanılmak üzere özel (custom) bir IAM rolü oluşturmak istiyorsunuz. Hangi ifade doğrudur?",
+  "options": [
+   "Özel roller yalnızca organizasyon veya proje seviyesinde oluşturulabilir; klasör seviyesinde oluşturulamaz (ama organizasyonda oluşturulan rol klasörde atanabilir)",
+   "Özel roller yalnızca klasör seviyesinde oluşturulabilir",
+   "Özel roller her izni içerebilir, sınırlama yoktur",
+   "Özel roller otomatik olarak Google tarafından güncellenir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Custom role'lar organizasyon veya proje seviyesinde tanımlanır. Bazı izinler custom role'larda desteklenmez ve Google yeni izinleri custom role'lara otomatik eklemez.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-080",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir danışmana yalnızca önümüzdeki cuma 18:00'e kadar geçerli olacak şekilde bir projede Viewer erişimi vermek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Bitiş zamanı içeren IAM Conditions (koşullu rol bağlama)",
+   "Bütçe uyarısı",
+   "Organizasyon politikası",
+   "Signed URL"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAM Conditions ile rol bağlamalarına tarih/saat, kaynak adı gibi koşullar eklenebilir; süre dolunca erişim otomatik biter.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-081",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Güvenlik ekibi, bir projede IAM politikasını kimin değiştirdiğini öğrenmek istiyor. Hangi loglara bakmalısınız?",
+  "options": [
+   "Admin Activity audit logları",
+   "Data Access audit logları",
+   "VPC Flow Logs",
+   "Firewall Rules Logging"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Admin Activity audit logları yapılandırma/meta veri değişikliklerini kaydeder; her zaman açıktır, ücretsizdir ve kapatılamaz. Data Access logları (BigQuery hariç) varsayılan olarak kapalıdır.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-082",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Bir Cloud Storage kovasındaki nesneleri KİMİN okuduğunu denetlemek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Cloud Storage için Data Access audit loglarını (DATA_READ) etkinleştirmek",
+   "Admin Activity loglarına bakmak yeterlidir",
+   "Object Versioning etkinleştirmek",
+   "Bucket Lock uygulamak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Veri okuma/yazma işlemleri Data Access audit loglarında kaydedilir; bunlar çoğu hizmet için varsayılan kapalıdır ve ek maliyet doğurabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-083",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Harici IP'si olmayan Linux VM'lere, VPN veya bastion host kurmadan SSH ile bağlanmak istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "IAP TCP forwarding kullanmak ve güvenlik duvarında 35.235.240.0/20 aralığından 22. porta izin vermek",
+   "Tüm VM'lere harici IP vermek",
+   "0.0.0.0/0'dan 22. porta izin vermek",
+   "Cloud NAT kurmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Identity-Aware Proxy TCP forwarding, IAM ile yetkilendirilmiş kullanıcıların harici IP olmadan VM'lere erişmesini sağlar (gcloud compute ssh --tunnel-through-iap).",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-084",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "VPC güvenlik duvarı kuralları hakkında hangi İKİ ifade doğrudur?",
+  "options": [
+   "Durum bilgilidir (stateful): izin verilen bağlantının dönüş trafiğine otomatik izin verilir",
+   "Örtük (implied) kurallar tüm gelen (ingress) trafiği engeller ve tüm giden (egress) trafiğe izin verir",
+   "Güvenlik duvarı kuralları bölgesel kaynaklardır ve her bölge için ayrı tanımlanmalıdır",
+   "Düşük öncelik numarası (ör. 65535) en yüksek önceliktir"
+  ],
+  "correct": [
+   0,
+   1
+  ],
+  "explanation": "VPC firewall kuralları globaldir, stateful'dur; öncelik 0–65535 arasıdır ve DÜŞÜK sayı YÜKSEK önceliktir. Örtük kurallar: ingress deny, egress allow.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-085",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Yalnızca 'web' ağ etiketine (network tag) sahip VM'lerin internetten 443 portunda trafik almasını istiyorsunuz. Nasıl bir kural oluşturursunuz?",
+  "options": [
+   "Kaynak 0.0.0.0/0, hedef etiket 'web', tcp:443 izin veren ingress kuralı",
+   "Egress kuralı, hedef tüm VM'ler, tcp:443",
+   "Ingress kuralı, hedef tüm VM'ler, tüm portlar",
+   "Organizasyon politikasıyla 443'ü açmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Firewall kuralları ağ etiketleri veya servis hesapları ile hedeflenebilir. Servis hesabı ile hedefleme, etiketlere göre daha sıkı kontrol sağlar (etiketleri instance admin değiştirebilir).",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-086",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Bir kovadaki erişimi yalnızca IAM ile, nesne bazlı ACL'ler olmadan, tutarlı şekilde yönetmek istiyorsunuz. Ne etkinleştirmelisiniz?",
+  "options": [
+   "Uniform bucket-level access",
+   "Fine-grained ACL",
+   "Requester Pays",
+   "Object Versioning"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Uniform bucket-level access, ACL'leri devre dışı bırakır ve erişimi yalnızca IAM ile yönetir; önerilen yaklaşımdır. Public Access Prevention ile birlikte kullanılabilir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-087",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Uygulamanızın veritabanı şifresini ve API anahtarlarını kodda veya ortam dosyalarında tutmak istemiyorsunuz. Hangi hizmeti kullanmalısınız?",
+  "options": [
+   "Secret Manager",
+   "Cloud KMS'te düz metin olarak",
+   "Cloud Storage'da herkese açık bir dosya",
+   "VM meta verisi"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Secret Manager sırları sürümlü saklar, IAM ile erişimi kontrol eder ve erişimleri audit loglarına yazar. Cloud Run ve GKE ile doğrudan entegredir.",
+  "source": "builtin"
+ },
+ {
+  "id": "ace-088",
+  "exam": "ACE",
+  "domain": 4,
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "zor",
+  "question": "Güvenlik ekibi, organizasyondaki hiçbir projede servis hesabı anahtarı oluşturulamamasını istiyor. Ne yapmalısınız?",
+  "options": [
+   "iam.disableServiceAccountKeyCreation organizasyon politikası kısıtlamasını uygulamak",
+   "Tüm kullanıcılardan Owner rolünü kaldırmak yeterlidir",
+   "Bir bütçe uyarısı kurmak",
+   "VPC Service Controls'u etkinleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bu organizasyon politikası anahtar oluşturmayı engeller (yeni organizasyonlarda varsayılan olarak zorunlu tutulur). Anahtarsız alternatifler: bağlı servis hesapları, impersonation ve Workload Identity Federation.",
+  "source": "builtin"
+ }
+]

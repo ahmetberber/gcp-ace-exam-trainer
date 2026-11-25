@@ -1,0 +1,6 @@
+# Kişisel veriler (ilerleme, ayarlar ve API anahtarı) — asla commit'lemeyin
+data/
+__pycache__/
+*.pyc
+.venv/
+venv/

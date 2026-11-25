@@ -1,0 +1,3 @@
+# Yalnızca AI ile soru üretme ve "Claude'a sor" özellikleri için gerekli.
+# Hazır soru bankasıyla çalışmak için ek paket gerekmez.
+anthropic>=2.14
