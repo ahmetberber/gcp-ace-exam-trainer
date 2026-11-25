@@ -6190,5 +6190,707 @@
    ],
    "explanation": "Attached service accounts and impersonation work with Google-managed keys. You download user-managed keys, and storing/rotating them is your responsibility."
   }
+ },
+ {
+  "id": "ace-179",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Şirketinizde Finans, Pazarlama ve Mühendislik departmanları var; her departmanın kendi projeleri olacak ve erişim departman bazında yönetilecek. Kaynak hiyerarşisini nasıl tasarlamalısınız?",
+  "options": [
+   "Organizasyon altında her departman için bir klasör oluşturup projeleri ilgili klasöre koymak",
+   "Tüm kaynakları tek bir projede toplayıp etiketlerle ayırmak",
+   "Her departman için ayrı bir organizasyon oluşturmak",
+   "Projeleri hiyerarşisiz, organizasyon dışında oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Klasörler; departman, ekip veya ortam gibi grupları modellemek için kullanılır. Klasöre verilen IAM rolleri ve organizasyon politikaları altındaki projelere miras kalır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/creating-managing-folders",
+  "check": [
+   "folder",
+   "department"
+  ],
+  "en": {
+   "question": "Your company has Finance, Marketing, and Engineering departments; each department will have its own projects and access will be managed per department. How should you design the resource hierarchy?",
+   "options": [
+    "Create a folder for each department under the organization and place projects in the relevant folder",
+    "Put all resources in a single project and separate them with labels",
+    "Create a separate organization for each department",
+    "Create projects outside the organization with no hierarchy"
+   ],
+   "explanation": "Folders are used to model groups such as departments, teams, or environments. IAM roles and organization policies applied to a folder are inherited by the projects under it."
+  }
+ },
+ {
+  "id": "ace-180",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Şirketiniz çalışan kimliklerini Microsoft Entra ID'de (veya Okta'da) yönetiyor. Çalışanların Google Cloud konsoluna mevcut kimlikleriyle tek oturum açma (SSO) ile erişmesini, ancak kullanıcı hesaplarının Cloud Identity'ye senkronize edilmemesini istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Workforce Identity Federation",
+   "Google Cloud Directory Sync",
+   "Workload Identity Federation",
+   "Her çalışan için servis hesabı oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Workforce Identity Federation, harici IdP'deki kullanıcı ve grupların SSO ile Google Cloud'a erişmesini sağlar; kimlikleri federasyonla kullanır, kullanıcı hesaplarını Google'da saklamaz. GCDS ise hesapları senkronize eder. Workload Identity Federation iş yükleri (uygulamalar) içindir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/workforce-identity-federation",
+  "check": [
+   "doesn't store user accounts",
+   "single sign-on"
+  ],
+  "en": {
+   "question": "Your company manages employee identities in Microsoft Entra ID (or Okta). You want employees to access the Google Cloud console with single sign-on (SSO) using their existing identities, without syncing user accounts into Cloud Identity. What should you use?",
+   "options": [
+    "Workforce Identity Federation",
+    "Google Cloud Directory Sync",
+    "Workload Identity Federation",
+    "Create a service account for each employee"
+   ],
+   "explanation": "Workforce Identity Federation lets users and groups in an external IdP access Google Cloud with SSO; it federates identities and doesn't store user accounts in Google. GCDS synchronizes accounts. Workload Identity Federation is for workloads (applications)."
+  }
+ },
+ {
+  "id": "ace-181",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Bir projede hangi API'lerin etkin olduğunu listelemek istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud services list --enabled",
+   "gcloud apis list",
+   "gcloud projects list --apis",
+   "gcloud config list"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'gcloud services list --enabled' projede etkin olan hizmetleri (API'leri) listeler; --available ile etkinleştirilebilecek olanlar görülür.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sdk/gcloud/reference/services/list",
+  "check": [
+   "gcloud services list",
+   "--enabled",
+   "--available"
+  ],
+  "en": {
+   "question": "You want to list which APIs are enabled in a project. Which command?",
+   "options": [
+    "gcloud services list --enabled",
+    "gcloud apis list",
+    "gcloud projects list --apis",
+    "gcloud config list"
+   ],
+   "explanation": "'gcloud services list --enabled' lists the services (APIs) enabled in the project; --available shows those that can be enabled."
+  }
+ },
+ {
+  "id": "ace-182",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "kolay",
+  "question": "Cloud Monitoring uyarılarının e-posta yerine ekibinizin Slack kanalına ve PagerDuty'ye gitmesini istiyorsunuz. Ne yapılandırmalısınız?",
+  "options": [
+   "Cloud Monitoring'de Slack ve PagerDuty bildirim kanallarını (notification channels) oluşturup uyarı politikalarına eklemek",
+   "Log sink ile logları Slack'e yönlendirmek",
+   "Bütçe uyarısı oluşturmak",
+   "Uptime check'i devre dışı bırakmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bildirim kanalları; e-posta, SMS, Slack, PagerDuty, webhook ve Pub/Sub gibi hedefleri tanımlar ve uyarı politikalarına bağlanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/monitoring/support/notification-options",
+  "check": [
+   "Slack",
+   "PagerDuty"
+  ],
+  "en": {
+   "question": "You want Cloud Monitoring alerts to go to your team's Slack channel and PagerDuty instead of email. What should you configure?",
+   "options": [
+    "Create Slack and PagerDuty notification channels in Cloud Monitoring and add them to the alerting policies",
+    "Route logs to Slack with a log sink",
+    "Create a budget alert",
+    "Disable the uptime check"
+   ],
+   "explanation": "Notification channels define destinations such as email, SMS, Slack, PagerDuty, webhooks, and Pub/Sub, and are attached to alerting policies."
+  }
+ },
+ {
+  "id": "ace-183",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Bir uygulamanın API kullanımının kotaya yaklaştığını kota aşılıp hata alınmadan önce öğrenmek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Kota kullanım metriklerine dayalı bir Cloud Monitoring uyarısı oluşturmak",
+   "Faturayı her ay incelemek",
+   "Kotayı en yüksek değere sabitlemek; kotalar sınırsız artırılabilir",
+   "Projeyi yeni bir klasöre taşımak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Kotalar Cloud Monitoring'de metrik olarak izlenebilir ve belirli bir kullanım oranına ulaşıldığında uyarı oluşturulabilir; gerekirse önceden artış talep edilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/docs/quotas/view-manage",
+  "check": [
+   "alert",
+   "quota"
+  ],
+  "en": {
+   "question": "You want to know when an application's API usage is approaching a quota, before the quota is exceeded and errors occur. What should you do?",
+   "options": [
+    "Create a Cloud Monitoring alert based on quota usage metrics",
+    "Review the invoice every month",
+    "Set the quota to the maximum; quotas can be increased without limit",
+    "Move the project to a new folder"
+   ],
+   "explanation": "Quotas can be monitored as metrics in Cloud Monitoring and alerts can be created when a usage ratio is reached; an increase can then be requested in advance."
+  }
+ },
+ {
+  "id": "ace-184",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Güvenlik ekibi, yeni oluşturulan projelerde geniş firewall kurallarına sahip 'default' VPC ağının otomatik olarak oluşturulmamasını istiyor. Ne yapmalısınız?",
+  "options": [
+   "compute.skipDefaultNetworkCreation organizasyon politikası kısıtlamasını uygulamak",
+   "Her yeni projede default ağı elle silmek tek yoldur",
+   "Compute Engine API'sini devre dışı bırakmak",
+   "Tüm firewall kurallarını organizasyon seviyesinde silmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "compute.skipDefaultNetworkCreation uygulandığında yeni projelerde default ağ ve ilgili kaynaklar oluşturulmaz. Üretimde ihtiyaca göre tasarlanmış custom mode VPC'ler önerilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints",
+  "check": [
+   "compute.skipDefaultNetworkCreation"
+  ],
+  "en": {
+   "question": "The security team wants newly created projects not to automatically get the 'default' VPC network with its broad firewall rules. What should you do?",
+   "options": [
+    "Enforce the compute.skipDefaultNetworkCreation organization policy constraint",
+    "Manually deleting the default network in every new project is the only way",
+    "Disable the Compute Engine API",
+    "Delete all firewall rules at the organization level"
+   ],
+   "explanation": "When compute.skipDefaultNetworkCreation is enforced, the default network and related resources aren't created in new projects. Purpose-designed custom mode VPCs are recommended for production."
+  }
+ },
+ {
+  "id": "ace-185",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir ML iş yükü için belirli bir GPU modelini kullanacaksınız ve tercih ettiğiniz bölgede bu GPU'nun olup olmadığından emin değilsiniz. Ne yapmalısınız?",
+  "options": [
+   "GPU bölge/zon kullanılabilirliği tablosunu kontrol etmek veya 'gcloud compute accelerator-types list' ile zonları listelemek",
+   "Her bölgede VM oluşturmayı deneyip hata alana kadar beklemek",
+   "Tüm GPU'ların her zonda bulunduğunu varsaymak",
+   "Kotayı artırmak; kota artınca GPU her zonda kullanılabilir olur"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Donanım ve hizmetlerin kullanılabilirliği bölge ve zona göre değişir. GPU'lar için resmi bölge/zon tablosu veya accelerator-types listesi kontrol edilmelidir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/gpus/gpu-regions-zones",
+  "check": [
+   "zones",
+   "GPU"
+  ],
+  "en": {
+   "question": "You'll use a specific GPU model for an ML workload and aren't sure whether that GPU is available in your preferred region. What should you do?",
+   "options": [
+    "Check the GPU regions and zones availability table or list zones with 'gcloud compute accelerator-types list'",
+    "Try creating VMs in every region until one fails",
+    "Assume every GPU is available in every zone",
+    "Increase the quota; then the GPU becomes available in every zone"
+   ],
+   "explanation": "Availability of hardware and services varies by region and zone. For GPUs, check the official regions/zones table or the accelerator-types list."
+  }
+ },
+ {
+  "id": "ace-186",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Aşağıdaki Compute Engine kaynaklarından hangi İKİSİ global kaynaklardır? (İKİ seçenek seçin)",
+  "options": [
+   "VPC ağı",
+   "Firewall kuralları",
+   "Alt ağ (subnet)",
+   "VM örneği",
+   "Zonal persistent disk"
+  ],
+  "correct": [
+   0,
+   1
+  ],
+  "explanation": "VPC ağları ve firewall kuralları globaldir; alt ağlar bölgeseldir; VM'ler ve zonal diskler zonaldir. Kaynağın kapsamı, onu hangi bölge/zonlardaki kaynakların kullanabileceğini belirler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/regions-zones/global-regional-zonal-resources",
+  "check": [
+   "a VPC network is a global resource, but individual subnets are regional resources",
+   "zonal disks"
+  ],
+  "en": {
+   "question": "Which TWO of the following Compute Engine resources are global resources? (Choose two.)",
+   "options": [
+    "VPC network",
+    "Firewall rules",
+    "Subnet",
+    "VM instance",
+    "Zonal persistent disk"
+   ],
+   "explanation": "VPC networks and firewall rules are global; subnets are regional; VMs and zonal disks are zonal. A resource's scope determines which resources in which regions/zones can use it."
+  }
+ },
+ {
+  "id": "ace-187",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Organizasyondaki tüm kaynakların meta verilerini düzenli olarak BigQuery'ye aktarıp SQL ile analiz etmek istiyorsunuz (ör. hangi projede kaç VM var). Ne kullanmalısınız?",
+  "options": [
+   "Cloud Asset Inventory'nin BigQuery'ye dışa aktarma özelliği",
+   "Billing export",
+   "Log sink ile Admin Activity loglarını aktarmak",
+   "Her projede 'gcloud compute instances list' çıktısını elle birleştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Asset Inventory, kaynak ve politika meta verilerini belirli bir zaman noktası için BigQuery veya Cloud Storage'a dışa aktarabilir; SQL ile analiz edilebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/asset-inventory/docs/export-asset-metadata",
+  "check": [
+   "BigQuery",
+   "export"
+  ],
+  "en": {
+   "question": "You want to regularly export metadata of all resources in the organization to BigQuery and analyze it with SQL (e.g. how many VMs each project has). What should you use?",
+   "options": [
+    "Cloud Asset Inventory's export to BigQuery",
+    "Billing export",
+    "Export Admin Activity logs with a log sink",
+    "Manually combine 'gcloud compute instances list' output from each project"
+   ],
+   "explanation": "Cloud Asset Inventory can export resource and policy metadata at a point in time to BigQuery or Cloud Storage, where it can be analyzed with SQL."
+  }
+ },
+ {
+  "id": "ace-188",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "orta",
+  "question": "Bir operasyon mühendisi, Google Cloud konsolunda doğal dille kaynakları hakkında soru sormak ve sorunları gidermek için yapay zekâ destekli bir yardımcı kullanmak istiyor. Hangi Google Cloud özelliği bu amaçla tasarlanmıştır?",
+  "options": [
+   "Gemini Cloud Assist",
+   "Cloud Shell Editor",
+   "Cloud Asset Inventory",
+   "Policy Troubleshooter"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Gemini Cloud Assist, Google Cloud ortamınızı anlayarak tasarım, işletim ve sorun giderme konularında yardımcı olan yapay zekâ destekli bir asistandır. (Bazı özellikleri önizleme aşamasındadır.)",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/gemini/docs/cloud-assist/overview",
+  "check": [
+   "Gemini Cloud Assist",
+   "troubleshoot"
+  ],
+  "en": {
+   "question": "An operations engineer wants to use an AI-powered assistant in the Google Cloud console to ask questions about their resources in natural language and troubleshoot issues. Which Google Cloud feature is designed for this?",
+   "options": [
+    "Gemini Cloud Assist",
+    "Cloud Shell Editor",
+    "Cloud Asset Inventory",
+    "Policy Troubleshooter"
+   ],
+   "explanation": "Gemini Cloud Assist is an AI-powered assistant that understands your Google Cloud environment and helps with design, operations, and troubleshooting. (Some features are in preview.)"
+  }
+ },
+ {
+  "id": "ace-189",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Bir ekip yöneticisinin organizasyon genelinde organizasyon politikalarını tanımlayıp değiştirebilmesi gerekiyor. Hangi rol gereklidir?",
+  "options": [
+   "Organization Policy Administrator (roles/orgpolicy.policyAdmin)",
+   "Organization Administrator rolü tek başına yeterlidir",
+   "Project Owner",
+   "Security Reviewer"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Organizasyon politikalarını yönetmek için Organization Policy Administrator rolü gerekir. Organization Administrator rolü varsayılan olarak bu izni içermez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/creating-managing-policies",
+  "check": [
+   "roles/orgpolicy.policyAdmin"
+  ],
+  "en": {
+   "question": "A team manager must be able to define and change organization policies across the organization. Which role is required?",
+   "options": [
+    "Organization Policy Administrator (roles/orgpolicy.policyAdmin)",
+    "The Organization Administrator role alone is enough",
+    "Project Owner",
+    "Security Reviewer"
+   ],
+   "explanation": "Managing organization policies requires the Organization Policy Administrator role. The Organization Administrator role doesn't include this permission by default."
+  }
+ },
+ {
+  "id": "ace-190",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "zor",
+  "question": "Şirketiniz Google Cloud organizasyon kaynağını yeni edindi. Organizasyon oluşturulduğunda alan adınızdaki tüm kullanıcılara varsayılan olarak hangi roller verilir ve neden kontrol edilmelidir?",
+  "options": [
+   "Project Creator ve Billing Account Creator; herkes proje ve faturalandırma hesabı oluşturabileceği için bunları kısıtlamak isteyebilirsiniz",
+   "Owner; herkes her şeyi yönetebilir",
+   "Viewer; hiçbir şey yapılamaz",
+   "Hiçbir rol verilmez"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Organizasyon kaynağı oluşturulduğunda alan adındaki tüm kullanıcılara organizasyon seviyesinde Project Creator ve Billing Account Creator rolleri verilir. Yönetici, kontrolü merkezileştirmek için bunları kaldırıp belirli gruplara verebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/creating-managing-organization",
+  "check": [
+   "Project Creator",
+   "Billing Account Creator"
+  ],
+  "en": {
+   "question": "Your company just got a Google Cloud organization resource. Which roles are granted to all users in your domain by default when the organization is created, and why should you review them?",
+   "options": [
+    "Project Creator and Billing Account Creator; you may want to restrict them because everyone can create projects and billing accounts",
+    "Owner; everyone can manage everything",
+    "Viewer; nothing can be done",
+    "No roles are granted"
+   ],
+   "explanation": "When the organization resource is created, all users in the domain are granted Project Creator and Billing Account Creator at the organization level. Administrators can remove them and grant them to specific groups to centralize control."
+  }
+ },
+ {
+  "id": "ace-191",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Üretim veritabanlarını barındıran kritik bir projenin yanlışlıkla silinmesini önlemek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Projeye bir lien (silme kilidi) eklemek",
+   "Projeye 'prod' etiketi (label) eklemek",
+   "Projenin faturalandırmasını kapatmak",
+   "Projeyi başka bir klasöre taşımak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Lien'ler projeyi silme işlemine karşı korur; lien kaldırılmadan proje silinemez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/project-liens",
+  "check": [
+   "lien",
+   "deletion"
+  ],
+  "en": {
+   "question": "You want to prevent a critical project hosting production databases from being deleted accidentally. What should you use?",
+   "options": [
+    "Add a lien to the project",
+    "Add a 'prod' label to the project",
+    "Disable the project's billing",
+    "Move the project to another folder"
+   ],
+   "explanation": "Liens protect a project against deletion; the project can't be deleted until the lien is removed."
+  }
+ },
+ {
+  "id": "ace-192",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "gcloud ve Cloud Shell",
+  "difficulty": "kolay",
+  "question": "Bilgisayarınıza Google Cloud CLI'yi yeni kurdunuz. Kimlik doğrulama, varsayılan proje ve bölge/zon seçimini tek bir etkileşimli adımda yapmak için hangi komutu çalıştırırsınız?",
+  "options": [
+   "gcloud init",
+   "gcloud setup",
+   "gcloud auth application-default login",
+   "gcloud components update"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'gcloud init' kimlik doğrulamasını yapar, bir yapılandırma oluşturur ve varsayılan proje ile (isteğe bağlı) bölge/zonu ayarlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sdk/docs/initializing",
+  "check": [
+   "gcloud init"
+  ],
+  "en": {
+   "question": "You just installed the Google Cloud CLI on your computer. Which command do you run to authenticate and choose a default project and region/zone in a single interactive step?",
+   "options": [
+    "gcloud init",
+    "gcloud setup",
+    "gcloud auth application-default login",
+    "gcloud components update"
+   ],
+   "explanation": "'gcloud init' authenticates, creates a configuration, and sets the default project and (optionally) region/zone."
+  }
+ },
+ {
+  "id": "ace-193",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.1",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Bir projeyi oluşturduktan sonra aşağıdakilerden hangisini istediğiniz zaman değiştirebilirsiniz?",
+  "options": [
+   "Proje adı (project name)",
+   "Proje kimliği (project ID)",
+   "Proje numarası (project number)",
+   "Hiçbiri değiştirilemez"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Proje adı istendiği zaman düzenlenebilir ve benzersiz olması gerekmez. Proje kimliği ise küresel olarak benzersizdir ve oluşturulurken belirlenir; proje numarası otomatik atanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/creating-managing-projects",
+  "check": [
+   "edit the project name at any time",
+   "globally unique identifier"
+  ],
+  "en": {
+   "question": "After creating a project, which of the following can you change at any time?",
+   "options": [
+    "The project name",
+    "The project ID",
+    "The project number",
+    "None of them can be changed"
+   ],
+   "explanation": "The project name can be edited at any time and doesn't need to be unique. The project ID is globally unique and set at creation; the project number is assigned automatically."
+  }
+ },
+ {
+  "id": "ace-194",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.2",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "zor",
+  "question": "Finans ekibi, maliyetleri tek tek kaynak (ör. her VM) seviyesinde BigQuery'de analiz etmek istiyor. Hangi Cloud Billing dışa aktarma türünü etkinleştirmelisiniz?",
+  "options": [
+   "Detailed usage cost (ayrıntılı kullanım maliyeti) dışa aktarımı",
+   "Yalnızca standard usage cost dışa aktarımı",
+   "Pricing (fiyat listesi) dışa aktarımı",
+   "Faturanın PDF hâli"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Ayrıntılı (detailed) dışa aktarım, standart verilere ek olarak kaynak seviyesinde maliyet verisi içerir. Pricing dışa aktarımı ise SKU fiyat bilgilerini içerir, kullanım maliyetini değil.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/export-data-bigquery-tables",
+  "check": [
+   "detailed",
+   "resource-level",
+   "pricing"
+  ],
+  "en": {
+   "question": "The finance team wants to analyze costs at the individual resource level (e.g. each VM) in BigQuery. Which Cloud Billing export type should you enable?",
+   "options": [
+    "The detailed usage cost export",
+    "Only the standard usage cost export",
+    "The pricing export",
+    "The invoice PDF"
+   ],
+   "explanation": "The detailed export includes resource-level cost data in addition to the standard data. The pricing export contains SKU pricing information, not usage costs."
+  }
+ },
+ {
+  "id": "ace-195",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.2",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "orta",
+  "question": "Bir bütçe uyarısının yalnızca 'prod' projesindeki Compute Engine harcamalarını izlemesini istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Bütçenin kapsamını (scope) ilgili proje ve hizmetle sınırlamak",
+   "Her proje için ayrı faturalandırma hesabı oluşturmak",
+   "Billing export'u kapatmak",
+   "Compute Engine kotasını düşürmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bütçeler faturalandırma hesabının tamamı yerine belirli projeler, hizmetler veya etiketlerle (labels) kapsamlandırılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/budgets",
+  "check": [
+   "scope",
+   "services",
+   "labels"
+  ],
+  "en": {
+   "question": "You want a budget alert to track only Compute Engine spending in the 'prod' project. What should you do?",
+   "options": [
+    "Limit the budget's scope to that project and service",
+    "Create a separate billing account for each project",
+    "Turn off billing export",
+    "Lower the Compute Engine quota"
+   ],
+   "explanation": "Budgets can be scoped to specific projects, services, or labels instead of the whole billing account."
+  }
+ },
+ {
+  "id": "ace-196",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.2",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "zor",
+  "question": "Bir proje bütçeyi aştığında maliyetleri durdurmak için otomatik bir işlem (ör. bir fonksiyonun çalışması) tetiklemek istiyorsunuz. Bütçe ile bu otomasyon nasıl bağlanır?",
+  "options": [
+   "Bütçe için programatik bildirimleri etkinleştirip bir Pub/Sub konusuna göndermek; fonksiyon bu konudan tetiklenir",
+   "Bütçe e-postalarını bir posta kutusuna yönlendirip elle okumak",
+   "Billing export'tan saatlik sorgu çalıştırmak tek yoldur",
+   "Bütçeler otomasyonla bağlanamaz"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Programatik bütçe bildirimleri, bütçe durumunu bir Pub/Sub konusuna yayımlar; Cloud Run functions gibi bir hizmet bu mesajlara göre işlem (ör. faturalandırmayı kapatma) yapabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/budgets-programmatic-notifications",
+  "check": [
+   "Pub/Sub"
+  ],
+  "en": {
+   "question": "When a project exceeds its budget, you want to trigger an automated action (e.g. run a function) to stop costs. How is the budget connected to this automation?",
+   "options": [
+    "Enable programmatic notifications for the budget to a Pub/Sub topic; the function is triggered from that topic",
+    "Forward budget emails to a mailbox and read them manually",
+    "Running an hourly query on billing export is the only way",
+    "Budgets can't be connected to automation"
+   ],
+   "explanation": "Programmatic budget notifications publish budget status to a Pub/Sub topic; a service such as Cloud Run functions can act on these messages (e.g. disable billing)."
+  }
+ },
+ {
+  "id": "ace-197",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.2",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "zor",
+  "question": "Bir geliştirme projesindeki Cloud Run hizmetinin, belirlenen aylık tutarı aştığında kullanımının otomatik olarak duraklatılmasını, ama diğer hizmetlerin etkilenmemesini istiyorsunuz. Ne yapılandırmalısınız?",
+  "options": [
+   "Projede Cloud Run için bir spend cap (harcama limiti) bütçesi",
+   "Yalnızca uyarı (alerts-only) bütçesi",
+   "Organizasyon politikası gcp.resourceLocations",
+   "Cloud Run'ın maksimum örnek sayısını 0 yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Spend cap bütçeleri, desteklenen hizmetler (ör. Cloud Run, Cloud Run functions, Gemini API) için tutar aşıldığında o hizmetin kullanımını dönem sonuna kadar duraklatır; veriler silinmez ve diğer hizmetler etkilenmez. Yalnızca uyarı bütçeleri harcamayı durdurmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/budgets-spend-caps",
+  "check": [
+   "Cloud Run",
+   "paused"
+  ],
+  "en": {
+   "question": "You want a Cloud Run service in a development project to have its usage paused automatically when it exceeds a set monthly amount, without affecting other services. What should you configure?",
+   "options": [
+    "A spend cap budget for Cloud Run on the project",
+    "An alerts-only budget",
+    "The gcp.resourceLocations organization policy",
+    "Set Cloud Run's maximum instances to 0"
+   ],
+   "explanation": "Spend cap budgets pause usage of eligible services (e.g. Cloud Run, Cloud Run functions, Gemini API) for the rest of the period when the amount is exceeded; data isn't deleted and other services aren't affected. Alerts-only budgets don't stop spending."
+  }
+ },
+ {
+  "id": "ace-198",
+  "exam": "ACE",
+  "domain": 1,
+  "objective": "1.2",
+  "topic": "Kaynak hiyerarşisi ve faturalandırma",
+  "difficulty": "kolay",
+  "question": "Maliyetlerin 'team' etiketine göre dağılımını, sorgu yazmadan konsolda hızlıca görselleştirmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Cloud Billing reports (etikete göre gruplama ile)",
+   "Billing export to BigQuery",
+   "Pricing Calculator",
+   "Cloud Monitoring dashboard"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Billing reports konsolda maliyetleri proje, hizmet, SKU veya etikete göre gruplayıp filtreleyerek gösterir. Daha ayrıntılı SQL analizi için BigQuery export kullanılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/billing/docs/how-to/reports",
+  "check": [
+   "label",
+   "group by"
+  ],
+  "en": {
+   "question": "You want to quickly visualize in the console how costs break down by the 'team' label, without writing queries. What should you use?",
+   "options": [
+    "Cloud Billing reports (grouped by label)",
+    "Billing export to BigQuery",
+    "Pricing Calculator",
+    "A Cloud Monitoring dashboard"
+   ],
+   "explanation": "Billing reports in the console show costs grouped and filtered by project, service, SKU, or label. BigQuery export is used for deeper SQL analysis."
+  }
  }
 ]
