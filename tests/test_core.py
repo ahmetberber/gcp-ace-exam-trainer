@@ -27,7 +27,7 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(len(ids), len(set(ids)))
         raw = json.loads((ROOT / "questions" / "ace.json").read_text(encoding="utf-8"))
         for q in raw:
-            self.assertTrue(q["source_url"].startswith("https://docs.cloud.google.com/"), q["id"])
+            self.assertTrue(q["source_url"].startswith(("https://docs.cloud.google.com/", "https://cloud.google.com/")), q["id"])
             self.assertTrue(q["check"], q["id"])
         texts = [" ".join(q["question"].lower().split()) for q in qs]
         self.assertEqual(len(texts), len(set(texts)), "tekrarlanan soru metni")

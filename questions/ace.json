@@ -8252,5 +8252,1506 @@
    ],
    "explanation": "Gemini Code Assist provides AI-powered coding assistance such as code completion, code generation, and chat in IDEs."
   }
+ },
+ {
+  "id": "ace-238",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Ekibiniz VM'leri her zaman şirketin en güncel onaylı özel imajıyla oluşturmak istiyor; betiklerde imaj adını her sürümde değiştirmek istemiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "İmajları bir imaj ailesinde (image family) toplayıp VM'leri aile adıyla oluşturmak; eski imajları deprecate etmek",
+   "Her yeni imajı aynı adla üzerine yazmak",
+   "İmaj yerine her seferinde snapshot kullanmak",
+   "VM'leri hep aynı boot diskini klonlayarak oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "İmaj ailesi, ailedeki en yeni (deprecate edilmemiş) imajı gösterir; betikler aile adını kullanarak her zaman güncel imajı alır. Eski imajlar deprecate edilerek kullanımdan kaldırılabilir ve gerekirse geri dönülebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/images/image-families-best-practices",
+  "check": [
+   "image famil",
+   "deprecat"
+  ],
+  "en": {
+   "question": "Your team wants VMs always created with the company's latest approved custom image, without changing the image name in scripts for every release. What should you do?",
+   "options": [
+    "Group images into an image family and create VMs using the family name; deprecate old images",
+    "Overwrite each new image with the same name",
+    "Use a snapshot instead of an image every time",
+    "Always create VMs by cloning the same boot disk"
+   ],
+   "explanation": "An image family points to the newest non-deprecated image in the family; scripts using the family name always get the current image. Old images can be deprecated and rolled back to if needed."
+  }
+ },
+ {
+  "id": "ace-239",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE düğümleri, Artifact Registry'deki özel bir depodan imaj çekerken 'permission denied' hatası alıyor. En olası çözüm nedir?",
+  "options": [
+   "Düğümlerin kullandığı servis hesabına depo üzerinde Artifact Registry Reader rolü vermek",
+   "Depoyu herkese açık yapmak",
+   "Kümeyi Autopilot'a çevirmek",
+   "İmajları Container Registry'ye taşımak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "GKE düğümleri imajları düğüm servis hesabının kimliğiyle çeker; bu hesabın ilgili depoda Artifact Registry Reader (roles/artifactregistry.reader) rolüne sahip olması gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/artifact-registry/docs/integrate-gke",
+  "check": [
+   "Artifact Registry Reader",
+   "service account"
+  ],
+  "en": {
+   "question": "GKE nodes get 'permission denied' when pulling images from a private Artifact Registry repository. What is the most likely fix?",
+   "options": [
+    "Grant the service account used by the nodes the Artifact Registry Reader role on the repository",
+    "Make the repository public",
+    "Convert the cluster to Autopilot",
+    "Move the images to Container Registry"
+   ],
+   "explanation": "GKE nodes pull images with the node service account's identity; that account needs the Artifact Registry Reader role (roles/artifactregistry.reader) on the repository."
+  }
+ },
+ {
+  "id": "ace-240",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Mevcut bir GKE Standard node pool'u için otomatik ölçeklendirmeyi 1-10 düğüm aralığında açmak istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud container clusters update KUME --enable-autoscaling --node-pool=HAVUZ --min-nodes=1 --max-nodes=10",
+   "kubectl autoscale nodes --min=1 --max=10",
+   "gcloud compute instance-groups managed set-autoscaling",
+   "gcloud container node-pools resize --size=10"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cluster autoscaler, node pool seviyesinde --enable-autoscaling ile minimum/maksimum düğüm sayısı verilerek açılır. 'resize' ise sabit bir boyut ayarlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/cluster-autoscaler",
+  "check": [
+   "--enable-autoscaling",
+   "--min-nodes",
+   "--max-nodes"
+  ],
+  "en": {
+   "question": "You want to enable autoscaling between 1 and 10 nodes for an existing GKE Standard node pool. Which command?",
+   "options": [
+    "gcloud container clusters update CLUSTER --enable-autoscaling --node-pool=POOL --min-nodes=1 --max-nodes=10",
+    "kubectl autoscale nodes --min=1 --max=10",
+    "gcloud compute instance-groups managed set-autoscaling",
+    "gcloud container node-pools resize --size=10"
+   ],
+   "explanation": "The cluster autoscaler is enabled at the node pool level with --enable-autoscaling and min/max node counts. 'resize' sets a fixed size."
+  }
+ },
+ {
+  "id": "ace-241",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Pod'larınızın CPU ve bellek isteklerini (requests) ne olarak ayarlayacağınızı bilmiyorsunuz; GKE'nin gerçek kullanıma göre bu istekleri önermesini veya otomatik ayarlamasını istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "VerticalPodAutoscaler",
+   "HorizontalPodAutoscaler",
+   "Cluster autoscaler",
+   "Node auto-upgrade"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VerticalPodAutoscaler, pod'ların kaynak isteklerini kullanım verisine göre önerir veya otomatik günceller. HPA pod sayısını, cluster autoscaler düğüm sayısını ölçekler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/verticalpodautoscaler",
+  "check": [
+   "VerticalPodAutoscaler",
+   "requests"
+  ],
+  "en": {
+   "question": "You don't know what CPU and memory requests to set for your Pods; you want GKE to recommend or automatically adjust these requests based on actual usage. What should you use?",
+   "options": [
+    "VerticalPodAutoscaler",
+    "HorizontalPodAutoscaler",
+    "Cluster autoscaler",
+    "Node auto-upgrade"
+   ],
+   "explanation": "VerticalPodAutoscaler recommends or automatically updates Pod resource requests based on usage data. HPA scales the number of Pods; the cluster autoscaler scales the number of nodes."
+  }
+ },
+ {
+  "id": "ace-242",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "zor",
+  "question": "GKE Autopilot'a bir Deployment dağıttınız; bazı konteynerlerde kaynak isteği (requests) belirtmediniz, bazılarında ise çok düşük değerler verdiniz. Autopilot ne yapar?",
+  "options": [
+   "İstek belirtilmeyen konteynerlere varsayılan değerler atar; minimumun altındaki istekleri izin verilen minimuma yükseltir",
+   "Deployment'ı reddeder ve hiçbir pod çalışmaz",
+   "İstekleri yok sayıp düğümün tüm kaynaklarını verir",
+   "Yalnızca bellek isteklerini dikkate alır, CPU'yu sınırsız bırakır"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Autopilot, compute class veya donanıma göre minimum ve maksimum kaynak isteklerini uygular; istek belirtilmemişse varsayılan değerler atar ve minimumun altındaki istekleri otomatik değiştirir. Faturalandırma bu isteklere göre yapılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/autopilot-resource-requests",
+  "check": [
+   "assigns default values",
+   "minimum"
+  ],
+  "en": {
+   "question": "You deployed a Deployment to GKE Autopilot; some containers have no resource requests, and others have very low values. What does Autopilot do?",
+   "options": [
+    "It assigns default values to containers without requests and raises requests below the minimum to the allowed minimum",
+    "It rejects the Deployment and no Pods run",
+    "It ignores requests and gives the node's full resources",
+    "It only considers memory requests and leaves CPU unlimited"
+   ],
+   "explanation": "Autopilot enforces minimum and maximum resource requests based on the compute class or hardware; it assigns defaults when requests aren't specified and automatically modifies requests below the minimum. Billing is based on these requests."
+  }
+ },
+ {
+  "id": "ace-243",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "GKE'de çalışacak bir veritabanı kümesinin her pod'unun kalıcı bir kimliğe (sabit ad) ve kendi kalıcı diskine sahip olması gerekiyor. Hangi Kubernetes nesnesi uygundur?",
+  "options": [
+   "StatefulSet",
+   "Deployment",
+   "DaemonSet",
+   "Job"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "StatefulSet, benzersiz ve kalıcı kimliklere, sabit host adlarına sahip pod'lar oluşturur; her pod'un verisi kendisiyle ilişkili persistent volume'da tutulur. Deployment durumsuz (stateless) uygulamalar içindir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/statefulset",
+  "check": [
+   "unique, persistent identities",
+   "persistent volumes"
+  ],
+  "en": {
+   "question": "A database cluster running on GKE needs each Pod to have a persistent identity (stable name) and its own persistent disk. Which Kubernetes object fits?",
+   "options": [
+    "StatefulSet",
+    "Deployment",
+    "DaemonSet",
+    "Job"
+   ],
+   "explanation": "A StatefulSet creates Pods with unique, persistent identities and stable hostnames; each Pod's data is kept in a persistent volume associated with it. Deployments are for stateless applications."
+  }
+ },
+ {
+  "id": "ace-244",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Çalışan bir Compute Engine VM'ine GPU eklemek istiyorsunuz. Hangi ifade doğrudur?",
+  "options": [
+   "VM'i durdurmanız gerekir; GPU'lu VM'lerde host bakım politikası genellikle TERMINATE olmalıdır",
+   "GPU'lar VM çalışırken sıcak takılabilir (hot-plug)",
+   "GPU yalnızca VM oluşturulurken eklenebilir, sonradan asla eklenemez",
+   "GPU eklemek için VM'i başka bir projeye taşımak gerekir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Mevcut bir VM'e GPU eklemek veya çıkarmak için VM durdurulmalıdır. GPU'lu VM'ler canlı geçişi desteklemediğinden host bakımında genellikle sonlandırılır (TERMINATE).",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/gpus/add-remove-gpus",
+  "check": [
+   "stop",
+   "terminate"
+  ],
+  "en": {
+   "question": "You want to add a GPU to a running Compute Engine VM. Which statement is correct?",
+   "options": [
+    "You must stop the VM; VMs with GPUs typically need the host maintenance policy set to TERMINATE",
+    "GPUs can be hot-plugged while the VM is running",
+    "GPUs can only be added at creation and never later",
+    "You must move the VM to another project to add a GPU"
+   ],
+   "explanation": "To add or remove GPUs on an existing VM, the VM must be stopped. Because VMs with GPUs generally don't support live migration, they're typically terminated during host maintenance (TERMINATE)."
+  }
+ },
+ {
+  "id": "ace-245",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run hizmetiniz trafik patlamalarında çok fazla örnek açıyor ve arkadaki Cloud SQL veritabanının bağlantı limitini aşıyor. En doğrudan çözüm nedir?",
+  "options": [
+   "Cloud Run hizmetinin maksimum örnek (max instances) sayısını sınırlamak",
+   "Minimum örnek sayısını artırmak",
+   "Concurrency'yi 1'e düşürmek",
+   "Startup CPU boost'u açmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Maksimum örnek ayarı, Cloud Run'ın ölçekleneceği en fazla örnek sayısını sınırlar; böylece veritabanı gibi aşağı akış (downstream) sistemlerin aşırı yüklenmesi önlenir. Concurrency'yi düşürmek daha fazla örnek açılmasına yol açar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/configuring/max-instances",
+  "check": [
+   "maximum",
+   "instances"
+  ],
+  "en": {
+   "question": "Your Cloud Run service starts too many instances during traffic spikes and exceeds the connection limit of the Cloud SQL database behind it. What is the most direct fix?",
+   "options": [
+    "Limit the Cloud Run service's maximum number of instances",
+    "Increase the minimum number of instances",
+    "Lower concurrency to 1",
+    "Enable startup CPU boost"
+   ],
+   "explanation": "The maximum instances setting caps how many instances Cloud Run scales to, preventing downstream systems such as databases from being overloaded. Lowering concurrency causes more instances to start."
+  }
+ },
+ {
+  "id": "ace-246",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "zor",
+  "question": "Cloud Run'da bir örneğin aynı anda kaç isteği işleyeceği (concurrency) hakkında hangisi doğrudur?",
+  "options": [
+   "Varsayılan olarak bir örnek aynı anda birden çok isteği (varsayılan 80) işleyebilir; uygulama iş parçacığı güvenli değilse 1'e düşürülebilir",
+   "Her örnek her zaman yalnızca 1 istek işler",
+   "Concurrency yalnızca Cloud Run functions'da ayarlanabilir",
+   "Concurrency artırıldıkça örnek başına bellek ihtiyacı azalır"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run örnekleri varsayılan olarak eşzamanlı birden fazla isteği (varsayılan maksimum 80) işler. Concurrency düşürülürse aynı trafik için daha fazla örnek gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/about-concurrency",
+  "check": [
+   "concurrency",
+   "80"
+  ],
+  "en": {
+   "question": "Which statement about how many requests a Cloud Run instance handles at the same time (concurrency) is correct?",
+   "options": [
+    "By default an instance can handle multiple requests concurrently (default 80); it can be lowered to 1 if the app isn't thread-safe",
+    "Each instance always handles only 1 request",
+    "Concurrency can only be set in Cloud Run functions",
+    "Increasing concurrency reduces the memory needed per instance"
+   ],
+   "explanation": "Cloud Run instances handle multiple concurrent requests by default (default maximum 80). Lowering concurrency means more instances are needed for the same traffic."
+  }
+ },
+ {
+  "id": "ace-247",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "IaC ve DevOps",
+  "difficulty": "kolay",
+  "question": "Geliştiricileriniz için güvenli, önceden yapılandırılmış ve merkezi olarak yönetilen bulut tabanlı geliştirme ortamları (tarayıcı veya yerel IDE ile erişilen) sunmak istiyorsunuz. Hangi hizmet?",
+  "options": [
+   "Cloud Workstations",
+   "Cloud Shell",
+   "Compute Engine üzerinde her geliştirici için elle kurulan VM'ler",
+   "Cloud Run"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Workstations, yönetilen ve özelleştirilebilir geliştirme ortamları sunar; yöneticiler yapılandırmaları merkezi olarak tanımlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/workstations/docs/overview",
+  "check": [
+   "Cloud Workstations",
+   "development environment"
+  ],
+  "en": {
+   "question": "You want to provide your developers with secure, preconfigured, centrally managed cloud-based development environments (accessed via browser or local IDE). Which service?",
+   "options": [
+    "Cloud Workstations",
+    "Cloud Shell",
+    "Manually built VMs for each developer on Compute Engine",
+    "Cloud Run"
+   ],
+   "explanation": "Cloud Workstations provides managed, customizable development environments; administrators define configurations centrally."
+  }
+ },
+ {
+  "id": "ace-248",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "kolay",
+  "question": "Veri bilimciler, Google Cloud'da Jupyter tabanlı, yönetilen not defterleri (notebooks) kullanarak model geliştirmek istiyor. Hangi hizmet uygundur?",
+  "options": [
+   "Gemini Enterprise Agent Platform Workbench (eski adıyla Vertex AI Workbench)",
+   "Cloud Shell Editor",
+   "Cloud Build",
+   "Dataproc Metastore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Workbench, Jupyter tabanlı yönetilen not defteri ortamları sunar ve Google Cloud veri hizmetleriyle entegredir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/vertex-ai/docs/workbench/introduction",
+  "check": [
+   "Workbench",
+   "Jupyter"
+  ],
+  "en": {
+   "question": "Data scientists want to develop models on Google Cloud using managed, Jupyter-based notebooks. Which service fits?",
+   "options": [
+    "Gemini Enterprise Agent Platform Workbench (formerly Vertex AI Workbench)",
+    "Cloud Shell Editor",
+    "Cloud Build",
+    "Dataproc Metastore"
+   ],
+   "explanation": "Workbench provides managed Jupyter-based notebook environments integrated with Google Cloud data services."
+  }
+ },
+ {
+  "id": "ace-249",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "kolay",
+  "question": "Bir GKE kümesindeki Service'leri ve bunların harici IP adreslerini listelemek istiyorsunuz. Hangi komut?",
+  "options": [
+   "kubectl get services",
+   "gcloud compute addresses list",
+   "kubectl get nodes",
+   "gcloud container clusters list"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'kubectl get services' Service nesnelerini, türlerini ve (LoadBalancer ise) harici IP'lerini listeler. 'kubectl get nodes' düğümleri, 'kubectl get pods' pod'ları gösterir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps",
+  "check": [
+   "kubectl get service"
+  ],
+  "en": {
+   "question": "You want to list the Services in a GKE cluster and their external IP addresses. Which command?",
+   "options": [
+    "kubectl get services",
+    "gcloud compute addresses list",
+    "kubectl get nodes",
+    "gcloud container clusters list"
+   ],
+   "explanation": "'kubectl get services' lists Service objects, their types, and (for LoadBalancer) external IPs. 'kubectl get nodes' shows nodes and 'kubectl get pods' shows Pods."
+  }
+ },
+ {
+  "id": "ace-250",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Bir Bigtable tablosundaki birkaç satırı komut satırından hızlıca okumak istiyorsunuz. Hangi araç bu amaçla kullanılır?",
+  "options": [
+   "cbt CLI",
+   "bq",
+   "psql",
+   "gcloud sql connect"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "cbt, Bigtable için tablo oluşturma, satır okuma/yazma gibi işlemleri yapan komut satırı aracıdır. bq BigQuery, psql PostgreSQL içindir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/bigtable/docs/cbt-overview",
+  "check": [
+   "cbt"
+  ],
+  "en": {
+   "question": "You want to quickly read a few rows from a Bigtable table from the command line. Which tool is used for this?",
+   "options": [
+    "The cbt CLI",
+    "bq",
+    "psql",
+    "gcloud sql connect"
+   ],
+   "explanation": "cbt is the command-line tool for Bigtable operations such as creating tables and reading/writing rows. bq is for BigQuery and psql for PostgreSQL."
+  }
+ },
+ {
+  "id": "ace-251",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Bir Spanner veritabanının, yanlışlıkla yapılan bir şema değişikliğinden önceki hâline dönebilmek için yedeğini almak ve gerektiğinde yeni bir veritabanına geri yüklemek istiyorsunuz. Hangi özellik?",
+  "options": [
+   "Spanner yedekleri (backup) ve yedekten yeni veritabanına geri yükleme",
+   "Cloud Storage Object Versioning",
+   "Spanner'ı her gün silip yeniden oluşturmak",
+   "Memorystore snapshot'ı"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Spanner yedekleri veritabanının bir anlık kopyasını saklar; geri yükleme yeni bir veritabanı oluşturur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/spanner/docs/backup",
+  "check": [
+   "backup",
+   "restore"
+  ],
+  "en": {
+   "question": "You want to back up a Spanner database so you can return to its state before an accidental schema change, restoring to a new database when needed. Which feature?",
+   "options": [
+    "Spanner backups and restoring from a backup to a new database",
+    "Cloud Storage Object Versioning",
+    "Delete and recreate Spanner every day",
+    "A Memorystore snapshot"
+   ],
+   "explanation": "Spanner backups store a point-in-time copy of the database; restoring creates a new database."
+  }
+ },
+ {
+  "id": "ace-252",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Firestore veritabanınız için her gün otomatik yedek alınmasını ve yedeklerin belirli bir süre saklanmasını istiyorsunuz. Ne yapılandırmalısınız?",
+  "options": [
+   "Saklama süresi (retention) belirlenmiş bir Firestore yedekleme zamanlaması (backup schedule)",
+   "Firestore verilerini her gün elle JSON'a kopyalamak",
+   "Object Lifecycle Management",
+   "Cloud SQL otomatik yedekleri"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Firestore zamanlanmış yedekleri, günlük veya haftalık yedek alır ve belirlenen saklama süresi boyunca tutar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/firestore/docs/backups",
+  "check": [
+   "backup",
+   "retention"
+  ],
+  "en": {
+   "question": "You want automatic daily backups for your Firestore database, kept for a specific period. What should you configure?",
+   "options": [
+    "A Firestore backup schedule with a retention period",
+    "Manually copy Firestore data to JSON every day",
+    "Object Lifecycle Management",
+    "Cloud SQL automated backups"
+   ],
+   "explanation": "Firestore scheduled backups take daily or weekly backups and keep them for the configured retention period."
+  }
+ },
+ {
+  "id": "ace-253",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veritabanları",
+  "difficulty": "zor",
+  "question": "AlloyDB kümenizde bir uygulama hatası yanlış verileri yazdı; 3 saat önceki duruma dönmek istiyorsunuz. Hangi özellik bunu sağlar?",
+  "options": [
+   "Sürekli yedekleme ve kurtarma (continuous backup and recovery) ile belirli bir zamana geri yükleme",
+   "Yalnızca haftalık manuel yedek",
+   "Okuma havuzu (read pool) örneğini birincil yapmak",
+   "Cluster'ı yeniden başlatmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "AlloyDB sürekli yedekleme, saklama penceresi içindeki herhangi bir zamana geri yüklemeyi (point-in-time) sağlar. Okuma örnekleri hatalı yazmaları da kopyalar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/alloydb/docs/backup/overview",
+  "check": [
+   "continuous",
+   "backup"
+  ],
+  "en": {
+   "question": "An application bug wrote incorrect data to your AlloyDB cluster; you want to return to the state from 3 hours ago. Which feature enables this?",
+   "options": [
+    "Continuous backup and recovery, restoring to a specific point in time",
+    "Only a weekly manual backup",
+    "Promote a read pool instance to primary",
+    "Restart the cluster"
+   ],
+   "explanation": "AlloyDB continuous backup allows restoring to any point in time within the retention window. Read instances also replicate the bad writes."
+  }
+ },
+ {
+  "id": "ace-254",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Son 24 saatte projede hangi kullanıcının hangi BigQuery sorgularını çalıştırdığını ve kaç bayt işlendiğini SQL ile görmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "INFORMATION_SCHEMA.JOBS görünümünü sorgulamak",
+   "Cloud Billing export",
+   "VPC Flow Logs",
+   "Bigtable cbt"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "INFORMATION_SCHEMA.JOBS görünümleri, BigQuery işlerinin (sorgular dahil) meta verilerini, durumunu, kullanıcısını ve işlenen bayt miktarını içerir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/information-schema-jobs",
+  "check": [
+   "INFORMATION_SCHEMA.JOBS"
+  ],
+  "en": {
+   "question": "You want to see with SQL which user ran which BigQuery queries in the project over the last 24 hours and how many bytes were processed. What should you use?",
+   "options": [
+    "Query the INFORMATION_SCHEMA.JOBS view",
+    "Cloud Billing export",
+    "VPC Flow Logs",
+    "Bigtable cbt"
+   ],
+   "explanation": "INFORMATION_SCHEMA.JOBS views contain metadata about BigQuery jobs (including queries): status, user, and bytes processed."
+  }
+ },
+ {
+  "id": "ace-255",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veri ve analitik",
+  "difficulty": "kolay",
+  "question": "Bir Dataflow akış (streaming) işinin çalışıp çalışmadığını, aşamalarını ve gecikmesini görmek istiyorsunuz. Nereye bakmalısınız?",
+  "options": [
+   "Konsoldaki Dataflow izleme arayüzü (iş durumu, iş grafiği ve metrikler)",
+   "Cloud Billing reports",
+   "IAM Policy Analyzer",
+   "Cloud DNS"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Dataflow izleme arayüzü, işlerin durumunu, iş grafiğini (aşamaları) ve sistem gecikmesi gibi metrikleri gösterir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/dataflow/docs/guides/monitoring-overview",
+  "check": [
+   "job",
+   "status"
+  ],
+  "en": {
+   "question": "You want to see whether a Dataflow streaming job is running, its stages, and its latency. Where should you look?",
+   "options": [
+    "The Dataflow monitoring interface in the console (job status, job graph, and metrics)",
+    "Cloud Billing reports",
+    "IAM Policy Analyzer",
+    "Cloud DNS"
+   ],
+   "explanation": "The Dataflow monitoring interface shows job status, the job graph (stages), and metrics such as system latency."
+  }
+ },
+ {
+  "id": "ace-256",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Şirketinizin onlarca Cloud SQL, AlloyDB ve Spanner veritabanı var. Tüm filonun durumunu, yapılandırma risklerini ve önerileri tek bir yerden görmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Database Center",
+   "Cloud Asset Inventory dışa aktarımı",
+   "Her veritabanı için ayrı Cloud Monitoring paneli",
+   "Billing reports"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Database Center, Google Cloud veritabanı filosunun tamamını tek bir panelden görmeyi, sağlık ve güvenlik/yapılandırma sorunlarını izlemeyi sağlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/database-center/docs/overview",
+  "check": [
+   "Database Center",
+   "fleet"
+  ],
+  "en": {
+   "question": "Your company has dozens of Cloud SQL, AlloyDB, and Spanner databases. You want to see the health, configuration risks, and recommendations for the entire fleet in one place. What should you use?",
+   "options": [
+    "Database Center",
+    "Cloud Asset Inventory export",
+    "A separate Cloud Monitoring dashboard per database",
+    "Billing reports"
+   ],
+   "explanation": "Database Center provides a single view of your entire Google Cloud database fleet and helps track health and security/configuration issues."
+  }
+ },
+ {
+  "id": "ace-257",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Cloud Storage",
+  "difficulty": "zor",
+  "question": "Mevzuat gereği finansal kayıtlar 7 yıl boyunca silinemez ve değiştirilemez (WORM) olmalı; yöneticiler dahil kimse bu kuralı kaldıramamalı. Ne yapmalısınız?",
+  "options": [
+   "Kovada 7 yıllık bir retention policy tanımlayıp Bucket Lock ile kilitlemek",
+   "Object Versioning'i açmak",
+   "Lifecycle kuralıyla 7 yıl sonra silmek",
+   "Kovaya yalnızca Viewer rolleri vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Retention policy nesnelerin süre dolmadan silinmesini veya üzerine yazılmasını engeller; Bucket Lock ile kilitlenen politika kalıcıdır ve kaldırılamaz ya da kısaltılamaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage/docs/bucket-lock",
+  "check": [
+   "retention policy",
+   "lock",
+   "permanent"
+  ],
+  "en": {
+   "question": "By regulation, financial records must be undeletable and unmodifiable (WORM) for 7 years; nobody, including administrators, may remove this rule. What should you do?",
+   "options": [
+    "Set a 7-year retention policy on the bucket and lock it with Bucket Lock",
+    "Enable Object Versioning",
+    "Delete objects after 7 years with a lifecycle rule",
+    "Grant only Viewer roles on the bucket"
+   ],
+   "explanation": "A retention policy prevents objects from being deleted or overwritten before the period ends; once locked with Bucket Lock, the policy is permanent and can't be removed or shortened."
+  }
+ },
+ {
+  "id": "ace-258",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Hukuk ekibi, devam eden bir dava süresince belirli birkaç nesnenin silinmemesini istiyor; dava bitince bu koruma kaldırılabilmeli. Kovanın tamamına kalıcı kural koymak istemiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "İlgili nesnelere temporary hold (geçici tutma) koymak",
+   "Kovaya kilitli retention policy uygulamak",
+   "Nesneleri Archive sınıfına taşımak",
+   "Uniform bucket-level access'i kapatmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Object hold'lar (temporary veya event-based) nesne bazında silmeyi engeller ve kaldırılabilir; kilitli retention policy ise kovanın tamamına kalıcı olarak uygulanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/storage/docs/object-holds",
+  "check": [
+   "temporary hold",
+   "event-based"
+  ],
+  "en": {
+   "question": "The legal team wants a few specific objects to be undeletable during ongoing litigation, with the protection removable when the case ends. You don't want a permanent rule on the whole bucket. What should you do?",
+   "options": [
+    "Place a temporary hold on those objects",
+    "Apply a locked retention policy to the bucket",
+    "Move the objects to the Archive class",
+    "Disable uniform bucket-level access"
+   ],
+   "explanation": "Object holds (temporary or event-based) prevent deletion per object and can be released; a locked retention policy applies permanently to the whole bucket."
+  }
+ },
+ {
+  "id": "ace-259",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.2",
+  "topic": "Cloud Storage",
+  "difficulty": "zor",
+  "question": "Coldline sınıfındaki bir nesneyi yüklendikten 30 gün sonra sildiniz. Faturalandırmaya etkisi nedir?",
+  "options": [
+   "Nesne 90 günlük minimum süre boyunca saklanmış gibi ücretlendirilirsiniz (erken silme ücreti)",
+   "Yalnızca 30 günlük depolama ücreti ödenir",
+   "Coldline'da silme ücretsizdir ve hiçbir ücret alınmaz",
+   "Nesne silinemez; 90 gün beklemek gerekir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Nesne minimum depolama süresinden önce silinir, değiştirilir veya taşınırsa, minimum süre boyunca saklanmış gibi ücretlendirilir (Nearline 30, Coldline 90, Archive 365 gün). Standard sınıfında ve lifecycle ile sınıf değişikliğinde erken silme ücreti yoktur.",
+  "source": "builtin",
+  "source_url": "https://cloud.google.com/storage/pricing",
+  "check": [
+   "charged as if the object was stored for the minimum duration"
+  ],
+  "en": {
+   "question": "You deleted an object in the Coldline class 30 days after uploading it. What is the billing impact?",
+   "options": [
+    "You're charged as if the object was stored for the 90-day minimum duration (early deletion charge)",
+    "You pay only 30 days of storage",
+    "Deletion is free in Coldline and nothing is charged",
+    "The object can't be deleted; you must wait 90 days"
+   ],
+   "explanation": "If an object is deleted, replaced, or moved before its minimum storage duration, you're charged as if it was stored for the minimum duration (Nearline 30, Coldline 90, Archive 365 days). Standard has no early deletion charge, nor do lifecycle class changes."
+  }
+ },
+ {
+  "id": "ace-260",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "kolay",
+  "question": "Bir web sunucusu VM'i geçici (ephemeral) harici IP ile çalışıyor ve DNS kaydı bu IP'yi gösteriyor. VM yeniden başlatılsa bile IP'nin değişmemesini istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Mevcut geçici harici IP'yi statik bir adrese yükseltmek (promote)",
+   "VM'i Spot VM yapmak",
+   "Cloud NAT eklemek",
+   "Her yeniden başlatmada DNS'i elle güncellemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Geçici harici IP'ler statik IP'ye yükseltilebilir; böylece adres VM'e ayrılmış olarak kalır. Yeni bir statik adres ayırmak da mümkündür.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address",
+  "check": [
+   "promote",
+   "ephemeral",
+   "static"
+  ],
+  "en": {
+   "question": "A web server VM uses an ephemeral external IP and a DNS record points to it. You want the IP to stay the same even if the VM is restarted. What should you do?",
+   "options": [
+    "Promote the existing ephemeral external IP to a static address",
+    "Make the VM a Spot VM",
+    "Add Cloud NAT",
+    "Update DNS manually after each restart"
+   ],
+   "explanation": "Ephemeral external IPs can be promoted to static IPs so the address stays reserved for the VM. Reserving a new static address is also possible."
+  }
+ },
+ {
+  "id": "ace-261",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Diğer uygulamaların yapılandırmalarında sabit kodlanmış olarak kullanacağı bir veritabanı VM'inin dahili IP adresinin, VM yeniden oluşturulsa bile aynı kalmasını istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Statik bir dahili IP adresi ayırıp (reserve) VM'e atamak",
+   "Harici statik IP ayırmak",
+   "Alias IP aralığını silmek",
+   "Cloud NAT kullanmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Statik dahili IP adresi, alt ağdaki belirli bir dahili adresi ayırır; VM silinip yeniden oluşturulsa bile aynı adres atanabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/ip-addresses/reserve-static-internal-ip-address",
+  "check": [
+   "internal"
+  ],
+  "en": {
+   "question": "You want the internal IP address of a database VM, which other applications hard-code in their configuration, to stay the same even if the VM is recreated. What should you do?",
+   "options": [
+    "Reserve a static internal IP address and assign it to the VM",
+    "Reserve an external static IP",
+    "Delete the alias IP range",
+    "Use Cloud NAT"
+   ],
+   "explanation": "A static internal IP address reserves a specific internal address in the subnet; the same address can be assigned even if the VM is deleted and recreated."
+  }
+ },
+ {
+  "id": "ace-262",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "VPC'nizdeki 192.168.50.0/24 hedefli trafiğin, ağ trafiğini inceleyen bir güvenlik cihazı VM'i üzerinden gitmesini istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Hedef aralığı 192.168.50.0/24 ve sonraki atlama (next hop) olarak cihaz VM'i olan özel bir statik rota eklemek",
+   "Firewall kuralında hedef etiket olarak cihazı belirtmek",
+   "Cloud DNS'te kayıt oluşturmak",
+   "VPC Network Peering kurmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Özel statik rotalar, belirli bir hedef aralık için sonraki atlamayı (VM, VPN tüneli, internal passthrough NLB vb.) tanımlar. Firewall kuralları yönlendirme yapmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/vpc/docs/routes",
+  "check": [
+   "static route",
+   "next hop"
+  ],
+  "en": {
+   "question": "You want traffic in your VPC destined for 192.168.50.0/24 to pass through a security appliance VM that inspects network traffic. What should you do?",
+   "options": [
+    "Add a custom static route with destination 192.168.50.0/24 and the appliance VM as next hop",
+    "Specify the appliance as a target tag in a firewall rule",
+    "Create a record in Cloud DNS",
+    "Set up VPC Network Peering"
+   ],
+   "explanation": "Custom static routes define the next hop (a VM, VPN tunnel, internal passthrough NLB, etc.) for a destination range. Firewall rules don't route traffic."
+  }
+ },
+ {
+  "id": "ace-263",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "VPC'nizde aynı pakete uyan iki özel statik rota var: biri 10.0.0.0/8 hedefli, diğeri 10.1.0.0/16 hedefli; 10.1.2.3 adresine giden trafik için hangisi seçilir (alt ağ rotası ve politika tabanlı rota yoksa)?",
+  "options": [
+   "10.1.0.0/16 rotası, çünkü en spesifik hedef (en uzun önek) önce değerlendirilir",
+   "10.0.0.0/8 rotası, çünkü daha geniştir",
+   "Her zaman önce oluşturulan rota",
+   "Rastgele biri seçilir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Rota seçiminde politika tabanlı ve alt ağ rotalarından sonra en spesifik hedef adımı uygulanır; ardından eşit spesifiklikteki rotalar arasında öncelik (priority) değeri kullanılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/vpc/docs/routes",
+  "check": [
+   "most specific destination",
+   "priority"
+  ],
+  "en": {
+   "question": "Your VPC has two custom static routes matching the same packet: one to 10.0.0.0/8 and one to 10.1.0.0/16. Which is selected for traffic to 10.1.2.3 (with no matching subnet or policy-based routes)?",
+   "options": [
+    "The 10.1.0.0/16 route, because the most specific destination (longest prefix) is evaluated first",
+    "The 10.0.0.0/8 route, because it's broader",
+    "Always the route created first",
+    "One is chosen at random"
+   ],
+   "explanation": "In route selection, after policy-based and subnet routes, the most specific destination step applies; then priority is used among equally specific routes."
+  }
+ },
+ {
+  "id": "ace-264",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "VPC'deki VM'lerin 'db.dahili.sirket' gibi iç adları çözmesini istiyorsunuz; bu kayıtlar internetten görünmemeli. Ne oluşturmalısınız?",
+  "options": [
+   "Cloud DNS'te VPC'ye bağlı bir özel (private) bölge",
+   "Cloud DNS'te herkese açık (public) bölge",
+   "Her VM'in /etc/hosts dosyasını elle düzenlemek",
+   "Cloud CDN"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud DNS özel bölgeleri yalnızca yetkilendirilmiş VPC ağlarından sorgulanabilir; herkese açık bölgeler internete yayımlanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/dns/docs/zones",
+  "check": [
+   "private zone",
+   "public zone"
+  ],
+  "en": {
+   "question": "You want VMs in the VPC to resolve internal names such as 'db.internal.company', and these records must not be visible from the internet. What should you create?",
+   "options": [
+    "A private zone in Cloud DNS attached to the VPC",
+    "A public zone in Cloud DNS",
+    "Manually edit each VM's /etc/hosts",
+    "Cloud CDN"
+   ],
+   "explanation": "Cloud DNS private zones can be queried only from authorized VPC networks; public zones are published to the internet."
+  }
+ },
+ {
+  "id": "ace-265",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "VPC'deki VM'lerin şirket içi DNS sunucularındaki 'corp.ornek.local' alan adını çözebilmesi gerekiyor (bağlantı VPN üzerinden mevcut). Ne yapılandırmalısınız?",
+  "options": [
+   "Bu alan adı için şirket içi DNS sunucularını hedefleyen bir Cloud DNS forwarding zone",
+   "Herkese açık DNS bölgesi",
+   "Cloud NAT",
+   "Her VM'de ayrı DNS sunucusu kurmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Forwarding zone'lar, belirli bir alan adı için sorguları şirket içi gibi hedef ad sunucularına yönlendirir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/dns/docs/zones/forwarding-zones",
+  "check": [
+   "forwarding zone",
+   "on-premises"
+  ],
+  "en": {
+   "question": "VMs in the VPC need to resolve the 'corp.example.local' domain hosted on on-premises DNS servers (connectivity over VPN already exists). What should you configure?",
+   "options": [
+    "A Cloud DNS forwarding zone for that domain targeting the on-premises DNS servers",
+    "A public DNS zone",
+    "Cloud NAT",
+    "Install a separate DNS server on every VM"
+   ],
+   "explanation": "Forwarding zones send queries for a specific domain to target name servers such as on-premises ones."
+  }
+ },
+ {
+  "id": "ace-266",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "Cloud NAT arkasındaki VM'lerin bazı giden bağlantıları zaman zaman başarısız oluyor; çok sayıda eşzamanlı bağlantı açan VM'lerde port tükenmesinden şüpheleniyorsunuz. Hangi İKİ adım uygundur? (İKİ seçenek seçin)",
+  "options": [
+   "Cloud NAT günlüklemesini (logging) açıp düşen bağlantıları incelemek",
+   "VM başına minimum port sayısını artırmak (veya dinamik port tahsisini kullanmak)",
+   "VM'lere harici IP vermek tek çözümdür",
+   "Firewall'da tüm ingress trafiğine izin vermek",
+   "Cloud DNS önbelleğini temizlemek"
+  ],
+  "correct": [
+   0,
+   1
+  ],
+  "explanation": "Cloud NAT logları NAT bağlantılarını ve düşen paketleri gösterir. Port tükenmesi, VM başına minimum port sayısını artırarak veya dinamik port tahsisiyle giderilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/nat/docs/ports-and-addresses",
+  "check": [
+   "minimum ports"
+  ],
+  "en": {
+   "question": "Some outbound connections from VMs behind Cloud NAT fail intermittently; you suspect port exhaustion on VMs that open many concurrent connections. Which TWO steps are appropriate? (Choose two.)",
+   "options": [
+    "Enable Cloud NAT logging and inspect dropped connections",
+    "Increase the minimum ports per VM (or use dynamic port allocation)",
+    "Giving VMs external IPs is the only fix",
+    "Allow all ingress traffic in the firewall",
+    "Flush the Cloud DNS cache"
+   ],
+   "explanation": "Cloud NAT logs show NAT connections and dropped packets. Port exhaustion is addressed by increasing the minimum ports per VM or using dynamic port allocation."
+  }
+ },
+ {
+  "id": "ace-267",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Yüzlerce firewall kuralınız var; bazı kuralların daha yüksek öncelikli kurallar tarafından tamamen gölgelendiği (hiç eşleşmediği) için gereksiz olduğundan şüpheleniyorsunuz. Bunları nasıl bulursunuz?",
+  "options": [
+   "Network Intelligence Center Firewall Insights'taki gölgelenmiş (shadowed) kural analizini kullanmak",
+   "Tüm kuralları silip yeniden oluşturmak",
+   "Cloud Trace",
+   "Billing reports"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Firewall Insights, gölgelenmiş kuralları ve kullanılmayan kuralları tespit ederek firewall yapılandırmasını sadeleştirmeye yardım eder.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/network-intelligence-center/docs/firewall-insights/concepts/overview",
+  "check": [
+   "shadowed"
+  ],
+  "en": {
+   "question": "You have hundreds of firewall rules; you suspect some are unnecessary because they're completely shadowed (never matched) by higher-priority rules. How do you find them?",
+   "options": [
+    "Use the shadowed rule analysis in Network Intelligence Center Firewall Insights",
+    "Delete and recreate all rules",
+    "Cloud Trace",
+    "Billing reports"
+   ],
+   "explanation": "Firewall Insights detects shadowed and unused rules, helping simplify the firewall configuration."
+  }
+ },
+ {
+  "id": "ace-268",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "kolay",
+  "question": "Bir bağlantı sorununu ayıklarken bir firewall kuralının etkisini geçici olarak kaldırmak, ama kuralı silmemek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Kuralı devre dışı bırakmak (gcloud compute firewall-rules update KURAL --disabled)",
+   "Kuralı silip sonra yeniden oluşturmak",
+   "Kuralın önceliğini 0 yapmak",
+   "VPC'yi silmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Firewall kuralları devre dışı bırakılıp daha sonra yeniden etkinleştirilebilir; böylece yapılandırma kaybolmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/firewall/docs/using-firewalls",
+  "check": [
+   "--disabled"
+  ],
+  "en": {
+   "question": "While troubleshooting a connectivity issue, you want to temporarily remove the effect of a firewall rule without deleting it. What should you do?",
+   "options": [
+    "Disable the rule (gcloud compute firewall-rules update RULE --disabled)",
+    "Delete the rule and recreate it later",
+    "Set the rule's priority to 0",
+    "Delete the VPC"
+   ],
+   "explanation": "Firewall rules can be disabled and later re-enabled, so the configuration isn't lost."
+  }
+ },
+ {
+  "id": "ace-269",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.3",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Bir VPC-native GKE kümesi oluşturuyorsunuz. Pod ve Service IP adresleri, düğümlerin bulunduğu alt ağın hangi IP aralıklarından gelir?",
+  "options": [
+   "Alt ağın ikincil (secondary) IP aralıklarından (alias IP)",
+   "Alt ağın birincil aralığından, düğümlerle aynı adresler paylaşılarak",
+   "Her zaman 0.0.0.0/0'dan",
+   "Harici statik IP havuzundan"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VPC-native kümelerde pod ve Service adresleri alias IP mekanizmasıyla alt ağın ikincil IP aralıklarından tahsis edilir; bu aralıklar planlanırken çakışma olmamalıdır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/vpc/docs/alias-ip",
+  "check": [
+   "secondary",
+   "pods"
+  ],
+  "en": {
+   "question": "You are creating a VPC-native GKE cluster. From which IP ranges of the nodes' subnet do Pod and Service IP addresses come?",
+   "options": [
+    "From the subnet's secondary IP ranges (alias IP)",
+    "From the subnet's primary range, sharing addresses with the nodes",
+    "Always from 0.0.0.0/0",
+    "From an external static IP pool"
+   ],
+   "explanation": "In VPC-native clusters, Pod and Service addresses are allocated from the subnet's secondary IP ranges via alias IPs; these ranges must be planned without overlaps."
+  }
+ },
+ {
+  "id": "ace-270",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Ağ ekibi, bir alt ağdaki VM'lerin hangi IP'lerle ne kadar trafik alışverişi yaptığını örneklenmiş olarak analiz etmek istiyor. Ne etkinleştirmelisiniz?",
+  "options": [
+   "Alt ağda VPC Flow Logs",
+   "Firewall Rules Logging",
+   "Cloud Trace",
+   "Data Access audit logs"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VPC Flow Logs, VM'lerin gönderdiği ve aldığı ağ akışlarının bir örneğini kaydeder; ağ izleme, adli analiz ve maliyet optimizasyonunda kullanılır. Alt ağ seviyesinde etkinleştirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/vpc/docs/flow-logs",
+  "check": [
+   "VPC Flow Logs",
+   "subnet"
+  ],
+  "en": {
+   "question": "The network team wants to analyze a sample of which IPs the VMs in a subnet exchange traffic with and how much. What should you enable?",
+   "options": [
+    "VPC Flow Logs on the subnet",
+    "Firewall Rules Logging",
+    "Cloud Trace",
+    "Data Access audit logs"
+   ],
+   "explanation": "VPC Flow Logs record a sample of network flows sent and received by VMs; used for network monitoring, forensics, and cost optimization. They're enabled at the subnet level."
+  }
+ },
+ {
+  "id": "ace-271",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Bir bağlantının hangi firewall kuralı tarafından engellendiğini veya izin verildiğini loglarda görmek istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "İlgili firewall kurallarında Firewall Rules Logging'i etkinleştirmek",
+   "VPC Flow Logs'u kapatmak",
+   "Admin Activity loglarına bakmak",
+   "Cloud Profiler'ı açmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Firewall Rules Logging, bir kuralın bağlantılara uygulandığı her durumu (izin/engelleme) kaydeder; kural bazında etkinleştirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/firewall/docs/firewall-rules-logging",
+  "check": [
+   "Firewall Rules Logging"
+  ],
+  "en": {
+   "question": "You want to see in logs which firewall rule blocked or allowed a connection. What should you do?",
+   "options": [
+    "Enable Firewall Rules Logging on the relevant firewall rules",
+    "Disable VPC Flow Logs",
+    "Look at Admin Activity logs",
+    "Enable Cloud Profiler"
+   ],
+   "explanation": "Firewall Rules Logging records each time a rule is applied to connections (allow/deny); it's enabled per rule."
+  }
+ },
+ {
+  "id": "ace-272",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Uygulamanız 'tamamlanan sipariş sayısı' gibi iş metriklerini Cloud Monitoring'e gönderip bunlara uyarı kurmak istiyor. Ne kullanmalısınız?",
+  "options": [
+   "Özel metrikler (custom metrics), ör. OpenTelemetry veya Cloud Monitoring API ile",
+   "Billing export",
+   "VPC Flow Logs",
+   "Uptime check"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Özel metrikler; uygulamanın OpenTelemetry, Cloud Monitoring API veya log tabanlı metriklerle yazdığı kullanıcı tanımlı metriklerdir ve grafik/uyarılarda kullanılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/monitoring/custom-metrics",
+  "check": [
+   "custom metrics",
+   "OpenTelemetry"
+  ],
+  "en": {
+   "question": "Your application wants to send business metrics such as 'completed orders' to Cloud Monitoring and alert on them. What should you use?",
+   "options": [
+    "Custom metrics, e.g. via OpenTelemetry or the Cloud Monitoring API",
+    "Billing export",
+    "VPC Flow Logs",
+    "Uptime check"
+   ],
+   "explanation": "Custom metrics are user-defined metrics that an application writes via OpenTelemetry, the Cloud Monitoring API, or log-based metrics; they can be used in charts and alerts."
+  }
+ },
+ {
+  "id": "ace-273",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Uygulama loglarının Cloud Logging'de varsayılan 30 gün yerine 1 yıl saklanmasını istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Logların yönlendirildiği log bucket'ının (ör. _Default veya özel bir bucket) saklama süresini 365 gün yapmak",
+   "_Required bucket'ına yönlendirmek",
+   "Logları VM diskine yazmak",
+   "Log tabanlı metrik oluşturmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Log bucket'larının saklama süresi özelleştirilebilir; _Default bucket'ı varsayılan olarak 30 gün saklar. _Required bucket'ı ise değiştirilemez ve yalnızca belirli denetim loglarını içerir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/logging/docs/buckets",
+  "check": [
+   "retention",
+   "custom"
+  ],
+  "en": {
+   "question": "You want application logs kept in Cloud Logging for 1 year instead of the default 30 days. What should you do?",
+   "options": [
+    "Set the retention of the log bucket the logs are routed to (e.g. _Default or a custom bucket) to 365 days",
+    "Route them to the _Required bucket",
+    "Write the logs to the VM disk",
+    "Create a log-based metric"
+   ],
+   "explanation": "Log bucket retention can be customized; the _Default bucket keeps logs for 30 days by default. The _Required bucket can't be changed and holds only certain audit logs."
+  }
+ },
+ {
+  "id": "ace-274",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Güvenlik ekibi tüm Google Cloud loglarını şirketin SIEM sistemine (ör. Splunk) gerçek zamanlıya yakın şekilde aktarmak istiyor. Önerilen yöntem hangisidir?",
+  "options": [
+   "Logları bir Pub/Sub konusuna yönlendiren bir log sink oluşturup SIEM'in bu konudan okumasını sağlamak",
+   "Logları her gün CSV olarak indirmek",
+   "Billing export kullanmak",
+   "Logları Cloud Storage Archive'a yazmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Pub/Sub'a yönlendiren log sink'leri, logları Splunk gibi üçüncü taraf sistemlere akış hâlinde aktarmak için kullanılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/logging/docs/export/pubsub",
+  "check": [
+   "Pub/Sub",
+   "Splunk"
+  ],
+  "en": {
+   "question": "The security team wants to send all Google Cloud logs to the company's SIEM (e.g. Splunk) in near real time. What is the recommended method?",
+   "options": [
+    "Create a log sink that routes logs to a Pub/Sub topic and have the SIEM read from that topic",
+    "Download logs as CSV every day",
+    "Use billing export",
+    "Write logs to Cloud Storage Archive"
+   ],
+   "explanation": "Log sinks routing to Pub/Sub are used to stream logs to third-party systems such as Splunk."
+  }
+ },
+ {
+  "id": "ace-275",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Cloud SQL veritabanınız bazı saatlerde yavaşlıyor; hangi sorguların en çok yük oluşturduğunu ve uygulamanın hangi kısmından geldiğini görmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Cloud SQL Query Insights",
+   "VPC Flow Logs",
+   "Cloud NAT logları",
+   "Billing reports"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Query Insights, sorgu performansı sorunlarını tespit etmek ve teşhis etmek için sorgu bazında yük, gecikme ve etiket bilgisi sunar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/using-query-insights",
+  "check": [
+   "Query Insights",
+   "performance"
+  ],
+  "en": {
+   "question": "Your Cloud SQL database slows down at certain times; you want to see which queries create the most load and which part of the application they come from. What should you use?",
+   "options": [
+    "Cloud SQL Query Insights",
+    "VPC Flow Logs",
+    "Cloud NAT logs",
+    "Billing reports"
+   ],
+   "explanation": "Query Insights provides per-query load, latency, and tag information to detect and diagnose query performance problems."
+  }
+ },
+ {
+  "id": "ace-276",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "AlloyDB'deki sık çalışan sorguların performansını artırmak için hangi indekslerin oluşturulması gerektiğine dair otomatik öneri almak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Index advisor",
+   "Cloud Profiler",
+   "Policy Analyzer",
+   "Cloud Asset Inventory"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Index advisor, sorgu iş yükünü analiz ederek performansı artıracak indeksleri önerir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/alloydb/docs/use-index-advisor",
+  "check": [
+   "index advisor"
+  ],
+  "en": {
+   "question": "You want automatic recommendations about which indexes to create to improve the performance of frequently run queries in AlloyDB. What should you use?",
+   "options": [
+    "Index advisor",
+    "Cloud Profiler",
+    "Policy Analyzer",
+    "Cloud Asset Inventory"
+   ],
+   "explanation": "Index advisor analyzes the query workload and recommends indexes that would improve performance."
+  }
+ },
+ {
+  "id": "ace-277",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "kolay",
+  "question": "Google Cloud tarafında yaşanan bir kesintinin sizin projelerinizdeki kaynakları etkileyip etkilemediğini görmek ve bu tür olaylar için bildirim almak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Personalized Service Health",
+   "Cloud Trace",
+   "Billing reports",
+   "Cloud Shell"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Personalized Service Health, projelerinizi etkileyen Google Cloud olaylarını (incident) gösterir ve bunlar için uyarı yapılandırılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/service-health/docs/overview",
+  "check": [
+   "Personalized Service Health",
+   "incident"
+  ],
+  "en": {
+   "question": "You want to see whether an outage on the Google Cloud side affects resources in your projects and receive notifications for such events. What should you use?",
+   "options": [
+    "Personalized Service Health",
+    "Cloud Trace",
+    "Billing reports",
+    "Cloud Shell"
+   ],
+   "explanation": "Personalized Service Health shows Google Cloud incidents that affect your projects, and alerts can be configured for them."
+  }
+ },
+ {
+  "id": "ace-278",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Ekibiniz GKE'deki uygulamalardan Prometheus formatında metrikler topluyor ve PromQL sorgularını kullanmaya devam etmek, ama Prometheus sunucularını ölçeklendirip yönetmek istemiyor. Ne kullanmalısınız?",
+  "options": [
+   "Google Cloud Managed Service for Prometheus",
+   "Cloud Trace",
+   "VPC Flow Logs",
+   "BigQuery ML"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Managed Service for Prometheus, Prometheus metriklerini yönetilen ve ölçeklenebilir şekilde toplar ve saklar; PromQL ile sorgulanabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/stackdriver/docs/managed-prometheus",
+  "check": [
+   "Prometheus",
+   "managed"
+  ],
+  "en": {
+   "question": "Your team collects Prometheus-format metrics from applications on GKE and wants to keep using PromQL queries, but doesn't want to scale and manage Prometheus servers. What should you use?",
+   "options": [
+    "Google Cloud Managed Service for Prometheus",
+    "Cloud Trace",
+    "VPC Flow Logs",
+    "BigQuery ML"
+   ],
+   "explanation": "Managed Service for Prometheus collects and stores Prometheus metrics in a managed, scalable way; they can be queried with PromQL."
+  }
+ },
+ {
+  "id": "ace-279",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Üretimdeki bir uygulamanın CPU zamanının ve bellek ayırmalarının kodun hangi fonksiyonlarında harcandığını, düşük ek yükle sürekli olarak görmek istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Cloud Profiler",
+   "Cloud Trace",
+   "Error Reporting",
+   "Uptime check"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Profiler, üretim uygulamalarından düşük ek yükle CPU ve bellek profili toplar ve kaynak tüketen kod yollarını gösterir. Cloud Trace istek gecikmesini izler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/profiler/docs/about-profiler",
+  "check": [
+   "Profiler",
+   "CPU"
+  ],
+  "en": {
+   "question": "You want to continuously see, with low overhead, which functions in the code consume a production application's CPU time and memory allocations. What should you use?",
+   "options": [
+    "Cloud Profiler",
+    "Cloud Trace",
+    "Error Reporting",
+    "Uptime check"
+   ],
+   "explanation": "Cloud Profiler collects CPU and memory profiles from production applications with low overhead and shows which code paths consume resources. Cloud Trace tracks request latency."
+  }
+ },
+ {
+  "id": "ace-280",
+  "exam": "ACE",
+  "domain": 3,
+  "objective": "3.4",
+  "topic": "Logging ve Monitoring",
+  "difficulty": "orta",
+  "question": "Birden çok proje ve hizmetten oluşan uygulamalarınızın dağıtımlarını, sağlık durumunu ve kaynak sorunlarını uygulama odaklı tek bir görünümde izlemek istiyorsunuz. Hangi Google Cloud ürünü bu amaçla tasarlanmıştır?",
+  "options": [
+   "Cloud Hub",
+   "Cloud Shell",
+   "Billing reports",
+   "Cloud DNS"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Hub, uygulama merkezli bir görünüm sunar; dağıtımları, uygulama ve kaynak sağlığını ve diğer içgörüleri tek yerden gösterir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/hub/docs/overview",
+  "check": [
+   "application and resource health",
+   "deployments"
+  ],
+  "en": {
+   "question": "You want to monitor deployments, health, and resource issues of applications spanning multiple projects and services in a single application-centric view. Which Google Cloud product is designed for this?",
+   "options": [
+    "Cloud Hub",
+    "Cloud Shell",
+    "Billing reports",
+    "Cloud DNS"
+   ],
+   "explanation": "Cloud Hub provides an application-centric view showing deployments, application and resource health, and other insights in one place."
+  }
  }
 ]
