@@ -6892,5 +6892,1365 @@
    ],
    "explanation": "Billing reports in the console show costs grouped and filtered by project, service, SKU, or label. BigQuery export is used for deeper SQL analysis."
   }
+ },
+ {
+  "id": "ace-199",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Yeni bir veritabanı VM'i için IOPS ve aktarım hızını (throughput) disk boyutundan bağımsız olarak ayarlayabileceğiniz, yüksek performanslı kalıcı blok depolama istiyorsunuz. Google'ın Compute Engine için önerdiği disk türü hangisidir?",
+  "options": [
+   "Hyperdisk",
+   "Local SSD",
+   "Cloud Storage FUSE",
+   "Standard persistent disk (pd-standard)"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Hyperdisk, Compute Engine için Google'ın önerdiği en hızlı ve verimli kalıcı disktir; performans (IOPS/throughput) kapasiteden bağımsız ayarlanabilir. Local SSD kalıcı değildir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/disks/hyperdisks",
+  "check": [
+   "fastest and most efficient durable disk",
+   "google recommends using hyperdisk"
+  ],
+  "en": {
+   "question": "For a new database VM you want high-performance durable block storage where IOPS and throughput can be tuned independently of disk size. Which disk type does Google recommend for Compute Engine?",
+   "options": [
+    "Hyperdisk",
+    "Local SSD",
+    "Cloud Storage FUSE",
+    "Standard persistent disk (pd-standard)"
+   ],
+   "explanation": "Hyperdisk is Google's recommended fastest and most efficient durable disk for Compute Engine; performance (IOPS/throughput) can be provisioned independently of capacity. Local SSD isn't durable."
+  }
+ },
+ {
+  "id": "ace-200",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "zor",
+  "question": "Tek bir VM'de çalışan durumlu (stateful) bir uygulamanın verileri, bir zon tamamen çökse bile kaybolmamalı ve VM başka bir zonda aynı diskle hızla ayağa kaldırılabilmeli. Hangi depolama seçeneği uygundur?",
+  "options": [
+   "Bölgesel (regional) persistent disk / Hyperdisk Balanced High Availability – iki zonda eşzamanlı çoğaltma",
+   "Local SSD",
+   "Zonal persistent disk + haftalık snapshot",
+   "VM'in boot diskinde tutmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bölgesel diskler veriyi aynı bölgedeki iki zon arasında eşzamanlı (synchronous) çoğaltır; zon arızasında disk diğer zondaki bir VM'e bağlanabilir (failover). Snapshot'lar ise son yedeğe kadar veri kaybına yol açar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/disks/regional-persistent-disk",
+  "check": [
+   "two zones",
+   "synchronous"
+  ],
+  "en": {
+   "question": "A stateful application on a single VM must not lose data even if a zone fails completely, and the VM must be brought up quickly in another zone with the same disk. Which storage option fits?",
+   "options": [
+    "Regional persistent disk / Hyperdisk Balanced High Availability – synchronous replication across two zones",
+    "Local SSD",
+    "Zonal persistent disk + weekly snapshot",
+    "Keeping it on the VM's boot disk"
+   ],
+   "explanation": "Regional disks synchronously replicate data between two zones in the same region; on a zone failure the disk can be attached to a VM in the other zone (failover). Snapshots lose data since the last backup."
+  }
+ },
+ {
+  "id": "ace-201",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir uygulama geçici önbellek (scratch) verisi için mümkün olan en yüksek IOPS'u ve en düşük gecikmeyi istiyor; veri kaybolursa yeniden oluşturulabiliyor. En uygun seçenek?",
+  "options": [
+   "Local SSD",
+   "Bölgesel persistent disk",
+   "Cloud Storage Archive",
+   "Filestore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Local SSD sunucuya fiziksel olarak bağlıdır ve çok yüksek performans sunar, ancak geçicidir (ephemeral): bazı durumlarda (ör. VM silinince veya Spot VM geri alınınca) veri kaybolur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/disks/local-ssd",
+  "check": [
+   "ephemeral"
+  ],
+  "en": {
+   "question": "An application wants the highest possible IOPS and lowest latency for temporary (scratch) cache data; the data can be regenerated if lost. What is the best option?",
+   "options": [
+    "Local SSD",
+    "Regional persistent disk",
+    "Cloud Storage Archive",
+    "Filestore"
+   ],
+   "explanation": "Local SSD is physically attached to the server and offers very high performance, but it is ephemeral: data can be lost in some cases (e.g. when the VM is deleted or a Spot VM is preempted)."
+  }
+ },
+ {
+  "id": "ace-202",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Bir VM'in, altındaki fiziksel sunucuda bakım olduğunda kapanmadan çalışmaya devam etmesini ve beklenmedik şekilde durursa otomatik yeniden başlatılmasını istiyorsunuz. Hangi ayarlar gerekir?",
+  "options": [
+   "onHostMaintenance=MIGRATE ve automaticRestart=true",
+   "onHostMaintenance=TERMINATE ve automaticRestart=false",
+   "VM'i Spot VM olarak oluşturmak",
+   "Sole-tenant node kullanmak zorunludur"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Kullanılabilirlik politikasında MIGRATE, bakım sırasında canlı geçişi (live migration) sağlar; automaticRestart, VM çöktüğünde veya Compute Engine tarafından durdurulduğunda yeniden başlatır. Bazı yapılandırmalarda (ör. bazı GPU'lu VM'ler) TERMINATE gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/setting-vm-host-options",
+  "check": [
+   "onHostMaintenance",
+   "automaticRestart"
+  ],
+  "en": {
+   "question": "You want a VM to keep running without shutting down during maintenance on its physical host, and to be restarted automatically if it stops unexpectedly. Which settings are required?",
+   "options": [
+    "onHostMaintenance=MIGRATE and automaticRestart=true",
+    "onHostMaintenance=TERMINATE and automaticRestart=false",
+    "Create the VM as a Spot VM",
+    "Sole-tenant nodes are required"
+   ],
+   "explanation": "In the availability policy, MIGRATE enables live migration during maintenance; automaticRestart restarts the VM if it crashes or is stopped by Compute Engine. Some configurations (e.g. some GPU VMs) require TERMINATE."
+  }
+ },
+ {
+  "id": "ace-203",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Spot VM'lerde çalışan bir toplu iş, VM geri alındığında (preemption) boot diski ve verileri korunsun ki daha sonra aynı VM yeniden başlatılabilsin istiyor. Ne yapılandırmalısınız?",
+  "options": [
+   "Spot VM'in sonlandırma eylemini (instance termination action) STOP olarak ayarlamak",
+   "Sonlandırma eylemini DELETE yapmak",
+   "automaticRestart=true yapmak; Spot VM'ler geri alınınca otomatik yeniden başlar",
+   "Local SSD eklemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Spot VM geri alındığında sonlandırma eylemi STOP ise VM durdurulur ve diskler korunur; DELETE ise VM silinir. Spot VM'ler geri alındıktan sonra otomatik yeniden başlatılmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/instances/create-use-spot",
+  "check": [
+   "instance-termination-action",
+   "stop",
+   "delete"
+  ],
+  "en": {
+   "question": "A batch job running on Spot VMs wants the boot disk and data preserved when the VM is preempted, so the same VM can be started again later. What should you configure?",
+   "options": [
+    "Set the Spot VM's instance termination action to STOP",
+    "Set the termination action to DELETE",
+    "Set automaticRestart=true; Spot VMs restart automatically after preemption",
+    "Add a Local SSD"
+   ],
+   "explanation": "When a Spot VM is preempted with termination action STOP, the VM is stopped and its disks are preserved; with DELETE the VM is deleted. Spot VMs aren't automatically restarted after preemption."
+  }
+ },
+ {
+  "id": "ace-204",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Yüzlerce VM'e düzenli işletim sistemi yamaları uygulamak ve hangi paketlerin kurulu olduğunu merkezi olarak görmek istiyorsunuz. Hangi Compute Engine özelliğini kullanmalısınız?",
+  "options": [
+   "VM Manager (OS patch management ve OS inventory)",
+   "Instance template",
+   "Cloud Build",
+   "Snapshot schedule"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VM Manager; işletim sistemi yama yönetimi, envanter yönetimi ve işletim sistemi yapılandırma yönetimi gibi araçlarla VM filolarını yönetir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/vm-manager",
+  "check": [
+   "patch",
+   "inventory"
+  ],
+  "en": {
+   "question": "You want to apply regular operating system patches to hundreds of VMs and see centrally which packages are installed. Which Compute Engine feature should you use?",
+   "options": [
+    "VM Manager (OS patch management and OS inventory)",
+    "Instance template",
+    "Cloud Build",
+    "Snapshot schedule"
+   ],
+   "explanation": "VM Manager manages VM fleets with tools such as OS patch management, inventory management, and OS configuration management."
+  }
+ },
+ {
+  "id": "ace-205",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "orta",
+  "question": "Ekibiniz çok büyük bir derin öğrenme modelini eğitecek; iş yükü ağırlıklı olarak büyük matris işlemlerinden oluşuyor ve TensorFlow/JAX kullanıyor. Hangi hızlandırıcı bu tür iş yükü için özel olarak tasarlanmıştır?",
+  "options": [
+   "Cloud TPU",
+   "Local SSD",
+   "Daha fazla vCPU'lu custom machine type",
+   "Sole-tenant node"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "TPU'lar, büyük matris işlemleri yoğun ML iş yükleri için tasarlanmış özel hızlandırıcılardır. GPU'lar ise grafik ve daha geniş bir ML/HPC yelpazesi için esnek bir seçenektir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+  "check": [
+   "large matrix"
+  ],
+  "en": {
+   "question": "Your team will train a very large deep learning model; the workload is dominated by large matrix operations and uses TensorFlow/JAX. Which accelerator is specifically designed for this kind of workload?",
+   "options": [
+    "Cloud TPU",
+    "Local SSD",
+    "A custom machine type with more vCPUs",
+    "Sole-tenant node"
+   ],
+   "explanation": "TPUs are custom accelerators designed for ML workloads dominated by large matrix operations. GPUs are a flexible option for graphics and a broader range of ML/HPC workloads."
+  }
+ },
+ {
+  "id": "ace-206",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "orta",
+  "question": "Güvenlik ekibi GKE düğümlerinin harici IP adresi olmamasını istiyor. Bu gereksinimi karşılayan küme yapılandırması hangisidir?",
+  "options": [
+   "Özel düğümlü (private nodes) bir GKE kümesi; düğümler yalnızca dahili IP alır",
+   "Herkese açık düğümlü standart küme + firewall",
+   "Düğümlere Spot VM kullanmak",
+   "Kümeyi tek zonlu yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Özel düğümlerde düğümler yalnızca dahili IP adreslerine sahiptir; internete çıkış gerekirse Cloud NAT kullanılır. Kontrol düzlemi erişimi ayrıca yapılandırılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept",
+  "check": [
+   "private nodes",
+   "internal IP"
+  ],
+  "en": {
+   "question": "The security team wants GKE nodes to have no external IP addresses. Which cluster configuration meets this requirement?",
+   "options": [
+    "A GKE cluster with private nodes; nodes get only internal IPs",
+    "A standard cluster with public nodes plus a firewall",
+    "Use Spot VMs for nodes",
+    "Make the cluster single-zone"
+   ],
+   "explanation": "With private nodes, nodes have only internal IP addresses; Cloud NAT is used if internet egress is needed. Control plane access can be configured separately."
+  }
+ },
+ {
+  "id": "ace-207",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "kolay",
+  "question": "Artifact Registry'deki bir konteyner imajını GKE kümesinde hızlıca 'web' adlı bir Deployment olarak çalıştırmak istiyorsunuz. Hangi komut?",
+  "options": [
+   "kubectl create deployment web --image=REGION-docker.pkg.dev/PROJE/repo/web:v1",
+   "gcloud run deploy web --image=...",
+   "gcloud compute instances create-with-container web",
+   "kubectl expose deployment web"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "'kubectl create deployment' verilen imajla bir Deployment oluşturur; dışarıya açmak için ardından Service (ör. kubectl expose) oluşturulur. Gerçek projelerde genellikle YAML manifestler kullanılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/deploy-app-cluster",
+  "check": [
+   "kubectl create deployment"
+  ],
+  "en": {
+   "question": "You want to quickly run a container image from Artifact Registry as a Deployment named 'web' on a GKE cluster. Which command?",
+   "options": [
+    "kubectl create deployment web --image=REGION-docker.pkg.dev/PROJECT/repo/web:v1",
+    "gcloud run deploy web --image=...",
+    "gcloud compute instances create-with-container web",
+    "kubectl expose deployment web"
+   ],
+   "explanation": "'kubectl create deployment' creates a Deployment with the given image; a Service (e.g. kubectl expose) is then created to expose it. Real projects usually use YAML manifests."
+  }
+ },
+ {
+  "id": "ace-208",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "zor",
+  "question": "Projede herhangi bir yeni Compute Engine VM'i oluşturulduğunda otomatik olarak bir Cloud Run hizmetinin çalışıp VM'i envantere kaydetmesini istiyorsunuz. En uygun yöntem hangisidir?",
+  "options": [
+   "Cloud Audit Logs olaylarını (VM oluşturma) dinleyen bir Eventarc tetikleyicisi",
+   "Her dakika VM listesini kontrol eden bir cron işi",
+   "Cloud Storage tetikleyicisi",
+   "Billing export'u izlemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Eventarc, Cloud Audit Logs'a yazılan API çağrılarına (ör. compute instances insert) göre Cloud Run'ı tetikleyebilir; böylece yoklama (polling) gerekmez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/eventarc/docs/run/route-trigger-cloud-audit-logs",
+  "check": [
+   "audit log",
+   "trigger"
+  ],
+  "en": {
+   "question": "Whenever a new Compute Engine VM is created in the project, you want a Cloud Run service to run automatically and register the VM in an inventory. What is the best method?",
+   "options": [
+    "An Eventarc trigger listening for Cloud Audit Logs events (VM creation)",
+    "A cron job that checks the VM list every minute",
+    "A Cloud Storage trigger",
+    "Watching billing export"
+   ],
+   "explanation": "Eventarc can trigger Cloud Run based on API calls written to Cloud Audit Logs (e.g. compute instances insert), so no polling is needed."
+  }
+ },
+ {
+  "id": "ace-209",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "kolay",
+  "question": "Bir Pub/Sub konusuna gelen her mesajı işleyecek küçük bir kodu, sunucu yönetmeden çalıştırmak istiyorsunuz. En uygun seçenek?",
+  "options": [
+   "Pub/Sub tetikleyicili bir Cloud Run function (veya Cloud Run hizmeti)",
+   "Sürekli çalışan bir Compute Engine VM'i",
+   "Dataproc kümesi",
+   "Cloud Scheduler"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run functions ve Cloud Run hizmetleri, Pub/Sub mesajlarıyla (push/Eventarc) tetiklenebilir ve yalnızca çalıştıkları süre için ücretlendirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/triggering/pubsub-triggers",
+  "check": [
+   "Pub/Sub"
+  ],
+  "en": {
+   "question": "You want to run a small piece of code that processes every message arriving on a Pub/Sub topic, without managing servers. What is the best option?",
+   "options": [
+    "A Cloud Run function (or Cloud Run service) with a Pub/Sub trigger",
+    "An always-on Compute Engine VM",
+    "A Dataproc cluster",
+    "Cloud Scheduler"
+   ],
+   "explanation": "Cloud Run functions and Cloud Run services can be triggered by Pub/Sub messages (push/Eventarc) and are billed only while running."
+  }
+ },
+ {
+  "id": "ace-210",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Bir MIG'in kullandığı instance template'teki makine tipini değiştirmek istiyorsunuz. Doğru yaklaşım hangisidir?",
+  "options": [
+   "Yeni ayarlarla yeni bir instance template oluşturup MIG'e rolling update ile uygulamak",
+   "Mevcut instance template'i düzenlemek",
+   "MIG'i silip VM'leri elle oluşturmak",
+   "Template'i değiştirmeden her VM'in makine tipini tek tek değiştirmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Instance template'ler oluşturulduktan sonra güncellenemez. Yeni bir template (mevcut olanı temel alarak) oluşturulur ve MIG rolling update ile yeni template'e geçirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/instance-templates",
+  "check": [
+   "can't update instance templates"
+  ],
+  "en": {
+   "question": "You want to change the machine type in the instance template used by a MIG. What is the correct approach?",
+   "options": [
+    "Create a new instance template with the new settings and apply it to the MIG with a rolling update",
+    "Edit the existing instance template",
+    "Delete the MIG and create VMs manually",
+    "Change each VM's machine type individually without changing the template"
+   ],
+   "explanation": "Instance templates can't be updated after they're created. You create a new template (optionally based on the existing one) and move the MIG to it with a rolling update."
+  }
+ },
+ {
+  "id": "ace-211",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "orta",
+  "question": "Ekibiniz Agent Development Kit (ADK) ile bir yapay zekâ ajanı geliştirdi ve bunu altyapı yönetmeden, ölçeklenebilir şekilde Google Cloud'da çalıştırmak istiyor. Hangi hizmet bu amaçla tasarlanmıştır?",
+  "options": [
+   "Gemini Enterprise Agent Platform'daki Agent Runtime (eski adıyla Vertex AI Agent Engine)",
+   "Compute Engine üzerinde elle kurulum",
+   "Cloud Storage statik web sitesi",
+   "Dataproc"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Agent Runtime, ajanları dağıtmak, ölçeklendirmek ve yönetmek için tasarlanmış yönetilen bir çalışma ortamıdır; ADK, LangChain, LangGraph gibi çerçeveleri destekler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/agent-builder/agent-engine/overview",
+  "check": [
+   "agent runtime",
+   "deploy"
+  ],
+  "en": {
+   "question": "Your team built an AI agent with the Agent Development Kit (ADK) and wants to run it on Google Cloud scalably without managing infrastructure. Which service is designed for this?",
+   "options": [
+    "Agent Runtime on Gemini Enterprise Agent Platform (formerly Vertex AI Agent Engine)",
+    "A manual installation on Compute Engine",
+    "A Cloud Storage static website",
+    "Dataproc"
+   ],
+   "explanation": "Agent Runtime is a managed runtime designed to deploy, scale, and manage agents; it supports frameworks such as ADK, LangChain, and LangGraph."
+  }
+ },
+ {
+  "id": "ace-212",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.1",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Eski bir uygulama özel bir çekirdek (kernel) modülü yüklemeyi ve işletim sistemi üzerinde tam yönetici kontrolünü gerektiriyor. Hangi işlem seçeneği uygundur?",
+  "options": [
+   "Compute Engine",
+   "Cloud Run",
+   "Cloud Run functions",
+   "App Engine standard"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Compute Engine, işletim sistemi üzerinde tam kontrol veren sanal makineler sunar. Serverless platformlar (Cloud Run, Cloud Run functions, App Engine standard) çekirdek seviyesinde özelleştirmeye izin vermez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/overview",
+  "check": [
+   "operating system",
+   "custom"
+  ],
+  "en": {
+   "question": "A legacy application requires loading a custom kernel module and full administrative control over the operating system. Which compute option fits?",
+   "options": [
+    "Compute Engine",
+    "Cloud Run",
+    "Cloud Run functions",
+    "App Engine standard"
+   ],
+   "explanation": "Compute Engine provides virtual machines with full control over the operating system. Serverless platforms (Cloud Run, Cloud Run functions, App Engine standard) don't allow kernel-level customization."
+  }
+ },
+ {
+  "id": "ace-213",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "PostgreSQL uyumlu, yüksek performanslı işlemsel (OLTP) iş yükleri sunan ve aynı veride analitik sorguları da hızlandıran yönetilen bir veritabanı arıyorsunuz. Hangisi?",
+  "options": [
+   "AlloyDB for PostgreSQL",
+   "Bigtable",
+   "Firestore",
+   "Memorystore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "AlloyDB, PostgreSQL uyumlu, işlemsel ve analitik iş yüklerini birlikte yüksek performansla çalıştırmak için tasarlanmış yönetilen bir veritabanıdır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/alloydb/docs/overview",
+  "check": [
+   "PostgreSQL-compatible",
+   "transactional",
+   "analytical"
+  ],
+  "en": {
+   "question": "You need a managed PostgreSQL-compatible database that delivers high-performance transactional (OLTP) workloads and also accelerates analytical queries on the same data. Which one?",
+   "options": [
+    "AlloyDB for PostgreSQL",
+    "Bigtable",
+    "Firestore",
+    "Memorystore"
+   ],
+   "explanation": "AlloyDB is a managed PostgreSQL-compatible database designed to run transactional and analytical workloads together with high performance."
+  }
+ },
+ {
+  "id": "ace-214",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Şirketiniz Apache Kafka kullanan mevcut uygulamalarını kod değiştirmeden Google Cloud'a taşımak ve Kafka kümelerini kendisi yönetmemek istiyor. Ne kullanmalısınız?",
+  "options": [
+   "Managed Service for Apache Kafka",
+   "Pub/Sub'a geçip tüm kodu yeniden yazmak",
+   "Bigtable",
+   "Cloud Tasks"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Managed Service for Apache Kafka, açık kaynak Apache Kafka kümelerini güvenli ve ölçeklenebilir şekilde yönetilen olarak çalıştırır; mevcut Kafka istemcileri kullanılmaya devam edebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview",
+  "check": [
+   "Apache Kafka"
+  ],
+  "en": {
+   "question": "Your company wants to move existing applications that use Apache Kafka to Google Cloud without code changes, and not manage Kafka clusters itself. What should you use?",
+   "options": [
+    "Managed Service for Apache Kafka",
+    "Move to Pub/Sub and rewrite all code",
+    "Bigtable",
+    "Cloud Tasks"
+   ],
+   "explanation": "Managed Service for Apache Kafka runs open source Apache Kafka clusters securely and scalably as a managed service; existing Kafka clients can keep being used."
+  }
+ },
+ {
+  "id": "ace-215",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Windows sunucularınızın SMB protokolüyle bağlanacağı, kurumsal özelliklere sahip yönetilen bir dosya paylaşımı gerekiyor. En uygun seçenek hangisidir?",
+  "options": [
+   "Google Cloud NetApp Volumes",
+   "Cloud Storage",
+   "Local SSD",
+   "Bigtable"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "NetApp Volumes, NFS ve SMB protokollerini destekleyen yönetilen dosya depolama hizmetidir; Windows iş yükleri için SMB paylaşımları sunar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/netapp/volumes/docs/discover/overview",
+  "check": [
+   "SMB",
+   "NFS"
+  ],
+  "en": {
+   "question": "You need a managed file share with enterprise features that your Windows servers will connect to over SMB. What is the best option?",
+   "options": [
+    "Google Cloud NetApp Volumes",
+    "Cloud Storage",
+    "Local SSD",
+    "Bigtable"
+   ],
+   "explanation": "NetApp Volumes is a managed file storage service that supports NFS and SMB; it provides SMB shares for Windows workloads."
+  }
+ },
+ {
+  "id": "ace-216",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Cloud Storage",
+  "difficulty": "orta",
+  "question": "Yüksek performanslı hesaplama (HPC) ve yapay zekâ eğitim kümeleriniz, binlerce istemcinin aynı anda çok yüksek aktarım hızıyla erişeceği paralel bir dosya sistemine ihtiyaç duyuyor. Hangi yönetilen hizmet uygundur?",
+  "options": [
+   "Google Cloud Managed Lustre",
+   "Cloud Storage Archive",
+   "Memorystore",
+   "Cloud SQL"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Managed Lustre, yapay zekâ ve HPC uygulamaları için optimize edilmiş, yüksek performanslı, tamamen yönetilen paralel bir dosya sistemidir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/managed-lustre/docs/overview",
+  "check": [
+   "parallel file system",
+   "HPC"
+  ],
+  "en": {
+   "question": "Your high-performance computing (HPC) and AI training clusters need a parallel file system that thousands of clients will access simultaneously at very high throughput. Which managed service fits?",
+   "options": [
+    "Google Cloud Managed Lustre",
+    "Cloud Storage Archive",
+    "Memorystore",
+    "Cloud SQL"
+   ],
+   "explanation": "Managed Lustre is a high-performance, fully managed parallel file system optimized for AI and HPC applications."
+  }
+ },
+ {
+  "id": "ace-217",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Pub/Sub'dan gelen olay akışını gerçek zamanlı olarak dönüştürüp BigQuery'ye yazan, sunucu yönetimi gerektirmeyen bir veri hattı (pipeline) kurmak istiyorsunuz. Hangi hizmet?",
+  "options": [
+   "Dataflow (Apache Beam)",
+   "Dataproc",
+   "Cloud Scheduler",
+   "Transfer Appliance"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Dataflow, Apache Beam tabanlı, hem akış (streaming) hem toplu (batch) işleme için tamamen yönetilen bir hizmettir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/dataflow/docs/overview",
+  "check": [
+   "Apache Beam",
+   "streaming"
+  ],
+  "en": {
+   "question": "You want to build a pipeline that transforms an event stream from Pub/Sub in real time and writes it to BigQuery, without managing servers. Which service?",
+   "options": [
+    "Dataflow (Apache Beam)",
+    "Dataproc",
+    "Cloud Scheduler",
+    "Transfer Appliance"
+   ],
+   "explanation": "Dataflow is a fully managed service based on Apache Beam for both streaming and batch processing."
+  }
+ },
+ {
+  "id": "ace-218",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Veritabanları",
+  "difficulty": "zor",
+  "question": "Küresel bir ödeme uygulaması, bir bölgenin tamamen kesintiye uğradığı durumda bile yazma ve okumaya devam etmeli ve %99,999 kullanılabilirlik hedefliyor. Hangi yapılandırma uygundur?",
+  "options": [
+   "Çok bölgeli (multi-region) instance yapılandırmalı Spanner",
+   "Bölgesel HA yapılandırmalı Cloud SQL",
+   "Tek bölgeli Bigtable kümesi",
+   "Memorystore"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Spanner'ın çok bölgeli yapılandırmaları %99,999 kullanılabilirlik SLA'sı sunar ve bölge kesintisine dayanır; bölgesel yapılandırmalar %99,99 sunar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/spanner/docs/instance-configurations",
+  "check": [
+   "99.999%",
+   "multi-region"
+  ],
+  "en": {
+   "question": "A global payments application must keep reading and writing even if an entire region fails, targeting 99.999% availability. Which configuration fits?",
+   "options": [
+    "Spanner with a multi-region instance configuration",
+    "Cloud SQL with a regional HA configuration",
+    "A single-region Bigtable cluster",
+    "Memorystore"
+   ],
+   "explanation": "Spanner multi-region configurations offer a 99.999% availability SLA and survive a region outage; regional configurations offer 99.99%."
+  }
+ },
+ {
+  "id": "ace-219",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Veritabanları",
+  "difficulty": "orta",
+  "question": "Cloud SQL for MySQL veritabanınız için, birincil bölge tamamen kesintiye uğrarsa başka bir bölgede devreye alınabilecek bir felaket kurtarma (DR) planı istiyorsunuz. Ne yapmalısınız?",
+  "options": [
+   "Başka bir bölgede bir cross-region read replica oluşturmak ve gerektiğinde onu yükseltmek (promote)",
+   "Aynı bölgede HA yapılandırmasını açmak yeterlidir",
+   "Yedekleri yalnızca aynı zonda tutmak",
+   "Memorystore'a geçmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bölgeler arası (cross-region) okuma replikaları, bölgesel bir kesintide yükseltilerek (promote) birincil hâle getirilebilir; HA yapılandırması yalnızca aynı bölgedeki zon arızalarını kapsar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/sql/docs/mysql/replication/cross-region-replicas",
+  "check": [
+   "cross-region",
+   "disaster"
+  ],
+  "en": {
+   "question": "For your Cloud SQL for MySQL database you want a disaster recovery (DR) plan that can take over in another region if the primary region fails completely. What should you do?",
+   "options": [
+    "Create a cross-region read replica in another region and promote it when needed",
+    "Enabling HA in the same region is enough",
+    "Keep backups only in the same zone",
+    "Move to Memorystore"
+   ],
+   "explanation": "Cross-region read replicas can be promoted to primary during a regional outage; the HA configuration only covers zone failures within the same region."
+  }
+ },
+ {
+  "id": "ace-220",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.2",
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Yeni bir BigQuery veri seti oluşturuyorsunuz; veri AB'de kalmalı ve tek bir bölge kesintisinden etkilenmemeli. Veri seti konumu olarak ne seçmelisiniz?",
+  "options": [
+   "EU çok bölgeli (multi-region) konum",
+   "europe-west1 tek bölge",
+   "US çok bölgeli konum",
+   "Konum seçmeden varsayılan"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "BigQuery'de veri seti konumu oluşturulurken seçilir; EU ve US çok bölgeli konumlar veriyi o coğrafyadaki birden fazla bölgede saklar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/locations",
+  "check": [
+   "multi-region",
+   "EU"
+  ],
+  "en": {
+   "question": "You are creating a new BigQuery dataset; the data must stay in the EU and should not be affected by a single-region outage. What should you choose as the dataset location?",
+   "options": [
+    "The EU multi-region location",
+    "The europe-west1 single region",
+    "The US multi-region location",
+    "The default without choosing a location"
+   ],
+   "explanation": "In BigQuery the dataset location is chosen at creation; the EU and US multi-regions store data across multiple regions within that geography."
+  }
+ },
+ {
+  "id": "ace-221",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "Güvenlik ekibi, organizasyondaki TÜM projelerde belirli kötü amaçlı IP aralıklarından gelen trafiğin engellenmesini ve proje yöneticilerinin bu kuralı geçersiz kılamamasını istiyor. Ne kullanmalısınız?",
+  "options": [
+   "Organizasyon veya klasör seviyesinde hiyerarşik firewall politikası",
+   "Her projede ayrı VPC firewall kuralı",
+   "Cloud NAT",
+   "VPC Network Peering"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Hiyerarşik firewall politikaları organizasyon veya klasör düğümüne uygulanır ve altındaki tüm projelerdeki ağları etkiler; proje seviyesindeki kurallardan önce değerlendirilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/firewall/docs/firewall-policies-overview",
+  "check": [
+   "hierarchical",
+   "organization"
+  ],
+  "en": {
+   "question": "The security team wants traffic from certain malicious IP ranges to be blocked in ALL projects in the organization, and project administrators must not be able to override this rule. What should you use?",
+   "options": [
+    "A hierarchical firewall policy at the organization or folder level",
+    "A separate VPC firewall rule in each project",
+    "Cloud NAT",
+    "VPC Network Peering"
+   ],
+   "explanation": "Hierarchical firewall policies are applied to the organization or folder node and affect networks in all projects beneath it; they're evaluated before project-level rules."
+  }
+ },
+ {
+  "id": "ace-222",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "Cloud NGFW kurallarında VM'leri hedeflemek için etiket kullanmak istiyorsunuz, ancak VM'leri düzenleyebilen herkesin etiketi değiştirip firewall kuralını atlatabilmesinden endişe ediyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Ağ firewall politikalarında IAM ile yönetilen secure Tags (Resource Manager etiketleri)",
+   "Ağ etiketleri (network tags)",
+   "Labels",
+   "VM meta verisi"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Secure Tags IAM ile denetlenir; yalnızca yetkili kişiler etiketi kaynağa bağlayabilir. Ağ etiketleri ise VM'i düzenleyebilen herkes tarafından değiştirilebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/firewall/docs/tags-firewalls-overview",
+  "check": [
+   "secure tags",
+   "IAM"
+  ],
+  "en": {
+   "question": "You want to use tags to target VMs in Cloud NGFW rules, but you're worried that anyone who can edit VMs could change the tag and bypass the firewall rule. What should you use?",
+   "options": [
+    "IAM-governed secure Tags (Resource Manager tags) in network firewall policies",
+    "Network tags",
+    "Labels",
+    "VM metadata"
+   ],
+   "explanation": "Secure Tags are IAM-controlled; only authorized principals can bind the tag to a resource. Network tags can be changed by anyone who can edit the VM."
+  }
+ },
+ {
+  "id": "ace-223",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Maliyet hassasiyeti yüksek, bölgesel bir web uygulaması için internet trafiğinin Google'ın omurgası yerine normal ISS ağları üzerinden taşınmasını kabul ediyorsunuz. Hangi ağ hizmet katmanı daha ucuzdur?",
+  "options": [
+   "Standard Tier",
+   "Premium Tier",
+   "Dedicated Interconnect",
+   "Direct Peering"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Premium Tier trafiği Google'ın omurga ağında taşır ve performans için optimize edilir; Standard Tier normal ISS ağlarını kullanır ve maliyet için optimize edilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/network-tiers/docs/overview",
+  "check": [
+   "regular isp networks",
+   "premium backbone"
+  ],
+  "en": {
+   "question": "For a cost-sensitive regional web application, you accept internet traffic being carried over regular ISP networks instead of Google's backbone. Which Network Service Tier is cheaper?",
+   "options": [
+    "Standard Tier",
+    "Premium Tier",
+    "Dedicated Interconnect",
+    "Direct Peering"
+   ],
+   "explanation": "Premium Tier carries traffic on Google's premium backbone and is optimized for performance; Standard Tier uses regular ISP networks and is optimized for cost."
+  }
+ },
+ {
+  "id": "ace-224",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "Veri merkeziniz bir Google colocation tesisinde değil ve 1 Gbps civarında özel (internet dışı) bir bağlantıya ihtiyacınız var. Hangi seçenek uygundur?",
+  "options": [
+   "Partner Interconnect (bir hizmet sağlayıcı üzerinden)",
+   "Dedicated Interconnect",
+   "Direct Peering",
+   "Cloud CDN"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Partner Interconnect, desteklenen bir hizmet sağlayıcı üzerinden bağlantı sağlar; Google colocation tesisine fiziksel erişimi olmayan veya daha düşük bant genişliğine ihtiyaç duyan kuruluşlar için uygundur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/partner-overview",
+  "check": [
+   "Partner Interconnect",
+   "service provider"
+  ],
+  "en": {
+   "question": "Your data center isn't in a Google colocation facility and you need a private (non-internet) connection of about 1 Gbps. Which option fits?",
+   "options": [
+    "Partner Interconnect (through a service provider)",
+    "Dedicated Interconnect",
+    "Direct Peering",
+    "Cloud CDN"
+   ],
+   "explanation": "Partner Interconnect provides connectivity through a supported service provider; it suits organizations without physical access to a Google colocation facility or needing lower bandwidth."
+  }
+ },
+ {
+  "id": "ace-225",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "orta",
+  "question": "HA VPN üzerinden şirket içi ağınızla Google Cloud arasında rotaların elle girilmeden, değişiklik olduğunda otomatik olarak öğrenilmesini istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "BGP ile dinamik yönlendirme yapan Cloud Router",
+   "Elle eklenen statik rotalar",
+   "Cloud NAT",
+   "Cloud DNS"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Router, BGP kullanarak VPC ile şirket içi ağ arasında rotaları dinamik olarak değiş tokuş eder; HA VPN ve Cloud Interconnect ile kullanılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/network-connectivity/docs/router/concepts/overview",
+  "check": [
+   "BGP",
+   "dynamic"
+  ],
+  "en": {
+   "question": "You want routes between your on-premises network and Google Cloud over HA VPN to be learned automatically when they change, without entering them manually. What should you use?",
+   "options": [
+    "Cloud Router with dynamic routing via BGP",
+    "Manually added static routes",
+    "Cloud NAT",
+    "Cloud DNS"
+   ],
+   "explanation": "Cloud Router dynamically exchanges routes between the VPC and the on-premises network using BGP; it's used with HA VPN and Cloud Interconnect."
+  }
+ },
+ {
+  "id": "ace-226",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "zor",
+  "question": "HTTP olmayan, TLS ile şifrelenmiş bir TCP hizmetini küresel kullanıcılara sunmak, TLS'yi yük dengeleyicide sonlandırmak ve en yakın backend'e yönlendirmek istiyorsunuz. Hangi yük dengeleyici uygundur?",
+  "options": [
+   "Global external proxy Network Load Balancer (SSL proxy)",
+   "External passthrough Network Load Balancer",
+   "Internal Application Load Balancer",
+   "Global external Application Load Balancer"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Proxy Network Load Balancer'lar TCP trafiğini proxy'ler ve SSL/TLS'yi yük dengeleyicide sonlandırabilir. Application Load Balancer HTTP(S) içindir; passthrough NLB ise TLS sonlandırmaz.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/load-balancing/docs/tcp",
+  "check": [
+   "proxy Network Load Balancer",
+   "SSL"
+  ],
+  "en": {
+   "question": "You want to serve a non-HTTP, TLS-encrypted TCP service to global users, terminate TLS at the load balancer, and route to the nearest backend. Which load balancer fits?",
+   "options": [
+    "Global external proxy Network Load Balancer (SSL proxy)",
+    "External passthrough Network Load Balancer",
+    "Internal Application Load Balancer",
+    "Global external Application Load Balancer"
+   ],
+   "explanation": "Proxy Network Load Balancers proxy TCP traffic and can terminate SSL/TLS at the load balancer. Application Load Balancers are for HTTP(S); passthrough NLBs don't terminate TLS."
+  }
+ },
+ {
+  "id": "ace-227",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "VPC ve ağ",
+  "difficulty": "zor",
+  "question": "Bir VPC'deki VM'lerin internete giden tüm trafiğini engellemek, ama yalnızca şirketin güncelleme sunucusunun IP'sine (203.0.113.10) çıkışa izin vermek istiyorsunuz. Hangi firewall kuralı yapılandırması doğrudur?",
+  "options": [
+   "Düşük öncelikli (ör. 65000) 0.0.0.0/0'a egress deny kuralı ve daha yüksek öncelikli (ör. 1000) 203.0.113.10'a egress allow kuralı",
+   "203.0.113.10'a ingress allow ve 0.0.0.0/0'a ingress deny",
+   "Yalnızca 203.0.113.10'a egress allow; örtük kural diğer çıkışları zaten engeller",
+   "İki kuralı da aynı önceliğe koymak sıralamayı garanti eder"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Örtük egress kuralı tüm çıkışa izin verir, bu yüzden açık bir egress deny gerekir. Firewall kurallarında düşük sayı yüksek önceliktir; allow kuralının deny'dan daha yüksek öncelikli (daha küçük sayı) olması gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/firewall/docs/firewalls",
+  "check": [
+   "egress",
+   "priority",
+   "deny"
+  ],
+  "en": {
+   "question": "You want to block all internet-bound traffic from VMs in a VPC, but allow egress only to the company's update server IP (203.0.113.10). Which firewall rule configuration is correct?",
+   "options": [
+    "A low-priority (e.g. 65000) egress deny rule to 0.0.0.0/0 and a higher-priority (e.g. 1000) egress allow rule to 203.0.113.10",
+    "An ingress allow to 203.0.113.10 and an ingress deny from 0.0.0.0/0",
+    "Only an egress allow to 203.0.113.10; the implied rule already blocks other egress",
+    "Putting both rules at the same priority guarantees the ordering"
+   ],
+   "explanation": "The implied egress rule allows all egress, so an explicit egress deny is needed. In firewall rules a lower number means higher priority; the allow rule must have a higher priority (smaller number) than the deny rule."
+  }
+ },
+ {
+  "id": "ace-228",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.3",
+  "topic": "Instance group ve yük dengeleme",
+  "difficulty": "orta",
+  "question": "Aynı VPC'deki uygulamaların, HTTP olmayan bir TCP veritabanı protokolüyle bir grup VM'e dahili IP üzerinden dengelenmiş şekilde bağlanması gerekiyor; istemci IP'si korunmalı. Hangi yük dengeleyici?",
+  "options": [
+   "Internal passthrough Network Load Balancer",
+   "Global external Application Load Balancer",
+   "External proxy Network Load Balancer",
+   "Cloud CDN"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Internal passthrough Network Load Balancer, VPC içinde dahili IP ile TCP/UDP trafiğini proxy'lemeden dağıtır; istemci IP'si korunur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/load-balancing/docs/choosing-load-balancer",
+  "check": [
+   "passthrough"
+  ],
+  "en": {
+   "question": "Applications in the same VPC need to connect over a non-HTTP TCP database protocol, load-balanced across a group of VMs via an internal IP; the client IP must be preserved. Which load balancer?",
+   "options": [
+    "Internal passthrough Network Load Balancer",
+    "Global external Application Load Balancer",
+    "External proxy Network Load Balancer",
+    "Cloud CDN"
+   ],
+   "explanation": "The internal passthrough Network Load Balancer distributes TCP/UDP traffic on an internal IP within the VPC without proxying; the client IP is preserved."
+  }
+ },
+ {
+  "id": "ace-229",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Platform ekibiniz GKE'yi yoğun kullanıyor ve Cloud Storage kovaları, Pub/Sub konuları gibi Google Cloud kaynaklarını da Kubernetes manifestleri (YAML) ve kubectl ile yönetmek istiyor. Ne kullanmalısınız?",
+  "options": [
+   "Config Connector",
+   "Deployment Manager",
+   "Cloud Scheduler",
+   "gsutil"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Config Connector, Google Cloud kaynaklarını Kubernetes özel kaynakları (custom resources) olarak tanımlayıp Kubernetes araçlarıyla yönetmeyi sağlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/config-connector/docs/overview",
+  "check": [
+   "Kubernetes",
+   "custom resource"
+  ],
+  "en": {
+   "question": "Your platform team uses GKE heavily and wants to manage Google Cloud resources such as Cloud Storage buckets and Pub/Sub topics with Kubernetes manifests (YAML) and kubectl as well. What should you use?",
+   "options": [
+    "Config Connector",
+    "Deployment Manager",
+    "Cloud Scheduler",
+    "gsutil"
+   ],
+   "explanation": "Config Connector lets you define Google Cloud resources as Kubernetes custom resources and manage them with Kubernetes tooling."
+  }
+ },
+ {
+  "id": "ace-230",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Birden fazla mühendis aynı Terraform yapılandırması üzerinde çalışıyor. Terraform durum (state) dosyasının paylaşılması ve kaybolmaması için ne yapmalısınız?",
+  "options": [
+   "Durumu Cloud Storage'da bir 'gcs' backend ile uzaktan (remote) saklamak",
+   "State dosyasını her mühendisin bilgisayarında tutmak",
+   "State dosyasını e-postayla paylaşmak",
+   "State dosyasını Git deposuna commit'lemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Terraform state'in Cloud Storage'da gcs backend ile saklanması ekipçe paylaşımı ve kilitlemeyi sağlar; nesne sürümleme (versioning) ile geçmiş durumlar korunabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/docs/terraform/resource-management/store-state",
+  "check": [
+   "backend",
+   "gcs"
+  ],
+  "en": {
+   "question": "Several engineers work on the same Terraform configuration. What should you do so the Terraform state file is shared and not lost?",
+   "options": [
+    "Store the state remotely in Cloud Storage with a 'gcs' backend",
+    "Keep the state file on each engineer's computer",
+    "Share the state file by email",
+    "Commit the state file to the Git repository"
+   ],
+   "explanation": "Storing Terraform state in Cloud Storage with the gcs backend enables team sharing and locking; object versioning can preserve previous states."
+  }
+ },
+ {
+  "id": "ace-231",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "IaC ve DevOps",
+  "difficulty": "kolay",
+  "question": "Bir Terraform yapılandırmasının altyapıda neleri değiştireceğini, hiçbir değişiklik yapmadan önce görmek istiyorsunuz. Hangi komutu çalıştırmalısınız?",
+  "options": [
+   "terraform plan",
+   "terraform apply -auto-approve",
+   "terraform destroy",
+   "terraform init"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "terraform plan, yapılacak değişikliklerin önizlemesini gösterir; terraform apply bu değişiklikleri uygular. terraform init ise çalışma dizinini hazırlar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/docs/terraform/basic-commands",
+  "check": [
+   "terraform plan",
+   "terraform apply"
+  ],
+  "en": {
+   "question": "You want to see what a Terraform configuration would change in the infrastructure before making any changes. Which command should you run?",
+   "options": [
+    "terraform plan",
+    "terraform apply -auto-approve",
+    "terraform destroy",
+    "terraform init"
+   ],
+   "explanation": "terraform plan shows a preview of the changes; terraform apply applies them. terraform init prepares the working directory."
+  }
+ },
+ {
+  "id": "ace-232",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Ekibiniz Kubernetes uygulamalarını Helm chart'ları olarak paketliyor ve bu chart'ları Google Cloud'da, IAM ile erişimi denetlenen özel bir depoda saklamak istiyor. Ne kullanmalısınız?",
+  "options": [
+   "Artifact Registry (Helm chart'ları için OCI biçiminde)",
+   "Cloud Source Repositories",
+   "Cloud Storage'da herkese açık bir kova",
+   "Container Registry"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Artifact Registry, Helm chart'larını OCI biçiminde saklayabilir; erişim IAM ile yönetilir. Container Registry kullanımdan kaldırılmıştır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/artifact-registry/docs/helm",
+  "check": [
+   "Helm chart"
+  ],
+  "en": {
+   "question": "Your team packages Kubernetes applications as Helm charts and wants to store them on Google Cloud in a private repository with IAM-controlled access. What should you use?",
+   "options": [
+    "Artifact Registry (in OCI format for Helm charts)",
+    "Cloud Source Repositories",
+    "A public Cloud Storage bucket",
+    "Container Registry"
+   ],
+   "explanation": "Artifact Registry can store Helm charts in OCI format; access is managed with IAM. Container Registry is deprecated."
+  }
+ },
+ {
+  "id": "ace-233",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "kolay",
+  "question": "Bir geliştirici, terminalinde (yerel veya Cloud Shell) Gemini'ye doğrudan erişen, açık kaynaklı bir yapay zekâ ajanı kullanmak istiyor. Bu tanıma uyan araç hangisidir?",
+  "options": [
+   "Gemini CLI",
+   "gcloud CLI",
+   "kubectl",
+   "Cloud Shell Editor"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Gemini CLI, yerel veya Cloud Shell terminalinde Gemini'ye doğrudan erişim sağlayan açık kaynaklı bir yapay zekâ ajanıdır. (Google, en güncel Gemini modelleriyle kodlama için Antigravity CLI'yi de önermektedir.)",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli",
+  "check": [
+   "open source ai agent",
+   "terminal"
+  ],
+  "en": {
+   "question": "A developer wants an open source AI agent that gives direct access to Gemini in their terminal (local or Cloud Shell). Which tool matches this description?",
+   "options": [
+    "Gemini CLI",
+    "gcloud CLI",
+    "kubectl",
+    "Cloud Shell Editor"
+   ],
+   "explanation": "Gemini CLI is an open source AI agent that provides access to Gemini directly in your local or Cloud Shell terminal. (Google also recommends Antigravity CLI for coding with the latest Gemini models.)"
+  }
+ },
+ {
+  "id": "ace-234",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "orta",
+  "question": "Platform ekibiniz, geliştiricilerin kurumsal standartlara uygun uygulamaları hazır şablonlardan tasarlayıp Google Cloud'a dağıtabilmesini istiyor. Bu amaçla tasarlanmış Google Cloud ürünü hangisidir?",
+  "options": [
+   "Application Design Center",
+   "Cloud Asset Inventory",
+   "Billing reports",
+   "Cloud Trace"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Application Design Center, platform ve geliştirme ekiplerinin uygulamaları tasarlayıp dağıtmasını sağlar; paylaşılan şablonlarla kurumsal standartlara uyum sağlanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/application-design-center/docs/overview",
+  "check": [
+   "templates",
+   "deploy"
+  ],
+  "en": {
+   "question": "Your platform team wants developers to design applications from ready-made templates that follow organizational standards and deploy them to Google Cloud. Which Google Cloud product is designed for this?",
+   "options": [
+    "Application Design Center",
+    "Cloud Asset Inventory",
+    "Billing reports",
+    "Cloud Trace"
+   ],
+   "explanation": "Application Design Center lets platform and development teams design and deploy applications; shared templates keep applications aligned with organizational standards."
+  }
+ },
+ {
+  "id": "ace-235",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Yeni bir kurumsal Google Cloud ortamı (organizasyon yapısı, ağ, güvenlik kontrolleri) kurarken Google'ın önerdiği, Terraform ile uygulanabilen hazır bir temel mimariden başlamak istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Google Cloud security foundations blueprint ve ilgili Terraform örnekleri",
+   "Deployment Manager şablonları",
+   "Tek bir projede elle kurulum",
+   "Cloud Shell geçmişindeki komutlar"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Security foundations blueprint, kurumsal temel (landing zone) için öneriler ve Terraform ile dağıtılabilir örnekler sunar. Deployment Manager kullanımdan kaldırılmıştır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/architecture/blueprints/security-foundations",
+  "check": [
+   "Terraform",
+   "foundation"
+  ],
+  "en": {
+   "question": "When setting up a new enterprise Google Cloud environment (organization structure, networking, security controls), you want to start from a Google-recommended foundation that can be deployed with Terraform. What should you use?",
+   "options": [
+    "The Google Cloud security foundations blueprint and its Terraform examples",
+    "Deployment Manager templates",
+    "A manual setup in a single project",
+    "Commands from Cloud Shell history"
+   ],
+   "explanation": "The security foundations blueprint provides recommendations for an enterprise foundation (landing zone) and examples deployable with Terraform. Deployment Manager is deprecated."
+  }
+ },
+ {
+  "id": "ace-236",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "IaC ve DevOps",
+  "difficulty": "orta",
+  "question": "Konteyner imajlarınızın önce test, sonra üretim GKE/Cloud Run ortamlarına onaylı ve kademeli şekilde terfi ettirilmesini (promotion) sağlayan yönetilen bir sürekli teslimat hizmeti istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "Cloud Deploy",
+   "Cloud Scheduler",
+   "Cloud Tasks",
+   "Transfer Appliance"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Deploy, GKE ve Cloud Run gibi hedeflere teslimat hatları (delivery pipelines) tanımlayıp sürümleri ortamlar arasında terfi ettiren yönetilen bir sürekli teslimat hizmetidir. Cloud Build genellikle derleme (CI) için kullanılır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/deploy/docs/overview",
+  "check": [
+   "delivery pipeline",
+   "promot"
+  ],
+  "en": {
+   "question": "You want a managed continuous delivery service that promotes your container images first to test and then to production GKE/Cloud Run environments in a controlled, approved way. What should you use?",
+   "options": [
+    "Cloud Deploy",
+    "Cloud Scheduler",
+    "Cloud Tasks",
+    "Transfer Appliance"
+   ],
+   "explanation": "Cloud Deploy is a managed continuous delivery service that defines delivery pipelines to targets such as GKE and Cloud Run and promotes releases between environments. Cloud Build is typically used for builds (CI)."
+  }
+ },
+ {
+  "id": "ace-237",
+  "exam": "ACE",
+  "domain": 2,
+  "objective": "2.4",
+  "topic": "Gemini ve yapay zekâ araçları",
+  "difficulty": "kolay",
+  "question": "Geliştiriciler, IDE'lerinde (ör. VS Code, JetBrains) kod tamamlama ve kod üretimi için Gemini tabanlı bir yardımcı kullanmak istiyor. Hangi ürün uygundur?",
+  "options": [
+   "Gemini Code Assist",
+   "Cloud Profiler",
+   "Policy Analyzer",
+   "Cloud Asset Inventory"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Gemini Code Assist, IDE'lerde kod tamamlama, kod üretimi ve sohbet gibi yapay zekâ destekli kodlama yardımı sunar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/gemini/docs/codeassist/overview",
+  "check": [
+   "IDE",
+   "code"
+  ],
+  "en": {
+   "question": "Developers want a Gemini-based assistant in their IDE (e.g. VS Code, JetBrains) for code completion and code generation. Which product fits?",
+   "options": [
+    "Gemini Code Assist",
+    "Cloud Profiler",
+    "Policy Analyzer",
+    "Cloud Asset Inventory"
+   ],
+   "explanation": "Gemini Code Assist provides AI-powered coding assistance such as code completion, code generation, and chat in IDEs."
+  }
  }
 ]
