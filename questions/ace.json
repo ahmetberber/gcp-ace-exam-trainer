@@ -2,7 +2,7 @@
  {
   "id": "ace-001",
   "exam": "ACE",
-  "domain": 1,
+  "domain": 4,
   "topic": "Kaynak hiyerarşisi ve faturalandırma",
   "difficulty": "kolay",
   "question": "Şirketiniz, finans departmanındaki tüm projelere tek bir yerden erişim izni vermek istiyor. Departman başına yeni projeler sık sık ekleniyor. En az yönetim yüküyle ne yapmalısınız?",
@@ -31,7 +31,8 @@
   "check": [
    "folder",
    "inherit"
-  ]
+  ],
+  "objective": "4.1"
  },
  {
   "id": "ace-002",
@@ -65,7 +66,8 @@
   "check": [
    "threshold rules",
    "doesn't automatically cap"
-  ]
+  ],
+  "objective": "1.2"
  },
  {
   "id": "ace-003",
@@ -99,7 +101,8 @@
   "check": [
    "export",
    "BigQuery"
-  ]
+  ],
+  "objective": "1.2"
  },
  {
   "id": "ace-004",
@@ -133,7 +136,8 @@
   "check": [
    "Billing Account User",
    "Project Billing Manager"
-  ]
+  ],
+  "objective": "1.2"
  },
  {
   "id": "ace-005",
@@ -166,7 +170,8 @@
   "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/defining-locations",
   "check": [
    "gcp.resourceLocations"
-  ]
+  ],
+  "objective": "1.1"
  },
  {
   "id": "ace-006",
@@ -200,7 +205,8 @@
   "check": [
    "billing",
    "labels"
-  ]
+  ],
+  "objective": "1.2"
  },
  {
   "id": "ace-007",
@@ -233,7 +239,8 @@
   "source_url": "https://docs.cloud.google.com/service-usage/docs/enable-disable",
   "check": [
    "gcloud services enable"
-  ]
+  ],
+  "objective": "1.1"
  },
  {
   "id": "ace-008",
@@ -266,7 +273,8 @@
   "source_url": "https://docs.cloud.google.com/docs/quotas/view-manage",
   "check": [
    "quota increase"
-  ]
+  ],
+  "objective": "1.1"
  },
  {
   "id": "ace-009",
@@ -300,7 +308,8 @@
   "check": [
    "gcloud config configurations create",
    "gcloud config configurations activate"
-  ]
+  ],
+  "objective": "1.1"
  },
  {
   "id": "ace-010",
@@ -334,12 +343,13 @@
   "check": [
    "5 GB",
    "home directory"
-  ]
+  ],
+  "objective": "1.1"
  },
  {
   "id": "ace-011",
   "exam": "ACE",
-  "domain": 1,
+  "domain": 2,
   "topic": "gcloud ve Cloud Shell",
   "difficulty": "orta",
   "question": "Bir Cloud Storage kovasındaki dosyaları komut satırından kopyalamak istiyorsunuz. Google'ın günümüzde önerdiği CLI hangisidir?",
@@ -367,12 +377,13 @@
   "source_url": "https://docs.cloud.google.com/storage/docs/discover-object-storage-gcloud",
   "check": [
    "gcloud storage cp"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-012",
   "exam": "ACE",
-  "domain": 1,
+  "domain": 3,
   "topic": "gcloud ve Cloud Shell",
   "difficulty": "orta",
   "question": "Bir betikte, belirli bir projedeki tüm VM'lerin yalnızca adlarını ve zonlarını listelemek istiyorsunuz. Hangi komut doğrudur?",
@@ -400,7 +411,8 @@
   "source_url": "https://docs.cloud.google.com/sdk/gcloud/reference/topic/formats",
   "check": [
    "table"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-013",
@@ -434,7 +446,8 @@
   "check": [
    "fault-tolerant",
    "batch"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-014",
@@ -467,12 +480,13 @@
   "source_url": "https://docs.cloud.google.com/compute/docs/instances/committed-use-discounts-overview",
   "check": [
    "1-year or 3-year"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-015",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "Compute Engine",
   "difficulty": "orta",
   "question": "Bir VM'in tüm yapılandırmasını (makine tipi, meta veri, etiketler) ve bağlı TÜM disklerini tek bir kaynakta yedekleyip başka bir projede aynısını oluşturmak istiyorsunuz. Hangisini kullanmalısınız?",
@@ -502,7 +516,8 @@
    "all the configuration",
    "metadata",
    "permissions"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-016",
@@ -536,12 +551,13 @@
   "check": [
    "startup-script",
    "startup-script-url"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-017",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "Compute Engine",
   "difficulty": "orta",
   "question": "Bir VM'in kalıcı diski (persistent disk) dolmak üzere. Kesinti olmadan kapasiteyi artırmak için ne yapmalısınız?",
@@ -570,7 +586,8 @@
   "check": [
    "resize",
    "file system"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-018",
@@ -604,7 +621,8 @@
   "check": [
    "dedicated",
    "licens"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-019",
@@ -637,7 +655,8 @@
   "source_url": "https://docs.cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type",
   "check": [
    "custom machine type"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-020",
@@ -670,7 +689,8 @@
   "source_url": "https://docs.cloud.google.com/compute/docs/instance-groups/regional-migs",
   "check": [
    "multiple zones"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-021",
@@ -705,7 +725,8 @@
    "health check",
    "130.211.0.0/22",
    "35.191.0.0/16"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-022",
@@ -739,7 +760,8 @@
   "check": [
    "global external Application Load Balancer",
    "anycast"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-023",
@@ -774,7 +796,8 @@
    "passthrough",
    "UDP",
    "source IP"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-024",
@@ -808,7 +831,8 @@
   "check": [
    "Autopilot",
    "nodes"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-025",
@@ -841,12 +865,13 @@
   "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl",
   "check": [
    "get-credentials"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-026",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "GKE (Kubernetes)",
   "difficulty": "orta",
   "question": "GKE Standard kümenizde pod'lar 'Pending' durumda kalıyor çünkü düğümlerde yeterli kaynak yok. Gerektiğinde düğüm eklenmesini otomatikleştirmek için ne yapmalısınız?",
@@ -874,12 +899,13 @@
   "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/cluster-autoscaler",
   "check": [
    "unschedulable"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-027",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "GKE (Kubernetes)",
   "difficulty": "orta",
   "question": "Bir Deployment'taki pod sayısının CPU kullanımına göre otomatik artıp azalmasını istiyorsunuz. Ne kullanmalısınız?",
@@ -908,7 +934,8 @@
   "check": [
    "HorizontalPodAutoscaler",
    "CPU"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-028",
@@ -942,7 +969,8 @@
   "check": [
    "multiple zones",
    "control plane"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-029",
@@ -975,12 +1003,13 @@
   "source_url": "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
   "check": [
    "scale to zero"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-030",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "Serverless (Cloud Run, Functions, App Engine)",
   "difficulty": "orta",
   "question": "Cloud Run'a yeni bir revizyon dağıttınız ve trafiğin yalnızca %10'unu yeni sürüme yönlendirerek test etmek istiyorsunuz. Ne yapmalısınız?",
@@ -1009,7 +1038,8 @@
   "check": [
    "--no-traffic",
    "update-traffic"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-031",
@@ -1043,7 +1073,8 @@
   "check": [
    "Cloud Storage",
    "Eventarc"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-032",
@@ -1077,7 +1108,8 @@
   "check": [
    "Cloud Scheduler",
    "job"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-033",
@@ -1111,7 +1143,8 @@
   "check": [
    "cannot change",
    "region"
-  ]
+  ],
+  "objective": "2.1"
  },
  {
   "id": "ace-034",
@@ -1145,7 +1178,8 @@
   "check": [
    "365-day minimum storage duration",
    "less than once a year"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-035",
@@ -1179,12 +1213,13 @@
   "check": [
    "Autoclass",
    "access"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-036",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "Cloud Storage",
   "difficulty": "orta",
   "question": "Log dosyaları 30 gün sonra Coldline'a taşınmalı ve 365 gün sonra silinmeli. Bunu nasıl otomatikleştirirsiniz?",
@@ -1213,12 +1248,13 @@
   "check": [
    "SetStorageClass",
    "Delete"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-037",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "Cloud Storage",
   "difficulty": "orta",
   "question": "Kullanıcıların yanlışlıkla sildiği veya üzerine yazdığı dosyaları geri getirebilmek istiyorsunuz. Hangi özelliği etkinleştirmelisiniz?",
@@ -1247,7 +1283,8 @@
   "check": [
    "noncurrent version",
    "replace or delete a live object version"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-038",
@@ -1281,7 +1318,8 @@
   "check": [
    "standby",
    "failover"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-039",
@@ -1315,7 +1353,8 @@
   "check": [
    "strong",
    "scal"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-040",
@@ -1349,7 +1388,8 @@
   "check": [
    "time-series",
    "low latency"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-041",
@@ -1383,7 +1423,8 @@
   "check": [
    "real-time",
    "offline"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-042",
@@ -1417,7 +1458,8 @@
   "check": [
    "sub-millisecond",
    "caching"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-043",
@@ -1452,12 +1494,13 @@
    "custom mode",
    "auto mode",
    "global"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-044",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "Bir alt ağdaki IP adresleri tükendi. Mevcut VM'leri etkilemeden daha fazla adres eklemek için ne yapmalısınız?",
@@ -1485,7 +1528,8 @@
   "source_url": "https://docs.cloud.google.com/vpc/docs/create-modify-vpc-networks",
   "check": [
    "expand-ip-range"
-  ]
+  ],
+  "objective": "3.3"
  },
  {
   "id": "ace-045",
@@ -1518,12 +1562,13 @@
   "source_url": "https://docs.cloud.google.com/vpc/docs/private-google-access",
   "check": [
    "only have internal IP addresses (no external IP addresses) can use Private Google Access"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-046",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "Harici IP'si olmayan VM'lerin işletim sistemi güncellemelerini internetten indirmesi gerekiyor; ancak internetten bu VM'lere gelen bağlantılar engellenmeli. Ne kullanmalısınız?",
@@ -1552,7 +1597,8 @@
   "check": [
    "outbound",
    "inbound"
-  ]
+  ],
+  "objective": "3.3"
  },
  {
   "id": "ace-047",
@@ -1585,7 +1631,8 @@
   "source_url": "https://docs.cloud.google.com/vpc/docs/vpc-peering",
   "check": [
    "transitive"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-048",
@@ -1619,7 +1666,8 @@
   "check": [
    "host project",
    "service project"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-049",
@@ -1653,7 +1701,8 @@
   "check": [
    "99.99%",
    "HA VPN"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-050",
@@ -1687,7 +1736,8 @@
   "check": [
    "Container Registry is shut down",
    "Artifact Registry"
-  ]
+  ],
+  "objective": "2.4"
  },
  {
   "id": "ace-051",
@@ -1720,7 +1770,8 @@
   "source_url": "https://docs.cloud.google.com/infrastructure-manager/docs/overview",
   "check": [
    "Terraform"
-  ]
+  ],
+  "objective": "2.4"
  },
  {
   "id": "ace-052",
@@ -1754,7 +1805,8 @@
   "check": [
    "trigger",
    "build config"
-  ]
+  ],
+  "objective": "2.4"
  },
  {
   "id": "ace-053",
@@ -1787,7 +1839,8 @@
   "source_url": "https://docs.cloud.google.com/pubsub/docs/overview",
   "check": [
    "asynchronous"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-054",
@@ -1821,12 +1874,13 @@
   "check": [
    "serverless",
    "petabyte"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-055",
   "exam": "ACE",
-  "domain": 2,
+  "domain": 3,
   "topic": "Veri ve analitik",
   "difficulty": "orta",
   "question": "Bir BigQuery sorgusunu çalıştırmadan önce kaç bayt işleyeceğini (ve dolayısıyla on-demand maliyetini) görmek istiyorsunuz. Ne yapmalısınız?",
@@ -1854,7 +1908,8 @@
   "source_url": "https://docs.cloud.google.com/bigquery/docs/running-queries",
   "check": [
    "dry run"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-056",
@@ -1888,7 +1943,8 @@
   "check": [
    "Apache Spark",
    "Hadoop"
-  ]
+  ],
+  "objective": "2.2"
  },
  {
   "id": "ace-057",
@@ -1922,7 +1978,8 @@
   "check": [
    "snapshot schedule",
    "retention"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-058",
@@ -1956,7 +2013,8 @@
   "check": [
    "Ops Agent",
    "memory"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-059",
@@ -1990,7 +2048,8 @@
   "check": [
    "uptime check",
    "alerting"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-060",
@@ -2024,7 +2083,8 @@
   "check": [
    "sink",
    "Cloud Storage"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-061",
@@ -2058,7 +2118,8 @@
   "check": [
    "log-based metric",
    "alerting policy"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-062",
@@ -2092,7 +2153,8 @@
   "check": [
    "exclusion filter",
    "_Required"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-063",
@@ -2125,7 +2187,8 @@
   "source_url": "https://docs.cloud.google.com/monitoring/settings",
   "check": [
    "metrics scope"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-064",
@@ -2158,7 +2221,8 @@
   "source_url": "https://docs.cloud.google.com/trace/docs/overview",
   "check": [
    "latency"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-065",
@@ -2192,7 +2256,8 @@
   "check": [
    "maxSurge",
    "maxUnavailable"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-066",
@@ -2225,7 +2290,8 @@
   "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/stateless-apps",
   "check": [
    "kubectl set image"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-067",
@@ -2260,7 +2326,8 @@
    "Rapid",
    "Regular",
    "Stable"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-068",
@@ -2295,7 +2362,8 @@
   "check": [
    "minimum instances",
    "startup CPU boost"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-069",
@@ -2329,7 +2397,8 @@
   "check": [
    "set-traffic",
    "--splits"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-070",
@@ -2363,7 +2432,8 @@
   "check": [
    "limited access",
    "regardless of whether they have a valid account"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-071",
@@ -2396,7 +2466,8 @@
   "source_url": "https://docs.cloud.google.com/sql/docs/mysql/backup-recovery/pitr",
   "check": [
    "point-in-time recovery"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-072",
@@ -2430,7 +2501,8 @@
   "check": [
    "read replica",
    "offload"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-073",
@@ -2464,7 +2536,8 @@
   "check": [
    "basic roles",
    "predefined roles"
-  ]
+  ],
+  "objective": "4.1"
  },
  {
   "id": "ace-074",
@@ -2498,7 +2571,8 @@
   "check": [
    "user-managed service account",
    "metadata server"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-075",
@@ -2532,7 +2606,8 @@
   "check": [
    "service account keys",
    "GitHub"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-076",
@@ -2566,7 +2641,8 @@
   "check": [
    "Kubernetes ServiceAccount",
    "Autopilot"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-077",
@@ -2600,7 +2676,8 @@
   "check": [
    "iam.serviceAccounts.actAs",
    "Service Account User"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-078",
@@ -2634,7 +2711,8 @@
   "check": [
    "--impersonate-service-account",
    "Service Account Token Creator"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-079",
@@ -2667,7 +2745,8 @@
   "source_url": "https://docs.cloud.google.com/iam/docs/creating-custom-roles",
   "check": [
    "custom roles for an entire organization, or for a specific project"
-  ]
+  ],
+  "objective": "4.1"
  },
  {
   "id": "ace-080",
@@ -2701,12 +2780,13 @@
   "check": [
    "request.time",
    "temporary"
-  ]
+  ],
+  "objective": "4.1"
  },
  {
   "id": "ace-081",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "Logging ve Monitoring",
   "difficulty": "orta",
   "question": "Güvenlik ekibi, bir projede IAM politikasını kimin değiştirdiğini öğrenmek istiyor. Hangi loglara bakmalısınız?",
@@ -2736,12 +2816,13 @@
    "Admin Activity audit logs",
    "always written",
    "can't configure, exclude, or disable"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-082",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "Logging ve Monitoring",
   "difficulty": "orta",
   "question": "Bir Cloud Storage kovasındaki nesneleri KİMİN okuduğunu denetlemek istiyorsunuz. Ne yapmalısınız?",
@@ -2770,12 +2851,13 @@
   "check": [
    "Data Access audit logs",
    "disabled by default"
-  ]
+  ],
+  "objective": "3.4"
  },
  {
   "id": "ace-083",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "Harici IP'si olmayan Linux VM'lere, VPN veya bastion host kurmadan SSH ile bağlanmak istiyorsunuz. Ne yapmalısınız?",
@@ -2804,12 +2886,13 @@
   "check": [
    "35.235.240.0/20",
    "--tunnel-through-iap"
-  ]
+  ],
+  "objective": "3.1"
  },
  {
   "id": "ace-084",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 2,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "VPC güvenlik duvarı kuralları hakkında hangi İKİ ifade doğrudur?",
@@ -2839,12 +2922,13 @@
   "check": [
    "VPC firewall rules are stateful",
    "implied"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-085",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 2,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "Yalnızca 'web' ağ etiketine (network tag) sahip VM'lerin internetten 443 portunda trafik almasını istiyorsunuz. Nasıl bir kural oluşturursunuz?",
@@ -2873,12 +2957,13 @@
   "check": [
    "network tag",
    "service account"
-  ]
+  ],
+  "objective": "2.3"
  },
  {
   "id": "ace-086",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "Cloud Storage",
   "difficulty": "orta",
   "question": "Bir kovadaki erişimi yalnızca IAM ile, nesne bazlı ACL'ler olmadan, tutarlı şekilde yönetmek istiyorsunuz. Ne etkinleştirmelisiniz?",
@@ -2907,7 +2992,8 @@
   "check": [
    "disables ACLs",
    "IAM"
-  ]
+  ],
+  "objective": "3.2"
  },
  {
   "id": "ace-087",
@@ -2941,7 +3027,8 @@
   "check": [
    "versions",
    "IAM"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-088",
@@ -2974,12 +3061,13 @@
   "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/restricting-service-accounts",
   "check": [
    "iam.disableServiceAccountKeyCreation"
-  ]
+  ],
+  "objective": "4.2"
  },
  {
   "id": "ace-089",
   "exam": "ACE",
-  "domain": 1,
+  "domain": 4,
   "topic": "Kaynak hiyerarşisi ve faturalandırma",
   "difficulty": "orta",
   "question": "Bir kullanıcıya klasör seviyesinde Editor rolü verilmiş. Altındaki bir projede yalnızca Viewer olmasını istiyorsunuz ve projede ona Viewer verdiniz, ama kullanıcı hâlâ kaynakları değiştirebiliyor. Neden?",
@@ -3008,7 +3096,8 @@
     "Folder-level roles only affect billing"
    ],
    "explanation": "A resource's effective permissions are the union of its own allow policy and the policies inherited from its ancestors; a narrower role lower in the hierarchy doesn't remove a broader inherited role. Fix: remove the role from the folder and grant it only where needed, or use an IAM deny policy."
-  }
+  },
+  "objective": "4.1"
  },
  {
   "id": "ace-090",
@@ -3043,7 +3132,8 @@
     "Within 1 year with 'gcloud projects restore'; all data comes back automatically"
    ],
    "explanation": "A deleted project stays in the DELETE_REQUESTED state for 30 days and can be restored during that period; after that it is permanently deleted. The billing link is disconnected on deletion and isn't automatically reinstated on restore. Some services (e.g. Cloud Storage) may delete data sooner."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-091",
@@ -3077,7 +3167,8 @@
     "All projects being in the same region"
    ],
    "explanation": "The Organization resource is tied to a Google Workspace or Cloud Identity account; it is provisioned when such an account is created. The organization is the root node of the hierarchy."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-092",
@@ -3110,7 +3201,8 @@
     "Remove the Compute Admin role from all users"
    ],
    "explanation": "The compute.vmExternalIpAccess constraint defines which VMs may use external IPs (an empty allow list blocks all). A firewall rule doesn't prevent IP assignment; it only filters traffic."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-093",
@@ -3143,7 +3235,8 @@
     "compute.requireOsLogin"
    ],
    "explanation": "Domain restricted sharing (iam.allowedPolicyMemberDomains) only allows principals from allowed customer IDs (e.g. your company's Cloud Identity) to be added to IAM policies."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-094",
@@ -3178,7 +3271,8 @@
     "Grant users in the project the Organization Policy Viewer role"
    ],
    "explanation": "Organization policies are inherited down the hierarchy; a policy set on a descendant can merge with or replace the parent's policy. This applies the exception only to that project."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-095",
@@ -3212,7 +3306,8 @@
     "Instance metadata"
    ],
    "explanation": "Tags are separate IAM-managed resources and can be used as conditions in IAM Conditions and organization policies. Labels are metadata for cost tracking and filtering; they aren't used for access control."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-096",
@@ -3246,7 +3341,8 @@
     "Billing Account User"
    ],
    "explanation": "Billing Account Viewer allows viewing cost and transaction information. Administrator manages the account; Billing Account User allows linking projects to the account."
-  }
+  },
+  "objective": "1.2"
  },
  {
   "id": "ace-097",
@@ -3280,7 +3376,8 @@
     "Projects can use all paid services without a billing account"
    ],
    "explanation": "A project is linked to a single Cloud Billing account, while a billing account can fund many projects. Paid services can't be used in a project without billing."
-  }
+  },
+  "objective": "1.2"
  },
  {
   "id": "ace-098",
@@ -3313,7 +3410,8 @@
     "gcloud iam service-accounts keys create"
    ],
    "explanation": "'gcloud auth application-default login' creates the ADC credentials used by client libraries. 'gcloud auth login' only authenticates the gcloud CLI itself."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-099",
@@ -3347,12 +3445,13 @@
     "export REGION=europe-west1 is enough"
    ],
    "explanation": "The compute/region and compute/zone properties set the default region/zone in the gcloud configuration. View the value with 'gcloud config get-value compute/region'."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-100",
   "exam": "ACE",
-  "domain": 1,
+  "domain": 2,
   "topic": "gcloud ve Cloud Shell",
   "difficulty": "kolay",
   "question": "Bilgisayarınızda Google Cloud CLI kurulu ve GKE kümelerini yönetmek için kubectl'e ihtiyacınız var. kubectl'i Google Cloud CLI bileşeni olarak nasıl kurarsınız?",
@@ -3381,7 +3480,8 @@
     "gcloud services enable kubectl"
    ],
    "explanation": "Use the Google Cloud CLI component manager: 'gcloud components install kubectl'. GKE authentication also needs the gke-gcloud-auth-plugin. (If the CLI was installed with a package manager, install components with apt/yum.)"
-  }
+  },
+  "objective": "2.1"
  },
  {
   "id": "ace-101",
@@ -3415,7 +3515,8 @@
     "Install a new copy of gcloud"
    ],
    "explanation": "Global flags such as --project override the configuration value for that command only. 'gcloud config set' changes it persistently."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-102",
@@ -3449,7 +3550,8 @@
     "Secret Manager"
    ],
    "explanation": "GCDS performs a one-way sync of users and groups from LDAP/Active Directory to Cloud Identity or Google Workspace. SSO with SAML can additionally be configured for sign-in."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-103",
@@ -3482,7 +3584,8 @@
     "Budgets & alerts"
    ],
    "explanation": "The Pricing Calculator estimates the cost of resources that don't exist yet. Billing reports and the BigQuery export show actual usage."
-  }
+  },
+  "objective": "1.2"
  },
  {
   "id": "ace-104",
@@ -3516,7 +3619,8 @@
     "The machine type can't be changed after creation"
    ],
    "explanation": "The machine type can only be changed while the VM is stopped (TERMINATED). Disks and data are preserved."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-105",
@@ -3549,12 +3653,13 @@
     "Take a snapshot of the VM"
    ],
    "explanation": "Serial port output shows console messages from the OS and boot process; it is available even when networking or SSH doesn't work."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-106",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 2,
   "topic": "IAM ve servis hesapları",
   "difficulty": "orta",
   "question": "Linux VM'lere SSH erişimini, VM'lerdeki SSH anahtarlarını tek tek yönetmek yerine IAM ile merkezi olarak yönetmek istiyorsunuz. Yönetici yetkisi (sudo) gerekmeyen kullanıcılar için ne yapmalısınız?",
@@ -3584,7 +3689,8 @@
     "Grant users the Compute Admin role"
    ],
    "explanation": "OS Login links Linux accounts to Google identities and manages SSH access with IAM. compute.osLogin gives standard user access; compute.osAdminLogin gives access with sudo privileges."
-  }
+  },
+  "objective": "2.1"
  },
  {
   "id": "ace-107",
@@ -3617,7 +3723,8 @@
     "kubectl scale --replicas=10"
    ],
    "explanation": "A MIG's size is changed with the 'resize' command; the MIG creates new VMs from the instance template. If an autoscaler is enabled, the autoscaler manages the size."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-108",
@@ -3651,7 +3758,8 @@
     "Snapshots can't be used without converting them to a machine image"
    ],
    "explanation": "Snapshots are used as a source to create a new disk; they don't overwrite an existing disk. The new disk is attached to a VM as a boot or additional disk."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-109",
@@ -3684,7 +3792,8 @@
     "Review the invoice PDF"
    ],
    "explanation": "Recommender (Active Assist) provides idle VM and rightsizing recommendations based on usage data."
-  }
+  },
+  "objective": "3.4"
  },
  {
   "id": "ace-110",
@@ -3718,7 +3827,8 @@
     "kubectl scale deployment --replicas=0"
    ],
    "explanation": "The --previous flag shows logs from the previous (crashed) container instance before the restart. Events can also be inspected with 'kubectl describe pod'."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-111",
@@ -3751,7 +3861,8 @@
     "Create a new VPC"
    ],
    "explanation": "Node pools are groups of nodes with the same configuration; a cluster can have multiple node pools with different machine types. Workloads are steered with node selectors/taints."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-112",
@@ -3785,7 +3896,8 @@
     "Remove the nodes' firewall rules"
    ],
    "explanation": "A Service of type LoadBalancer provisions a Google Cloud load balancer and an external IP in GKE. ClusterIP is reachable only from inside the cluster. Ingress/Gateway can also be used for HTTP(S)."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-113",
@@ -3819,7 +3931,8 @@
     "Environment variables can't be used in Cloud Run"
    ],
    "explanation": "--update-env-vars adds/updates while keeping existing variables; --set-env-vars replaces the whole list. Each change creates a new revision."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-114",
@@ -3853,7 +3966,8 @@
     "Set min instances to 0"
    ],
    "explanation": "Cloud Run revisions are immutable and retained; traffic can be routed to a previous revision instantly."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-115",
@@ -3886,12 +4000,13 @@
     "Existing objects are deleted"
    ],
    "explanation": "Changing the default storage class doesn't affect existing objects. Their class is changed by rewriting the object or with Object Lifecycle Management."
-  }
+  },
+  "objective": "3.2"
  },
  {
   "id": "ace-116",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 2,
   "topic": "Cloud Storage",
   "difficulty": "orta",
   "question": "Amazon S3'teki 50 TB veriyi Cloud Storage'a yönetilen bir hizmetle, zamanlanmış ve tekrarlanabilir şekilde aktarmak istiyorsunuz. Ne kullanmalısınız?",
@@ -3919,12 +4034,13 @@
     "Datastream"
    ],
    "explanation": "Storage Transfer Service performs managed, schedulable transfers to Cloud Storage from Amazon S3, Azure, HTTP sources, and on-premises file systems."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-117",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 2,
   "topic": "Cloud Storage",
   "difficulty": "orta",
   "question": "Veri merkezinizde yüzlerce TB veri var ve internet bant genişliğiniz aktarımı aylarca sürdürecek. Veriyi Google Cloud'a en hızlı nasıl taşırsınız?",
@@ -3953,12 +4069,13 @@
     "Cloud CDN"
    ],
    "explanation": "Transfer Appliance transfers large datasets offline by loading them onto a physical device shipped to Google; ideal when bandwidth is limited."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-118",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 2,
   "topic": "Veritabanları",
   "difficulty": "orta",
   "question": "Cloud Run'daki uygulamanızın Cloud SQL'e, IP adreslerini yetkili ağlara (authorized networks) eklemeden, IAM tabanlı yetkilendirme ve şifreli bağlantıyla erişmesini istiyorsunuz. Ne kullanmalısınız?",
@@ -3988,7 +4105,8 @@
     "Direct connection without VPC Network Peering"
    ],
    "explanation": "The Cloud SQL Auth Proxy provides IAM-authorized, TLS-encrypted connections without managing authorized networks or SSL certificates."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-119",
@@ -4021,12 +4139,13 @@
     "gcloud sql backups create --to-gcs"
    ],
    "explanation": "'gcloud sql export sql' exports the database as a SQL file to a Cloud Storage bucket; the Cloud SQL instance's service account needs write access to the bucket."
-  }
+  },
+  "objective": "3.2"
  },
  {
   "id": "ace-120",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 2,
   "topic": "Veri ve analitik",
   "difficulty": "kolay",
   "question": "Cloud Storage'daki CSV dosyalarını komut satırından bir BigQuery tablosuna yüklemek istiyorsunuz. Hangi komut?",
@@ -4054,7 +4173,8 @@
     "bq mk --load"
    ],
    "explanation": "'bq load' batch-loads files from Cloud Storage (CSV, JSON, Avro, Parquet...) into a BigQuery table."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-121",
@@ -4087,12 +4207,13 @@
     "Run queries at night"
    ],
    "explanation": "If the maximum bytes billed limit would be exceeded, the query fails without being charged. Custom quotas per project/user can also be defined. LIMIT doesn't reduce scanned data."
-  }
+  },
+  "objective": "3.2"
  },
  {
   "id": "ace-122",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 2,
   "topic": "Veri ve analitik",
   "difficulty": "orta",
   "question": "Bir Pub/Sub aboneliğinde bazı mesajlar abone tarafından sürekli işlenemiyor ve tekrar tekrar teslim ediliyor. Bu mesajları ayırıp sonra incelemek istiyorsunuz. Ne yapmalısınız?",
@@ -4121,7 +4242,8 @@
     "Switching from push to pull alone is enough"
    ],
    "explanation": "A dead-letter topic moves messages to a separate topic after a number of failed delivery attempts, so the main flow isn't blocked and faulty messages can be inspected."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-123",
@@ -4154,7 +4276,8 @@
     "bq query 'SELECT * FROM logs'"
    ],
    "explanation": "'gcloud logging read' returns log entries filtered with the Logging query language; --freshness limits the time range."
-  }
+  },
+  "objective": "3.4"
  },
  {
   "id": "ace-124",
@@ -4187,12 +4310,13 @@
     "Create a log-based metric"
    ],
    "explanation": "The duration (retest window) of a metric-threshold condition sets how long the condition must hold before the alert fires; it avoids noisy alerts on momentary spikes."
-  }
+  },
+  "objective": "3.4"
  },
  {
   "id": "ace-125",
   "exam": "ACE",
-  "domain": 3,
+  "domain": 1,
   "topic": "Kaynak hiyerarşisi ve faturalandırma",
   "difficulty": "orta",
   "question": "Organizasyondaki tüm projelerde bulunan kaynakları (ör. tüm Cloud Storage kovaları) ve bunlar üzerindeki IAM politikalarını tek yerden aramak ve geçmiş değişikliklerine bakmak istiyorsunuz. Ne kullanmalısınız?",
@@ -4221,7 +4345,8 @@
     "Separate gcloud list commands for each project in Cloud Shell"
    ],
    "explanation": "Cloud Asset Inventory lets you search and export resource and IAM policy metadata across projects/folders/organizations and view their change history over time."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-126",
@@ -4254,7 +4379,8 @@
     "Commit the password to the Git repository"
    ],
    "explanation": "Secret Manager stores secrets with versions and IAM-controlled access; GKE can access these secrets through its Secret Manager integration. ConfigMaps aren't meant for confidential data."
-  }
+  },
+  "objective": "3.1"
  },
  {
   "id": "ace-127",
@@ -4288,7 +4414,8 @@
     "Security Admin"
    ],
    "explanation": "Security Reviewer grants permissions to list all resources and allow policies; it includes no modification rights. Owner and Organization Administrator grant change rights."
-  }
+  },
+  "objective": "4.1"
  },
  {
   "id": "ace-128",
@@ -4321,7 +4448,8 @@
     "Pricing Calculator"
    ],
    "explanation": "Policy Troubleshooter explains whether a given principal has a given permission on a resource and why (which role/policy)."
-  }
+  },
+  "objective": "4.1"
  },
  {
   "id": "ace-129",
@@ -4355,7 +4483,8 @@
     "A budget alert"
    ],
    "explanation": "Deny policies prevent principals from using specified permissions regardless of the roles they're granted; they're evaluated before allow policies."
-  }
+  },
+  "objective": "4.1"
  },
  {
   "id": "ace-130",
@@ -4389,7 +4518,8 @@
     "Add the Viewer role to the service account"
    ],
    "explanation": "A disabled service account can't authenticate but can be re-enabled. Deletion is harder to undo and may permanently break dependent applications."
-  }
+  },
+  "objective": "4.2"
  },
  {
   "id": "ace-131",
@@ -4422,7 +4552,8 @@
     "Use a single shared user account"
    ],
    "explanation": "Granting roles to groups lets you manage access through group membership; you don't have to edit IAM policies for every staffing change."
-  }
+  },
+  "objective": "4.1"
  },
  {
   "id": "ace-132",
@@ -4456,12 +4587,13 @@
     "Storage Admin"
    ],
    "explanation": "Storage Object Creator only allows creating objects; it doesn't give permission to view, delete, or overwrite objects."
-  }
+  },
+  "objective": "4.1"
  },
  {
   "id": "ace-133",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 1,
   "topic": "Cloud Storage",
   "difficulty": "orta",
   "question": "Organizasyondaki hiçbir Cloud Storage kovasının herkese açık (allUsers/allAuthenticatedUsers) hâle getirilememesini istiyorsunuz. Ne yapmalısınız?",
@@ -4489,12 +4621,13 @@
     "Move the buckets to the Coldline class"
    ],
    "explanation": "Public access prevention blocks public sharing of buckets and objects; it can be enforced across the hierarchy with an organization policy."
-  }
+  },
+  "objective": "1.1"
  },
  {
   "id": "ace-134",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "Cloud Storage",
   "difficulty": "zor",
   "question": "Uyumluluk gereği bir kovadaki verilerin sizin Cloud KMS anahtarınızla şifrelenmesi gerekiyor. Bunu yapılandırırken hangi ek adım zorunludur?",
@@ -4523,12 +4656,13 @@
     "Disable Object Versioning"
    ],
    "explanation": "With CMEK, the Cloud Storage service agent needs the Encrypter/Decrypter role to use the key; the key is then set as the bucket's default KMS key."
-  }
+  },
+  "objective": "3.2"
  },
  {
   "id": "ace-135",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "Cloud Storage",
   "difficulty": "kolay",
   "question": "Google Cloud'da saklanan verilerin bekleme durumunda (at rest) şifrelenmesi hakkında hangi ifade doğrudur?",
@@ -4557,12 +4691,13 @@
     "Encryption is a paid add-on that must be enabled in the project"
    ],
    "explanation": "Google Cloud encrypts all customer content at rest by default. CMEK or CSEK are only for those who want more control over the keys."
-  }
+  },
+  "objective": "3.2"
  },
  {
   "id": "ace-136",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 2,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "Global external Application Load Balancer arkasındaki web uygulamanızı DDoS saldırılarına ve SQL injection gibi OWASP saldırılarına karşı korumak istiyorsunuz. Ne kullanmalısınız?",
@@ -4591,12 +4726,13 @@
     "Identity-Aware Proxy TCP forwarding"
    ],
    "explanation": "Cloud Armor provides DDoS protection and preconfigured WAF rules (OWASP Top 10) at the load balancer level."
-  }
+  },
+  "objective": "2.3"
  },
  {
   "id": "ace-137",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 3,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "VM-A, aynı VPC'deki VM-B'ye 5432 portundan bağlanamıyor. Firewall kuralları ve rotalar gibi yapılandırmaları analiz ederek bağlantının nerede engellendiğini bulmak istiyorsunuz. Ne kullanmalısınız?",
@@ -4625,12 +4761,13 @@
     "Billing reports"
    ],
    "explanation": "Connectivity Tests analyze the path between two endpoints based on network configuration (firewall, routes, etc.) and show where a packet would be dropped."
-  }
+  },
+  "objective": "3.3"
  },
  {
   "id": "ace-138",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 2,
   "topic": "VPC ve ağ",
   "difficulty": "zor",
   "question": "Analitik projelerinizdeki BigQuery ve Cloud Storage verilerinin, geçerli kimlik bilgileri çalınsa bile güvenlik sınırı dışındaki bir projeye kopyalanmasını (veri sızdırma) engellemek istiyorsunuz. Ne kullanmalısınız?",
@@ -4659,12 +4796,13 @@
     "Object Versioning"
    ],
    "explanation": "VPC Service Controls creates a perimeter around Google APIs that blocks data movement outside it; it's a context-based defense layer in addition to IAM."
-  }
+  },
+  "objective": "2.3"
  },
  {
   "id": "ace-139",
   "exam": "ACE",
-  "domain": 4,
+  "domain": 2,
   "topic": "VPC ve ağ",
   "difficulty": "orta",
   "question": "Şirket çalışanlarının dahili bir web uygulamasına VPN kullanmadan, kimlik ve bağlama göre (ör. Google hesabıyla oturum açarak) erişmesini istiyorsunuz. Ne kullanmalısınız?",
@@ -4693,7 +4831,8 @@
     "VPC Network Peering"
    ],
    "explanation": "IAP verifies requests to the application based on identity and context, providing zero-trust access without a VPN."
-  }
+  },
+  "objective": "2.3"
  },
  {
   "id": "ace-140",
@@ -4727,7 +4866,8 @@
     "Set up Cloud NAT"
    ],
    "explanation": "Direct VPC egress lets Cloud Run send traffic straight to the VPC without a connector: lower latency, higher throughput, and no additional VM charges. A Serverless VPC Access connector also works but adds maintenance and VM cost. Memorystore isn't offered with a public IP, and Cloud NAT is for internet egress."
-  }
+  },
+  "objective": "2.3"
  },
  {
   "id": "ace-141",
@@ -4760,7 +4900,8 @@
     "Bigtable"
    ],
    "explanation": "Filestore is a managed file storage service that VMs and GKE can mount over NFS."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-142",
@@ -4794,7 +4935,8 @@
     "Zonal"
    ],
    "explanation": "Dual-region buckets store data in two chosen regions; optional turbo replication shortens the replication time objective. Multi-region stores data across a large geography (e.g. EU)."
-  }
+  },
+  "objective": "2.2"
  },
  {
   "id": "ace-143",
@@ -4827,6 +4969,1226 @@
     "Cloud NAT"
    ],
    "explanation": "The Internal Application Load Balancer provides layer 7 (HTTP/HTTPS) load balancing with URL-based routing on an internal IP within the VPC."
+  },
+  "objective": "2.3"
+ },
+ {
+  "id": "ace-144",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "kolay",
+  "question": "Bir projede hangi kullanıcılara hangi rollerin verildiğini komut satırından görmek istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud projects get-iam-policy PROJE_ID",
+   "gcloud iam roles list --project PROJE_ID",
+   "gcloud projects describe PROJE_ID",
+   "gcloud iam service-accounts list"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "get-iam-policy, projenin izin (allow) politikasını yani tüm rol bağlamalarını (bindings) döndürür. 'gcloud iam roles list' yalnızca rol tanımlarını listeler, kime verildiğini göstermez.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access",
+  "check": [
+   "get-iam-policy"
+  ],
+  "en": {
+   "question": "You want to see from the command line which users have been granted which roles in a project. Which command?",
+   "options": [
+    "gcloud projects get-iam-policy PROJECT_ID",
+    "gcloud iam roles list --project PROJECT_ID",
+    "gcloud projects describe PROJECT_ID",
+    "gcloud iam service-accounts list"
+   ],
+   "explanation": "get-iam-policy returns the project's allow policy, i.e. all role bindings. 'gcloud iam roles list' only lists role definitions, not who has them."
+  }
+ },
+ {
+  "id": "ace-145",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir betik, projeye yeni bir kullanıcıyı Storage Object Viewer rolüyle eklemeli ve mevcut diğer tüm rol bağlamalarını kesinlikle bozmamalı. En güvenli komut hangisidir?",
+  "options": [
+   "gcloud projects add-iam-policy-binding PROJE --member=user:ali@ornek.com --role=roles/storage.objectViewer",
+   "Politikayı JSON'a yazıp yalnızca yeni bağlamayı içeren dosyayla gcloud projects set-iam-policy çalıştırmak",
+   "gcloud iam roles create",
+   "gcloud projects update --add-member"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "add-iam-policy-binding tek bir bağlamayı ekler. set-iam-policy ise TÜM politikayı verilen dosyayla değiştirir; dosyada olmayan bağlamalar silinir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access",
+  "check": [
+   "add-iam-policy-binding",
+   "set-iam-policy"
+  ],
+  "en": {
+   "question": "A script must add a new user to a project with the Storage Object Viewer role and must not disturb any other existing role bindings. What is the safest command?",
+   "options": [
+    "gcloud projects add-iam-policy-binding PROJECT --member=user:ali@example.com --role=roles/storage.objectViewer",
+    "Write the policy to JSON containing only the new binding and run gcloud projects set-iam-policy with that file",
+    "gcloud iam roles create",
+    "gcloud projects update --add-member"
+   ],
+   "explanation": "add-iam-policy-binding adds a single binding. set-iam-policy REPLACES the whole policy with the given file; bindings not in the file are removed."
+  }
+ },
+ {
+  "id": "ace-146",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "İki yönetici aynı anda bir projenin IAM politikasını 'get → düzenle → set-iam-policy' yöntemiyle değiştiriyor. Birinin değişikliğinin diğerininkini fark edilmeden silmesini ne engeller?",
+  "options": [
+   "Politikadaki etag alanı; politika okunduktan sonra değiştiyse set işlemi reddedilir",
+   "IAM politikaları kilitlenir ve aynı anda yalnızca bir kişi düzenleyebilir",
+   "Cloud Audit Logs değişikliği otomatik olarak geri alır",
+   "Hiçbir şey; son yazan her zaman kazanır ve uyarı verilmez"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAM politikaları bir etag içerir. set-iam-policy, okuma sırasında alınan etag ile güncel etag eşleşmezse başarısız olur; böylece eşzamanlı değişikliklerin üzerine yazılması önlenir. Politikayı yeniden okuyup değişikliği tekrar uygulamak gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access",
+  "check": [
+   "etag"
+  ],
+  "en": {
+   "question": "Two administrators modify a project's IAM policy at the same time using 'get → edit → set-iam-policy'. What prevents one administrator's change from silently erasing the other's?",
+   "options": [
+    "The etag field in the policy; the set operation is rejected if the policy changed after it was read",
+    "IAM policies are locked so only one person can edit at a time",
+    "Cloud Audit Logs automatically roll the change back",
+    "Nothing; the last writer always wins without any warning"
+   ],
+   "explanation": "IAM policies contain an etag. set-iam-policy fails if the etag obtained when reading doesn't match the current one, preventing concurrent changes from being overwritten. You re-read the policy and reapply your change."
+  }
+ },
+ {
+  "id": "ace-147",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir önceden tanımlı (predefined) rol ekibinize gereğinden fazla izin veriyor. Bu rolün izinlerinin çoğunu koruyup birkaçını çıkarmak istiyorsunuz. En pratik yol hangisidir?",
+  "options": [
+   "Önceden tanımlı rolü temel alan (kopyalanan) bir özel rol oluşturup gereksiz izinleri çıkarmak",
+   "Önceden tanımlı rolün izinlerini doğrudan düzenlemek",
+   "Ekibe Viewer rolü vermek",
+   "Rolü vermeyi bırakıp herkese Editor vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Önceden tanımlı roller düzenlenemez. Özel rol, mevcut bir rolün izinleri temel alınarak oluşturulabilir ve gereksiz izinler çıkarılabilir. Özel rol oluşturmak için Role Administrator (roles/iam.roleAdmin) rolü gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/creating-custom-roles",
+  "check": [
+   "copy",
+   "roles/iam.roleAdmin"
+  ],
+  "en": {
+   "question": "A predefined role gives your team more permissions than needed. You want to keep most of its permissions but remove a few. What is the most practical way?",
+   "options": [
+    "Create a custom role based on (copied from) the predefined role and remove the unneeded permissions",
+    "Edit the predefined role's permissions directly",
+    "Grant the team the Viewer role",
+    "Stop granting the role and give everyone Editor"
+   ],
+   "explanation": "Predefined roles can't be edited. A custom role can be created based on an existing role's permissions and then trimmed. Creating custom roles requires the Role Administrator role (roles/iam.roleAdmin)."
+  }
+ },
+ {
+  "id": "ace-148",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Özel bir role belirli bir izni eklemeye çalışıyorsunuz ama izin listede çıkmıyor veya eklenemiyor. En olası neden nedir?",
+  "options": [
+   "Bu iznin özel rollerdeki destek düzeyi NOT_SUPPORTED olarak belirlenmiştir",
+   "Özel roller en fazla 10 izin içerebilir",
+   "İzin yalnızca Owner rolüne aittir ve hiçbir zaman başka rolde olamaz",
+   "Özel roller yalnızca klasör seviyesinde izin ekleyebilir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Her iznin özel rollerde destek düzeyi vardır: SUPPORTED, TESTING veya NOT_SUPPORTED. NOT_SUPPORTED izinler özel rollere eklenemez; TESTING izinler eklenebilir ancak beklenmedik davranabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/custom-roles-permissions-support",
+  "check": [
+   "not supported",
+   "testing"
+  ],
+  "en": {
+   "question": "You're trying to add a specific permission to a custom role, but the permission doesn't appear or can't be added. What is the most likely reason?",
+   "options": [
+    "The permission's support level in custom roles is NOT_SUPPORTED",
+    "Custom roles can contain at most 10 permissions",
+    "The permission belongs only to the Owner role and can never be in another role",
+    "Custom roles can only add permissions at the folder level"
+   ],
+   "explanation": "Each permission has a support level in custom roles: SUPPORTED, TESTING, or NOT_SUPPORTED. NOT_SUPPORTED permissions can't be added to custom roles; TESTING ones can be added but might behave unexpectedly."
+  }
+ },
+ {
+  "id": "ace-149",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Kullanıcılara yıllar önce geniş roller verilmiş ve bunların çoğunu hiç kullanmıyorlar. Son kullanıma göre gereksiz izinleri bulup daha dar roller önerilmesini istiyorsunuz. Ne kullanmalısınız?",
+  "options": [
+   "IAM role recommendations (Recommender)",
+   "Policy Troubleshooter",
+   "Cloud Audit Logs'u elle incelemek",
+   "Billing reports"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAM role recommendations, kullanım verilerine göre fazla (excess) izinleri tespit eder ve en az ayrıcalık için daha dar roller önerir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/recommender-overview",
+  "check": [
+   "role recommendations",
+   "excess permissions"
+  ],
+  "en": {
+   "question": "Users were granted broad roles years ago and don't use most of them. You want to find unnecessary permissions based on actual usage and get narrower role suggestions. What should you use?",
+   "options": [
+    "IAM role recommendations (Recommender)",
+    "Policy Troubleshooter",
+    "Manually review Cloud Audit Logs",
+    "Billing reports"
+   ],
+   "explanation": "IAM role recommendations detect excess permissions based on usage data and suggest narrower roles for least privilege."
+  }
+ },
+ {
+  "id": "ace-150",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Denetim için 'organizasyon genelinde bu BigQuery veri setine kimler hangi izinlerle erişebilir?' sorusuna, miras alınan politikalar dahil yanıt vermeniz gerekiyor. Hangi aracı kullanmalısınız?",
+  "options": [
+   "Policy Analyzer",
+   "Policy Troubleshooter",
+   "Connectivity Tests",
+   "Cloud Trace"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Policy Analyzer, bir kaynağa kimlerin erişebildiğini (veya bir kullanıcının nelere erişebildiğini) politikaları analiz ederek bulur. Policy Troubleshooter ise tek bir kullanıcı-izin-kaynak üçlüsünün neden izinli/izinsiz olduğunu açıklar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/policy-intelligence/docs/policy-analyzer-overview",
+  "check": [
+   "Policy Analyzer",
+   "who has access"
+  ],
+  "en": {
+   "question": "For an audit, you must answer 'who can access this BigQuery dataset across the organization, and with which permissions?', including inherited policies. Which tool should you use?",
+   "options": [
+    "Policy Analyzer",
+    "Policy Troubleshooter",
+    "Connectivity Tests",
+    "Cloud Trace"
+   ],
+   "explanation": "Policy Analyzer finds who has access to a resource (or what a principal can access) by analyzing policies. Policy Troubleshooter explains why a single principal-permission-resource combination is allowed or denied."
+  }
+ },
+ {
+  "id": "ace-151",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir ekip liderinin 'Ekip' klasörü altında yeni projeler oluşturabilmesi, ancak başka bir yönetim yetkisi olmaması gerekiyor. Ne yapmalısınız?",
+  "options": [
+   "Klasör üzerinde Project Creator (roles/resourcemanager.projectCreator) rolünü vermek",
+   "Organizasyonda Owner rolü vermek",
+   "Klasörde Editor rolü vermek",
+   "Billing Account Administrator rolü vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Project Creator rolü proje oluşturma izni verir; klasör seviyesinde verildiğinde projeler o klasör altında oluşturulabilir. Oluşturan kişi yeni projede genellikle Owner olur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/access-control-proj",
+  "check": [
+   "project creator"
+  ],
+  "en": {
+   "question": "A team lead must be able to create new projects under the 'Team' folder but should have no other administrative rights. What should you do?",
+   "options": [
+    "Grant the Project Creator role (roles/resourcemanager.projectCreator) on the folder",
+    "Grant the Owner role on the organization",
+    "Grant the Editor role on the folder",
+    "Grant the Billing Account Administrator role"
+   ],
+   "explanation": "The Project Creator role allows creating projects; granted on a folder, projects can be created under that folder. The creator typically becomes Owner of the new project."
+  }
+ },
+ {
+  "id": "ace-152",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir kovaya IAM'de 'allAuthenticatedUsers' üyesine okuma izni verildi. Bu, kimlerin erişebileceği anlamına gelir?",
+  "options": [
+   "Google hesabıyla kimliği doğrulanmış herkes (yalnızca sizin organizasyonunuzun kullanıcıları değil)",
+   "Yalnızca sizin organizasyonunuzdaki kullanıcılar",
+   "Yalnızca projede bir rolü olan kullanıcılar",
+   "İnternetteki herkes, kimlik doğrulaması olmadan"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "allAuthenticatedUsers, kimliği doğrulanmış tüm Google hesaplarını ve servis hesaplarını kapsar; organizasyonla sınırlı değildir. allUsers ise kimlik doğrulaması olmayanlar dahil herkesi kapsar. Her ikisi de veriyi fiilen herkese açar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/principal-identifiers",
+  "check": [
+   "allAuthenticatedUsers",
+   "allUsers"
+  ],
+  "en": {
+   "question": "A bucket's IAM grants read access to the 'allAuthenticatedUsers' principal. Who can access it?",
+   "options": [
+    "Anyone authenticated with a Google account (not only your organization's users)",
+    "Only users in your organization",
+    "Only users who have a role in the project",
+    "Anyone on the internet without authentication"
+   ],
+   "explanation": "allAuthenticatedUsers covers all authenticated Google accounts and service accounts; it isn't limited to your organization. allUsers covers everyone, including unauthenticated users. Both effectively make the data public."
+  }
+ },
+ {
+  "id": "ace-153",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Geliştiricilerin yalnızca adı 'dev-' ile başlayan Cloud Storage kovalarını yönetebilmesini istiyorsunuz; rol proje seviyesinde verilecek. Ne yapmalısınız?",
+  "options": [
+   "Rolü, resource.name.startsWith(...) içeren bir IAM koşuluyla (IAM Conditions) vermek",
+   "Kovaları adlarına göre ayrı organizasyonlara taşımak",
+   "Firewall kuralıyla diğer kovaları engellemek",
+   "Geliştiricilere Storage Admin verip onlara güvenmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAM Conditions, kaynak adı (resource.name) gibi özniteliklere göre koşullu erişim tanımlar; startsWith ile ad önekine göre sınırlama yapılabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/conditions-attribute-reference",
+  "check": [
+   "resource.name",
+   "startsWith"
+  ],
+  "en": {
+   "question": "You want developers to be able to manage only Cloud Storage buckets whose names start with 'dev-'; the role will be granted at the project level. What should you do?",
+   "options": [
+    "Grant the role with an IAM condition using resource.name.startsWith(...)",
+    "Move buckets to separate organizations based on their names",
+    "Block the other buckets with a firewall rule",
+    "Grant developers Storage Admin and trust them"
+   ],
+   "explanation": "IAM Conditions define conditional access based on attributes such as the resource name (resource.name); startsWith restricts by name prefix."
+  }
+ },
+ {
+  "id": "ace-154",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "IAM politikası kalıtımı hakkında hangi İKİ ifade doğrudur? (İKİ seçenek seçin)",
+  "options": [
+   "Organizasyon seviyesinde verilen bir rol, altındaki tüm klasör ve projelere miras kalır",
+   "Bir kaynağın etkin izin politikası, kendi politikası ile miras aldığı politikaların birleşimidir",
+   "Alt seviyede verilen daha dar bir rol, üst seviyeden miras alınan geniş rolü geçersiz kılar",
+   "Projede verilen roller, projedeki kaynaklar için geçerli değildir",
+   "IAM politikaları yalnızca proje seviyesinde tanımlanabilir"
+  ],
+  "correct": [
+   0,
+   1
+  ],
+  "explanation": "İzin politikaları hiyerarşide aşağı doğru miras alınır ve etkin politika birleşimdir (union). Alt seviyedeki dar bir izin, üstten gelen geniş izni kaldırmaz; bunun için deny politikası gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/allow-policies",
+  "check": [
+   "union",
+   "inherit"
+  ],
+  "en": {
+   "question": "Which TWO statements about IAM policy inheritance are correct? (Choose two.)",
+   "options": [
+    "A role granted at the organization level is inherited by all folders and projects beneath it",
+    "A resource's effective allow policy is the union of its own policy and the policies it inherits",
+    "A narrower role granted lower in the hierarchy overrides a broader inherited role",
+    "Roles granted on a project don't apply to the resources in the project",
+    "IAM policies can only be defined at the project level"
+   ],
+   "explanation": "Allow policies are inherited down the hierarchy and the effective policy is a union. A narrower grant lower down doesn't remove a broader inherited grant; a deny policy is needed for that."
+  }
+ },
+ {
+  "id": "ace-155",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir yardımcının projede kullanıcılara rol verip kaldırabilmesi gerekiyor, ancak kaynakları (VM, kova vb.) yönetmemeli. En az ayrıcalıklı rol hangisidir?",
+  "options": [
+   "Project IAM Admin (roles/resourcemanager.projectIamAdmin)",
+   "Owner",
+   "Editor",
+   "Security Reviewer"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Project IAM Admin, proje IAM politikalarını yönetme izni verir ama kaynakları yönetme izni vermez. Owner hem IAM'i hem kaynakları yönetir; Editor IAM'i yönetemez; Security Reviewer yalnızca okur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/access-control-proj",
+  "check": [
+   "projectIamAdmin"
+  ],
+  "en": {
+   "question": "An assistant must be able to grant and revoke roles for users in a project but must not manage resources (VMs, buckets, etc.). What is the least-privileged role?",
+   "options": [
+    "Project IAM Admin (roles/resourcemanager.projectIamAdmin)",
+    "Owner",
+    "Editor",
+    "Security Reviewer"
+   ],
+   "explanation": "Project IAM Admin allows managing project IAM policies but not managing resources. Owner manages both IAM and resources; Editor can't manage IAM; Security Reviewer only reads."
+  }
+ },
+ {
+  "id": "ace-156",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir kullanıcıya rol verdiniz ama kullanıcı birkaç saniye sonra hâlâ 'permission denied' alıyor. En olası açıklama ve yapılması gereken nedir?",
+  "options": [
+   "IAM değişikliklerinin yayılması genellikle birkaç dakika sürer; biraz bekleyip tekrar denemek",
+   "Rol yanlışlıkla silinmiştir; tekrar vermek gerekir",
+   "Kullanıcının 24 saat beklemesi gerekir",
+   "Projeyi yeniden başlatmak gerekir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "IAM erişim değişikliklerinin yayılması genellikle yaklaşık 2 dakika, bazen 7 dakika veya daha uzun sürebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/access-change-propagation",
+  "check": [
+   "2 minutes",
+   "7 minutes"
+  ],
+  "en": {
+   "question": "You granted a role to a user, but a few seconds later the user still gets 'permission denied'. What is the most likely explanation and what should you do?",
+   "options": [
+    "IAM changes usually take a few minutes to propagate; wait a bit and try again",
+    "The role was accidentally deleted; grant it again",
+    "The user must wait 24 hours",
+    "The project must be restarted"
+   ],
+   "explanation": "Changes to IAM access typically take about 2 minutes to propagate, and can sometimes take 7 minutes or longer."
+  }
+ },
+ {
+  "id": "ace-157",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.1",
+  "topic": "Veri ve analitik",
+  "difficulty": "orta",
+  "question": "Bir analistin projede BigQuery sorguları çalıştırabilmesi ve yalnızca 'satis' veri setindeki tabloları okuyabilmesi gerekiyor. En az ayrıcalıklı yapılandırma hangisidir?",
+  "options": [
+   "Projede BigQuery Job User, 'satis' veri setinde BigQuery Data Viewer",
+   "Projede BigQuery Admin",
+   "Projede Viewer",
+   "Veri setinde BigQuery Data Owner"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Sorgu çalıştırmak (iş oluşturmak) için proje seviyesinde Job User, veriyi okumak için yalnızca ilgili veri setinde Data Viewer yeterlidir. Roller mümkün olan en dar kaynakta verilmelidir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/bigquery/docs/access-control",
+  "check": [
+   "bigquery job user",
+   "bigquery data viewer"
+  ],
+  "en": {
+   "question": "An analyst must be able to run BigQuery queries in a project and read only the tables in the 'sales' dataset. What is the least-privileged configuration?",
+   "options": [
+    "BigQuery Job User on the project, BigQuery Data Viewer on the 'sales' dataset",
+    "BigQuery Admin on the project",
+    "Viewer on the project",
+    "BigQuery Data Owner on the dataset"
+   ],
+   "explanation": "Job User at the project level is needed to run queries (create jobs), and Data Viewer on just that dataset is enough to read the data. Roles should be granted on the narrowest possible resource."
+  }
+ },
+ {
+  "id": "ace-158",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "kolay",
+  "question": "Bir uygulama için 'rapor-uretici' adlı yeni bir servis hesabı oluşturmak istiyorsunuz. Hangi komut?",
+  "options": [
+   "gcloud iam service-accounts create rapor-uretici",
+   "gcloud iam roles create rapor-uretici",
+   "gcloud auth activate-service-account rapor-uretici",
+   "gcloud projects create rapor-uretici"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Servis hesapları 'gcloud iam service-accounts create' ile oluşturulur; ardından gerekli roller ayrıca verilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/service-accounts-create",
+  "check": [
+   "gcloud iam service-accounts create"
+  ],
+  "en": {
+   "question": "You want to create a new service account named 'report-generator' for an application. Which command?",
+   "options": [
+    "gcloud iam service-accounts create report-generator",
+    "gcloud iam roles create report-generator",
+    "gcloud auth activate-service-account report-generator",
+    "gcloud projects create report-generator"
+   ],
+   "explanation": "Service accounts are created with 'gcloud iam service-accounts create'; the required roles are then granted separately."
+  }
+ },
+ {
+  "id": "ace-159",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Projenizin IAM politikasında sizin oluşturmadığınız, Google Cloud hizmetlerinin sizin adınıza kaynaklara erişmesini sağlayan hesaplar görüyorsunuz (ör. Cloud Storage'ın KMS anahtarını kullanması için). Bunlar nedir?",
+  "options": [
+   "Service agent'lar (Google tarafından yönetilen servis hesapları)",
+   "Saldırganların oluşturduğu hesaplar; hemen silinmeli",
+   "Kullanıcıların kişisel hesapları",
+   "Workforce Identity Federation havuzları"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Service agent'lar, Google Cloud hizmetlerinin sizin kaynaklarınıza erişmek için kullandığı Google tarafından yönetilen servis hesaplarıdır. Rollerini kaldırmak hizmetlerin çalışmasını bozabilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/service-agents",
+  "check": [
+   "service agent"
+  ],
+  "en": {
+   "question": "In your project's IAM policy you see accounts you didn't create that let Google Cloud services access resources on your behalf (e.g. for Cloud Storage to use a KMS key). What are they?",
+   "options": [
+    "Service agents (Google-managed service accounts)",
+    "Accounts created by attackers; delete them immediately",
+    "Users' personal accounts",
+    "Workforce Identity Federation pools"
+   ],
+   "explanation": "Service agents are Google-managed service accounts that Google Cloud services use to access your resources. Removing their roles can break the services."
+  }
+ },
+ {
+  "id": "ace-160",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "Compute Engine",
+  "difficulty": "zor",
+  "question": "Bir VM'e Storage Object Viewer rolüne sahip bir servis hesabı bağlı, ancak VM'deki uygulama kovayı okurken 'insufficient scopes' hatası alıyor. Ne yapmalısınız?",
+  "options": [
+   "VM'i durdurup erişim kapsamlarını (access scopes) güncellemek (ör. cloud-platform kapsamı verip erişimi IAM ile kontrol etmek)",
+   "Servis hesabına Owner rolü vermek",
+   "Kovayı herkese açık yapmak",
+   "VM'i yeniden başlatmadan meta veriye yeni bir anahtar eklemek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "VM'lerde erişim, servis hesabının IAM rolleri ve VM'in erişim kapsamlarının kesişimiyle belirlenir. Kapsamlar yalnızca VM durdurulmuşken değiştirilebilir. Önerilen yaklaşım cloud-platform kapsamı verip erişimi IAM rolleriyle sınırlamaktır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances",
+  "check": [
+   "access scopes",
+   "stop"
+  ],
+  "en": {
+   "question": "A VM has a service account attached that has the Storage Object Viewer role, but the application on the VM gets an 'insufficient scopes' error when reading the bucket. What should you do?",
+   "options": [
+    "Stop the VM and update its access scopes (e.g. grant the cloud-platform scope and control access with IAM)",
+    "Grant the service account the Owner role",
+    "Make the bucket public",
+    "Add a new key to the metadata without restarting the VM"
+   ],
+   "explanation": "On VMs, access is determined by the intersection of the service account's IAM roles and the VM's access scopes. Scopes can only be changed while the VM is stopped. The recommended approach is to grant the cloud-platform scope and limit access with IAM roles."
+  }
+ },
+ {
+  "id": "ace-161",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "Compute Engine",
+  "difficulty": "orta",
+  "question": "Yeni oluşturulan VM'ler varsayılan Compute Engine servis hesabını kullanıyor ve bu hesap projede Editor rolüne sahip. En iyi uygulama hangisidir?",
+  "options": [
+   "Her iş yükü için yalnızca gerekli rollere sahip, kullanıcı tarafından yönetilen bir servis hesabı oluşturup VM'lere onu bağlamak",
+   "Varsayılan servis hesabına Owner rolü de vermek",
+   "VM'leri servis hesabı olmadan çalıştırıp anahtar dosyası kopyalamak",
+   "Varsayılan servis hesabını tüm projelerde paylaşmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Varsayılan Compute Engine servis hesabı geçmişte otomatik olarak Editor rolü alıyordu; bu çok geniştir. Önerilen yaklaşım, iş yükü başına en az ayrıcalıklı kullanıcı tarafından yönetilen servis hesaplarıdır. automaticIamGrantsForDefaultServiceAccounts organizasyon politikası bu otomatik rol atamasını engeller.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/restricting-service-accounts",
+  "check": [
+   "automaticIamGrantsForDefaultServiceAccounts"
+  ],
+  "en": {
+   "question": "Newly created VMs use the default Compute Engine service account, which has the Editor role on the project. What is the best practice?",
+   "options": [
+    "Create a user-managed service account per workload with only the required roles and attach it to the VMs",
+    "Also grant the default service account the Owner role",
+    "Run VMs without a service account and copy a key file",
+    "Share the default service account across all projects"
+   ],
+   "explanation": "The default Compute Engine service account historically received the Editor role automatically, which is very broad. The recommended approach is least-privileged user-managed service accounts per workload. The automaticIamGrantsForDefaultServiceAccounts organization policy prevents this automatic grant."
+  }
+ },
+ {
+  "id": "ace-162",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run'daki 'siparis' hizmeti, yalnızca dahili çağrılara açık olan 'odeme' Cloud Run hizmetini çağırmalı. Kimlik doğrulamalı çağrı için ne yapmalısınız?",
+  "options": [
+   "'siparis' hizmetinin servis hesabına 'odeme' üzerinde roles/run.invoker vermek ve isteklerde ID token göndermek",
+   "'odeme' hizmetini --allow-unauthenticated yapmak",
+   "İki hizmete aynı API anahtarını koymak",
+   "'siparis' hizmetine Owner rolü vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run hizmetten hizmete kimlik doğrulamada çağıran hizmetin kimliğine Cloud Run Invoker rolü verilir ve istek bir ID token ile gönderilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/authenticating/service-to-service",
+  "check": [
+   "roles/run.invoker",
+   "ID token"
+  ],
+  "en": {
+   "question": "The 'orders' service on Cloud Run must call the 'payments' Cloud Run service, which only accepts authenticated calls. What should you do for an authenticated call?",
+   "options": [
+    "Grant the 'orders' service's service account roles/run.invoker on 'payments' and send an ID token with requests",
+    "Make 'payments' --allow-unauthenticated",
+    "Put the same API key in both services",
+    "Grant the 'orders' service the Owner role"
+   ],
+   "explanation": "For Cloud Run service-to-service authentication, the calling service's identity is granted the Cloud Run Invoker role and the request is sent with an ID token."
+  }
+ },
+ {
+  "id": "ace-163",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Run hizmetleriniz varsayılan Compute Engine servis hesabıyla çalışıyor. Güvenlik ekibi her hizmetin yalnızca ihtiyaç duyduğu kaynaklara erişmesini istiyor. Ne yapmalısınız?",
+  "options": [
+   "Her hizmete, yalnızca gerekli rollere sahip kullanıcı tarafından yönetilen bir servis hesabını hizmet kimliği (service identity) olarak atamak",
+   "Tüm hizmetlerde varsayılan hesabı kullanmaya devam edip ona Owner vermek",
+   "Hizmetlere anahtar dosyasını ortam değişkeni olarak vermek",
+   "Cloud Run'ı herkese açık yapmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Run'da her hizmetin bir hizmet kimliği vardır; Google en az ayrıcalıklı, kullanıcı tarafından yönetilen servis hesabı kullanmayı önerir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/run/docs/securing/service-identity",
+  "check": [
+   "service identity",
+   "user-managed"
+  ],
+  "en": {
+   "question": "Your Cloud Run services run with the default Compute Engine service account. The security team wants each service to access only the resources it needs. What should you do?",
+   "options": [
+    "Assign each service a user-managed service account with only the required roles as its service identity",
+    "Keep using the default account in all services and give it Owner",
+    "Pass a key file to the services as an environment variable",
+    "Make Cloud Run public"
+   ],
+   "explanation": "Each Cloud Run service has a service identity; Google recommends a least-privileged, user-managed service account."
+  }
+ },
+ {
+  "id": "ace-164",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "Serverless (Cloud Run, Functions, App Engine)",
+  "difficulty": "orta",
+  "question": "Cloud Scheduler her saat başı, kimlik doğrulaması gerektiren bir Cloud Run hizmetini HTTP ile tetiklemeli. Nasıl yapılandırırsınız?",
+  "options": [
+   "Cloud Scheduler işinde, Cloud Run Invoker rolüne sahip bir servis hesabıyla OIDC token kullanmak",
+   "Cloud Run hizmetini herkese açık yapmak",
+   "İşe kullanıcı şifresi eklemek",
+   "Cloud Scheduler bunu desteklemez; VM'de cron kullanmak gerekir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Cloud Scheduler HTTP hedeflerinde, belirtilen servis hesabı adına OIDC token (Google API'leri için OAuth token) ekleyebilir; Cloud Run bu token'ı doğrular.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/scheduler/docs/http-target-auth",
+  "check": [
+   "OIDC",
+   "service account"
+  ],
+  "en": {
+   "question": "Cloud Scheduler must trigger an authenticated Cloud Run service over HTTP every hour. How do you configure it?",
+   "options": [
+    "Use an OIDC token in the Cloud Scheduler job with a service account that has the Cloud Run Invoker role",
+    "Make the Cloud Run service public",
+    "Put a user password in the job",
+    "Cloud Scheduler doesn't support this; use cron on a VM"
+   ],
+   "explanation": "For HTTP targets, Cloud Scheduler can attach an OIDC token (or an OAuth token for Google APIs) on behalf of a specified service account; Cloud Run validates the token."
+  }
+ },
+ {
+  "id": "ace-165",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "Veri ve analitik",
+  "difficulty": "zor",
+  "question": "Bir Pub/Sub push aboneliği mesajları, kimlik doğrulaması gerektiren bir uç noktaya göndermeli. Uç noktanın isteklerin gerçekten Pub/Sub'dan geldiğini doğrulayabilmesi için ne yapılandırmalısınız?",
+  "options": [
+   "Push aboneliğinde bir servis hesabıyla kimlik doğrulamayı etkinleştirmek; Pub/Sub isteklere bu hesap adına imzalı bir token ekler",
+   "Mesajlara düz metin bir şifre eklemek",
+   "Push yerine e-posta bildirimi kullanmak",
+   "Uç noktayı herkese açık bırakıp IP adresine güvenmek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Push aboneliklerinde kimlik doğrulama etkinleştirildiğinde Pub/Sub, belirtilen servis hesabı için imzalı bir JWT (OIDC) token'ı Authorization başlığında gönderir; uç nokta bunu doğrular.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/pubsub/docs/authenticate-push-subscriptions",
+  "check": [
+   "push",
+   "service account",
+   "token"
+  ],
+  "en": {
+   "question": "A Pub/Sub push subscription must deliver messages to an endpoint that requires authentication. What should you configure so the endpoint can verify requests really come from Pub/Sub?",
+   "options": [
+    "Enable authentication on the push subscription with a service account; Pub/Sub adds a signed token for that account to requests",
+    "Add a plaintext password to the messages",
+    "Use email notifications instead of push",
+    "Leave the endpoint public and trust the IP address"
+   ],
+   "explanation": "With authentication enabled on a push subscription, Pub/Sub sends a signed JWT (OIDC) token for the specified service account in the Authorization header; the endpoint validates it."
+  }
+ },
+ {
+  "id": "ace-166",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Bir CI aracının bir servis hesabı adına yalnızca 1 saat geçerli bir OAuth erişim token'ı alması gerekiyor; uzun ömürlü anahtar istenmiyor. Ne kullanılmalıdır?",
+  "options": [
+   "IAM Service Account Credentials API'nin generateAccessToken yöntemi (çağırana Service Account Token Creator verilerek)",
+   "Servis hesabı için JSON anahtarı oluşturmak",
+   "Kullanıcının kendi parolası",
+   "API anahtarı (API key)"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Kısa ömürlü kimlik bilgileri (OAuth erişim token'ı, OpenID Connect ID token'ı, imzalı JWT) Service Account Credentials API ile oluşturulur; çağıranın servis hesabında Token Creator rolü olmalıdır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/create-short-lived-credentials-direct",
+  "check": [
+   "generateAccessToken",
+   "OpenID Connect"
+  ],
+  "en": {
+   "question": "A CI tool needs an OAuth access token on behalf of a service account that is valid for only 1 hour; long-lived keys aren't allowed. What should be used?",
+   "options": [
+    "The generateAccessToken method of the IAM Service Account Credentials API (granting the caller Service Account Token Creator)",
+    "Create a JSON key for the service account",
+    "The user's own password",
+    "An API key"
+   ],
+   "explanation": "Short-lived credentials (OAuth access tokens, OpenID Connect ID tokens, signed JWTs) are created with the Service Account Credentials API; the caller needs the Token Creator role on the service account."
+  }
+ },
+ {
+  "id": "ace-167",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "AWS'deki bir uygulamanın Workload Identity Federation ile Google Cloud'a erişmesini yapılandırıyorsunuz. Yalnızca belirli bir AWS rolünün kimlik doğrulayabilmesini nasıl sağlarsınız?",
+  "options": [
+   "Workload identity pool sağlayıcısında bu rolü kontrol eden bir öznitelik koşulu (attribute condition) tanımlamak",
+   "AWS hesabının tamamına Owner vermek",
+   "Servis hesabı anahtarını AWS'ye kopyalamak",
+   "Firewall kuralıyla AWS IP'lerini sınırlamak yeterlidir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Öznitelik koşulları, harici kimlik sağlayıcıdan gelen token'ların hangilerinin kabul edileceğini kısıtlar (ör. yalnızca belirli bir AWS rolü). Bu olmadan aynı AWS hesabındaki başka kimlikler de erişebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds",
+  "check": [
+   "attribute condition",
+   "AWS"
+  ],
+  "en": {
+   "question": "You're configuring Workload Identity Federation so an application on AWS can access Google Cloud. How do you ensure only a specific AWS role can authenticate?",
+   "options": [
+    "Define an attribute condition on the workload identity pool provider that checks for that role",
+    "Grant Owner to the whole AWS account",
+    "Copy a service account key to AWS",
+    "Restricting AWS IPs with a firewall rule is enough"
+   ],
+   "explanation": "Attribute conditions restrict which tokens from the external identity provider are accepted (e.g. only a specific AWS role). Without one, other identities in the same AWS account could also gain access."
+  }
+ },
+ {
+  "id": "ace-168",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "zor",
+  "question": "GKE'de Workload Identity Federation for GKE açık. Bir Kubernetes servis hesabının (KSA), bir IAM servis hesabını taklit ederek onun izinlerini kullanmasını istiyorsunuz. Hangi adımlar gerekir?",
+  "options": [
+   "IAM servis hesabında KSA'ya roles/iam.workloadIdentityUser vermek ve KSA'ya IAM servis hesabını belirten anotasyonu eklemek",
+   "KSA'ya Owner rolü vermek",
+   "IAM servis hesabının anahtarını Kubernetes Secret olarak bağlamak",
+   "Düğümlere cloud-platform kapsamı vermek yeterlidir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Taklit yönteminde KSA'ya IAM servis hesabı üzerinde Workload Identity User rolü verilir ve KSA, IAM servis hesabını gösteren bir anotasyonla işaretlenir. Alternatif olarak roller principal:// tanımlayıcısıyla doğrudan KSA'ya da verilebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity",
+  "check": [
+   "roles/iam.workloadIdentityUser",
+   "principal://"
+  ],
+  "en": {
+   "question": "Workload Identity Federation for GKE is enabled. You want a Kubernetes service account (KSA) to impersonate an IAM service account and use its permissions. What steps are required?",
+   "options": [
+    "Grant the KSA roles/iam.workloadIdentityUser on the IAM service account and annotate the KSA with the IAM service account",
+    "Grant the KSA the Owner role",
+    "Mount the IAM service account's key as a Kubernetes Secret",
+    "Granting the nodes the cloud-platform scope is enough"
+   ],
+   "explanation": "With impersonation, the KSA is granted the Workload Identity User role on the IAM service account, and the KSA is annotated with the IAM service account. Alternatively, roles can be granted directly to the KSA using a principal:// identifier."
+  }
+ },
+ {
+  "id": "ace-169",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bazı eski uygulamalar servis hesabı anahtarı kullanmak zorunda. Güvenlik ekibi, oluşturulan anahtarların belirli bir süre sonra otomatik olarak geçersiz olmasını istiyor. Ne yapmalısınız?",
+  "options": [
+   "iam.serviceAccountKeyExpiryHours organizasyon politikası kısıtlamasını yapılandırmak",
+   "Anahtarları Cloud Storage'da herkese açık tutmak",
+   "Anahtarları hiç döndürmemek (rotate)",
+   "Servis hesaplarına Owner vermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bu kısıtlama yeni oluşturulan servis hesabı anahtarlarının sona erme süresini belirler. Anahtarlar kullanılıyorsa düzenli döndürme (rotation) da önerilir; mümkünse anahtarsız yöntemler tercih edilmelidir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints",
+  "check": [
+   "iam.serviceAccountKeyExpiryHours"
+  ],
+  "en": {
+   "question": "Some legacy applications must use service account keys. The security team wants created keys to expire automatically after a set period. What should you do?",
+   "options": [
+    "Configure the iam.serviceAccountKeyExpiryHours organization policy constraint",
+    "Keep the keys public in Cloud Storage",
+    "Never rotate the keys",
+    "Grant the service accounts Owner"
+   ],
+   "explanation": "This constraint sets the expiry period for newly created service account keys. If keys are used, regular rotation is also recommended; keyless methods should be preferred where possible."
+  }
+ },
+ {
+  "id": "ace-170",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "'ortak-kimlik' projesindeki bir servis hesabını 'uygulama' projesindeki VM'lere bağlamaya çalışıyorsunuz ama işlem engelleniyor. Hangi organizasyon politikası buna neden olabilir?",
+  "options": [
+   "iam.disableCrossProjectServiceAccountUsage",
+   "gcp.resourceLocations",
+   "compute.vmExternalIpAccess",
+   "storage.publicAccessPrevention"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "iam.disableCrossProjectServiceAccountUsage uygulandığında bir projedeki servis hesapları başka projelerdeki kaynaklara bağlanamaz. Projeler arası kullanıma izin verilirse IAM, servis hesabının projesine bir lien ekler.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/restricting-service-accounts",
+  "check": [
+   "iam.disableCrossProjectServiceAccountUsage"
+  ],
+  "en": {
+   "question": "You try to attach a service account from the 'shared-identity' project to VMs in the 'app' project, but the operation is blocked. Which organization policy could cause this?",
+   "options": [
+    "iam.disableCrossProjectServiceAccountUsage",
+    "gcp.resourceLocations",
+    "compute.vmExternalIpAccess",
+    "storage.publicAccessPrevention"
+   ],
+   "explanation": "When iam.disableCrossProjectServiceAccountUsage is enforced, service accounts in one project can't be attached to resources in other projects. If cross-project use is allowed, IAM adds a lien to the service account's project."
+  }
+ },
+ {
+  "id": "ace-171",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "zor",
+  "question": "Bir servis hesabını yanlışlıkla sildiniz. Aynı adla yeni bir servis hesabı oluşturursanız ne olur ve doğru çözüm nedir?",
+  "options": [
+   "Yeni hesap ayrı bir kimliktir ve eski rolleri miras almaz; doğru çözüm silinen hesabı 30 gün içinde undelete ile geri getirmektir",
+   "Yeni hesap eski hesabın tüm rollerini otomatik olarak alır",
+   "Aynı adla hesap asla oluşturulamaz",
+   "Silinen hesaplar hemen kalıcı olarak yok olur"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Aynı adla yeniden oluşturulan servis hesabı ayrı bir kimlik olarak değerlendirilir ve eski rolleri almaz. Silinen hesap undelete ile geri getirilirse kimliği değişmez ve rollerini korur.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/service-accounts-delete-undelete",
+  "check": [
+   "same name",
+   "undelete"
+  ],
+  "en": {
+   "question": "You accidentally deleted a service account. What happens if you create a new service account with the same name, and what is the correct fix?",
+   "options": [
+    "The new account is a separate identity and doesn't inherit the old roles; the correct fix is to undelete the deleted account within 30 days",
+    "The new account automatically gets all the old account's roles",
+    "An account with the same name can never be created",
+    "Deleted accounts are permanently gone immediately"
+   ],
+   "explanation": "A service account recreated with the same name is treated as a separate identity and doesn't get the old roles. If the deleted account is undeleted, its identity doesn't change and it retains its roles."
+  }
+ },
+ {
+  "id": "ace-172",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir geliştiricinin projedeki TÜM servis hesaplarını değil, yalnızca 'web-sa' servis hesabını VM'lere bağlayabilmesi gerekiyor. Ne yapmalısınız?",
+  "options": [
+   "Service Account User rolünü proje yerine yalnızca 'web-sa' servis hesabı (kaynak) üzerinde vermek",
+   "Service Account User rolünü proje seviyesinde vermek",
+   "Geliştiriciye Owner vermek",
+   "'web-sa' anahtarını geliştiriciye e-postayla göndermek"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Servis hesapları aynı zamanda birer kaynaktır; roller tek bir servis hesabı üzerinde verilebilir. Proje seviyesinde verilen Service Account User, projedeki tüm servis hesaplarını kapsar.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/manage-access-service-accounts",
+  "check": [
+   "single service account",
+   "service account user"
+  ],
+  "en": {
+   "question": "A developer must be able to attach only the 'web-sa' service account to VMs, not ALL service accounts in the project. What should you do?",
+   "options": [
+    "Grant the Service Account User role on the 'web-sa' service account (resource) instead of the project",
+    "Grant the Service Account User role at the project level",
+    "Grant the developer Owner",
+    "Email the 'web-sa' key to the developer"
+   ],
+   "explanation": "Service accounts are also resources; roles can be granted on a single service account. Service Account User granted at the project level covers all service accounts in the project."
+  }
+ },
+ {
+  "id": "ace-173",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir yönetici, çalıştırdığı TÜM gcloud komutlarının varsayılan olarak bir servis hesabının kimliğine bürünerek (impersonation) çalışmasını istiyor. Ne yapmalı?",
+  "options": [
+   "gcloud config set auth/impersonate_service_account SA_EPOSTA",
+   "Servis hesabının anahtarını indirip activate-service-account kullanmak",
+   "Her komutta parola girmek",
+   "Kendi hesabına servis hesabının rollerini kopyalamak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "auth/impersonate_service_account özelliği, gcloud'un tüm komutlarda belirtilen servis hesabının kısa ömürlü kimlik bilgilerini kullanmasını sağlar; tek komut için --impersonate-service-account bayrağı kullanılır. Token Creator rolü gerekir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/docs/authentication/use-service-account-impersonation",
+  "check": [
+   "auth/impersonate_service_account"
+  ],
+  "en": {
+   "question": "An administrator wants ALL gcloud commands they run to impersonate a service account by default. What should they do?",
+   "options": [
+    "gcloud config set auth/impersonate_service_account SA_EMAIL",
+    "Download the service account's key and use activate-service-account",
+    "Enter a password with each command",
+    "Copy the service account's roles to their own account"
+   ],
+   "explanation": "The auth/impersonate_service_account property makes gcloud use short-lived credentials of the specified service account for all commands; for a single command use the --impersonate-service-account flag. The Token Creator role is required."
+  }
+ },
+ {
+  "id": "ace-174",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Güvenlik ekibi, bir projedeki servis hesaplarına ait kullanıcı tarafından yönetilen anahtarları denetlemek istiyor. İlk adım ne olmalıdır?",
+  "options": [
+   "'gcloud iam service-accounts keys list' ile her servis hesabının anahtarlarını listelemek",
+   "Tüm servis hesaplarını silmek",
+   "Billing reports'a bakmak",
+   "VPC Flow Logs'u açmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "keys list komutu bir servis hesabının anahtarlarını, oluşturulma ve sona erme zamanlarıyla listeler; kullanılmayan veya süresiz anahtarlar tespit edilip silinebilir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/keys-list-get",
+  "check": [
+   "keys list"
+  ],
+  "en": {
+   "question": "The security team wants to audit the user-managed keys of service accounts in a project. What should the first step be?",
+   "options": [
+    "List each service account's keys with 'gcloud iam service-accounts keys list'",
+    "Delete all service accounts",
+    "Look at billing reports",
+    "Enable VPC Flow Logs"
+   ],
+   "explanation": "The keys list command lists a service account's keys with their creation and expiry times; unused or non-expiring keys can then be identified and deleted."
+  }
+ },
+ {
+  "id": "ace-175",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Servis hesabı anahtarlarının güvenliği için hangi İKİ uygulama önerilir? (İKİ seçenek seçin)",
+  "options": [
+   "Mümkünse anahtar yerine bağlı servis hesapları veya Workload Identity Federation kullanmak",
+   "Gerekmiyorsa anahtar oluşturmayı organizasyon politikasıyla devre dışı bırakmak",
+   "Anahtarları özel (private) bir Git deposunda saklamak",
+   "Tüm uygulamalar için tek bir ortak servis hesabı ve anahtar kullanmak",
+   "Kolaylık için servis hesabına Owner rolü vermek"
+  ],
+  "correct": [
+   0,
+   1
+  ],
+  "explanation": "Anahtarlar sızdırılabilen uzun ömürlü kimlik bilgileridir. Google, anahtarsız alternatifleri (bağlı servis hesapları, impersonation, Workload Identity Federation) ve gerekmiyorsa anahtar oluşturmayı engellemeyi önerir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys",
+  "check": [
+   "Workload Identity Federation",
+   "disable"
+  ],
+  "en": {
+   "question": "Which TWO practices are recommended for service account key security? (Choose two.)",
+   "options": [
+    "Use attached service accounts or Workload Identity Federation instead of keys where possible",
+    "Disable key creation with an organization policy if keys aren't needed",
+    "Store keys in a private Git repository",
+    "Use a single shared service account and key for all applications",
+    "Grant the service account Owner for convenience"
+   ],
+   "explanation": "Keys are long-lived credentials that can leak. Google recommends keyless alternatives (attached service accounts, impersonation, Workload Identity Federation) and blocking key creation when not needed."
+  }
+ },
+ {
+  "id": "ace-176",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "GKE (Kubernetes)",
+  "difficulty": "zor",
+  "question": "GKE düğümleriniz varsayılan Compute Engine servis hesabını (geniş Editor rolüyle) kullanıyor. Düğümler için en az ayrıcalıklı yapılandırma hangisidir?",
+  "options": [
+   "Özel bir servis hesabı oluşturup ona roles/container.defaultNodeServiceAccount vermek ve düğüm havuzlarını bu hesapla oluşturmak",
+   "Düğümlere Owner rolü vermek",
+   "Düğümleri servis hesabı olmadan çalıştırmak",
+   "Uygulama pod'larının da bu düğüm hesabını kullanmasını sağlamak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Google, GKE düğümleri için Kubernetes Engine Default Node Service Account rolüne sahip en az ayrıcalıklı bir servis hesabı önerir. Uygulamalar ise Google Cloud'a düğüm hesabı yerine Workload Identity Federation for GKE ile erişmelidir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/kubernetes-engine/docs/how-to/service-accounts",
+  "check": [
+   "roles/container.defaultNodeServiceAccount"
+  ],
+  "en": {
+   "question": "Your GKE nodes use the default Compute Engine service account (with the broad Editor role). What is the least-privileged configuration for the nodes?",
+   "options": [
+    "Create a custom service account, grant it roles/container.defaultNodeServiceAccount, and create node pools with that account",
+    "Grant the nodes the Owner role",
+    "Run the nodes without a service account",
+    "Have application pods also use this node account"
+   ],
+   "explanation": "Google recommends a least-privileged service account with the Kubernetes Engine Default Node Service Account role for GKE nodes. Applications should access Google Cloud through Workload Identity Federation for GKE, not the node account."
+  }
+ },
+ {
+  "id": "ace-177",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Bir Cloud Run hizmetinin Secret Manager'daki yalnızca 'db-parola' sırrını okuyabilmesi gerekiyor. En az ayrıcalıklı yapılandırma hangisidir?",
+  "options": [
+   "Hizmetin servis hesabına yalnızca 'db-parola' sırrı üzerinde Secret Manager Secret Accessor rolü vermek",
+   "Projede Secret Manager Admin vermek",
+   "Projede Editor vermek",
+   "Sırrın değerini ortam değişkenine düz metin yazmak"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Secret Accessor (roles/secretmanager.secretAccessor) sır yükünü (payload) okuma iznidir; tek bir sır üzerinde verilerek en az ayrıcalık sağlanır.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/secret-manager/docs/access-control",
+  "check": [
+   "roles/secretmanager.secretAccessor"
+  ],
+  "en": {
+   "question": "A Cloud Run service must be able to read only the 'db-password' secret in Secret Manager. What is the least-privileged configuration?",
+   "options": [
+    "Grant the service's service account the Secret Manager Secret Accessor role only on the 'db-password' secret",
+    "Grant Secret Manager Admin on the project",
+    "Grant Editor on the project",
+    "Write the secret's value in plaintext in an environment variable"
+   ],
+   "explanation": "Secret Accessor (roles/secretmanager.secretAccessor) allows reading the secret payload; granting it on a single secret achieves least privilege."
+  }
+ },
+ {
+  "id": "ace-178",
+  "exam": "ACE",
+  "domain": 4,
+  "objective": "4.2",
+  "topic": "IAM ve servis hesapları",
+  "difficulty": "orta",
+  "question": "Kullanıcı tarafından yönetilen (user-managed) ve Google tarafından yönetilen servis hesabı anahtarları hakkında hangisi doğrudur?",
+  "options": [
+   "Google tarafından yönetilen anahtarları Google saklar ve döndürür; kullanıcı tarafından yönetilen anahtarların güvenliği ve döndürülmesi sizin sorumluluğunuzdadır",
+   "Her iki tür anahtar da sizin tarafınızdan indirilip saklanmalıdır",
+   "Kullanıcı tarafından yönetilen anahtarlar otomatik olarak her gün döndürülür",
+   "Google tarafından yönetilen anahtarlar indirilebilir"
+  ],
+  "correct": [
+   0
+  ],
+  "explanation": "Bağlı servis hesapları ve impersonation Google tarafından yönetilen anahtarlarla çalışır. Kullanıcı tarafından yönetilen anahtarları indirirsiniz ve saklama/döndürme sorumluluğu sizdedir.",
+  "source": "builtin",
+  "source_url": "https://docs.cloud.google.com/iam/docs/service-account-creds",
+  "check": [
+   "user-managed key",
+   "rotat"
+  ],
+  "en": {
+   "question": "Which statement about user-managed and Google-managed service account keys is correct?",
+   "options": [
+    "Google stores and rotates Google-managed keys; securing and rotating user-managed keys is your responsibility",
+    "You must download and store both types of keys",
+    "User-managed keys are automatically rotated every day",
+    "Google-managed keys can be downloaded"
+   ],
+   "explanation": "Attached service accounts and impersonation work with Google-managed keys. You download user-managed keys, and storing/rotating them is your responsibility."
   }
  }
 ]

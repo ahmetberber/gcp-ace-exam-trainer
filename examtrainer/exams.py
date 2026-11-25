@@ -23,7 +23,8 @@ class Exam:
         return d[0] if d else f"Alan {idx}"
 
 
-# ACE kurslarındaki (ör. Udemy ACE eğitimleri) bölüm yapısına benzer konu başlıkları.
+# ACE kurslarındaki bölüm yapısına benzer konu başlıkları. Alan ağırlıkları resmi rehbere göredir:
+# https://services.google.com/fh/files/misc/associate_cloud_engineer_exam_guide_english.pdf
 ACE_TOPICS = (
     "Kaynak hiyerarşisi ve faturalandırma",
     "gcloud ve Cloud Shell",
@@ -38,15 +39,16 @@ ACE_TOPICS = (
     "Logging ve Monitoring",
     "Veri ve analitik",
     "IaC ve DevOps",
+    "Gemini ve yapay zekâ araçları",
 )
 
 EXAMS: dict[str, Exam] = {
     "ACE": Exam(
         "ACE", "Associate Cloud Engineer", "Associate", 120, 50,
         {
-            1: ("Bulut çözüm ortamını kurma", 23),
+            1: ("Bulut çözüm ortamını kurma", 20),
             2: ("Bulut çözümünü planlama ve uygulama", 30),
-            3: ("Çözümün başarılı çalışmasını sağlama", 27),
+            3: ("Çözümün başarılı çalışmasını sağlama", 30),
             4: ("Erişim ve güvenliği yapılandırma", 20),
         },
         "ace.json",
